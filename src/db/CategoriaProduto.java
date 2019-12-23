@@ -31,8 +31,6 @@ public class CategoriaProduto {
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String nome = rs.getString("nome");
-				int id_armazem = rs.getInt("id_armazem");
-				String format = "%-25s%s%n";
 				modelCategoria.addRow(new Object[] { nome });
 			}
 		} catch (Exception e) {

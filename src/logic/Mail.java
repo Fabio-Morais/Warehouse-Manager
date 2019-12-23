@@ -1,5 +1,9 @@
 package logic;
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -10,7 +14,7 @@ import java.util.Properties;
 public class Mail {
 
 	
-    public boolean sendEmail(String email, String key) {
+    public void sendEmail(String email, String key) {
 
     	final String username = "lprofeup@gmail.com";
         final String password = "lpro1920";
@@ -39,12 +43,12 @@ public class Mail {
             message.setText(key);
 
             Transport.send(message);
-            return true;
+
 
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return false;
+
         
     }
 

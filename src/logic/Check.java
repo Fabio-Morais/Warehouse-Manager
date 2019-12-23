@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 
 public class Check {
 
@@ -162,7 +160,6 @@ public class Check {
 	 *         false - se for email inválido
 	 */
 	public boolean validEmail(String email) {
-		boolean result = true;
 		if (email == null)
 			return false;
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
