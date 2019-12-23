@@ -1,16 +1,12 @@
-package guiAdmin;
+package guiadmin;
 
 import javax.swing.JFrame;
 import java.awt.CardLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JButton;
-
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -21,26 +17,18 @@ import javax.swing.JMenu;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.Point;
-
 import javax.swing.UIManager;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -52,49 +40,32 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-
 import db.DataBase;
 import gui.Help;
 import gui.PopUp;
-import guiLogin.LoginDesign;
+import guilogin.LoginDesign;
 import logic.MessageLogs;
-
 import javax.swing.ImageIcon;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Component;
 import java.awt.Insets;
 import javax.swing.JComboBox;
-import javax.swing.JToolBar;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuKeyListener;
-import javax.swing.event.MenuKeyEvent;
-import java.awt.SystemColor;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -119,7 +90,6 @@ public class AdminDesign {
 	private static final String LOGOUT = "/logout.png";
 	private static final String CHANGE = "/change.png";
 	private static final String WIFI = "/wifi.png";
-	private static final String BACKUP = "/backup.png";
 	private static final String DB = "/db.png";
 	private static final String LOG = "/log.png";
 
@@ -131,9 +101,12 @@ public class AdminDesign {
 	private static final String FUNCIONARIOMENU = "/worker.png";
 	private static final String FORNECEDORMENU = "/truckMin.png";
 
+	private static final String REFRESHSTRING = "Refresh";
+	private static final String EDITARSTRING = "Editar";
+	private static final String REMOVERSTRING = "Remover";
+
 	private MessageLogs messageLogs;
 
-	private boolean isConnected = false;
 
 	/* LOGIC CLASS */
 	private Users usersClass;
@@ -176,7 +149,6 @@ public class AdminDesign {
 	private JTable usersTable;
 	private DefaultTableModel modelUser;
 	private TableRowSorter<DefaultTableModel> sorterUser;
-	private DefaultTableModel modelArmazem;
 	private JTextField userSearch;
 
 	/**************/
@@ -227,7 +199,6 @@ public class AdminDesign {
 	private JButton baseDadosBtnhome;
 	private JButton baseDadosBtnTest;
 	private JButton baseDadosBtnCriarTabelas;
-	private JButton baseDadosBtnBackup;
 	/********************/
 
 	/* FUNCIONARIO MENU */
@@ -576,16 +547,16 @@ public class AdminDesign {
 		usersBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
 		usersBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
 
-		usersBtnRemover = new JButton("Remover");
+		usersBtnRemover = new JButton(REMOVERSTRING);
 		usersBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
 		usersBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
 
-		usersBtnEditar = new JButton("Editar");
+		usersBtnEditar = new JButton(EDITARSTRING);
 
 		usersBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
 		usersBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
 
-		usersBtnRefresh = new JButton("Refresh");
+		usersBtnRefresh = new JButton(REFRESHSTRING);
 		usersBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
 		usersBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
 
@@ -736,7 +707,7 @@ public class AdminDesign {
 	/* ARMAZEM MENU - SECUNDARIO */
 	private void showArmazemMenu() {
 
-		modelArmazem = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Localização" }) {
+		 DefaultTableModel modelArmazem = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Localização" }) {
 			/**
 					 * 
 					 */
@@ -794,14 +765,14 @@ public class AdminDesign {
 		categoriaProdutoBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
 		categoriaProdutoBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		categoriaProdutoBtnRemover = new JButton("Remover");
+		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
 		categoriaProdutoBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
 		categoriaProdutoBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
 
 		JScrollPane categoriaProdutoScrollPane2 = new JScrollPane();
 		categoriaProdutoScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		categoriaProdutoBtnRefresh = new JButton("Refresh");
+		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
 		categoriaProdutoBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
 		categoriaProdutoBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -950,15 +921,15 @@ public class AdminDesign {
 		fornecedoresBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
 		fornecedoresBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		fornecedoresBtnEditar = new JButton("Editar");
+		fornecedoresBtnEditar = new JButton(EDITARSTRING);
 		fornecedoresBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
 		fornecedoresBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		fornecedoresBtnRemover = new JButton("Remover");
+		fornecedoresBtnRemover = new JButton(REMOVERSTRING);
 		fornecedoresBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
 		fornecedoresBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		fornecedoresBtnRefresh = new JButton("Refresh");
+		fornecedoresBtnRefresh = new JButton(REFRESHSTRING);
 		fornecedoresBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
 		fornecedoresBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -972,22 +943,22 @@ public class AdminDesign {
 		fornecedorSearch.setToolTipText("Quick Access");
 		fornecedorSearch.setText("Quick Access");
 		fornecedorSearch.setColumns(10);
-		GroupLayout gl_fornecedoresPanel = new GroupLayout(fornecedoresPanel);
-		gl_fornecedoresPanel.setHorizontalGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_fornecedoresPanel.createSequentialGroup().addGap(37).addGroup(gl_fornecedoresPanel
+		GroupLayout glFornecedoresPanel = new GroupLayout(fornecedoresPanel);
+		glFornecedoresPanel.setHorizontalGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup().addGap(37).addGroup(glFornecedoresPanel
 						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_fornecedoresPanel.createSequentialGroup().addGroup(gl_fornecedoresPanel
+						.addGroup(glFornecedoresPanel.createSequentialGroup().addGroup(glFornecedoresPanel
 								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_fornecedoresPanel
-										.createSequentialGroup().addGap(30).addGroup(gl_fornecedoresPanel
+								.addGroup(glFornecedoresPanel
+										.createSequentialGroup().addGap(30).addGroup(glFornecedoresPanel
 												.createParallelGroup(Alignment.LEADING)
 												.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 113,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 113,
 														GroupLayout.PREFERRED_SIZE))
 										.addGap(85)
-										.addGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
-												.addGroup(gl_fornecedoresPanel.createSequentialGroup()
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
+												.addGroup(glFornecedoresPanel.createSequentialGroup()
 														.addComponent(fornecedoresBtnAdicionar).addGap(18)
 														.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE,
 																105, GroupLayout.PREFERRED_SIZE)
@@ -1002,23 +973,23 @@ public class AdminDesign {
 								.addGap(383))
 						.addComponent(fornecedoresdestinosSeparator, GroupLayout.PREFERRED_SIZE, 222,
 								GroupLayout.PREFERRED_SIZE))));
-		gl_fornecedoresPanel.setVerticalGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_fornecedoresPanel.createSequentialGroup().addContainerGap()
+		glFornecedoresPanel.setVerticalGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup().addContainerGap()
 						.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(fornecedoresdestinosSeparator, GroupLayout.PREFERRED_SIZE, 15,
 								GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-						.addGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_fornecedoresPanel.createSequentialGroup()
+						.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(glFornecedoresPanel.createSequentialGroup()
 										.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18)
 										.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 59,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(64))
-								.addGroup(gl_fornecedoresPanel.createSequentialGroup()
-										.addGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+								.addGroup(glFornecedoresPanel.createSequentialGroup()
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
 												.addComponent(fornecedoresBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 40,
@@ -1026,7 +997,7 @@ public class AdminDesign {
 												.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
 														GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(gl_fornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
 												.addComponent(fornecedoresScrollPane, GroupLayout.PREFERRED_SIZE, 170,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE,
@@ -1035,9 +1006,10 @@ public class AdminDesign {
 		modelFornecedor = new DefaultTableModel(new Object[][] {}, new String[] { "Nome" }) {
 
 			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class };
 
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 
@@ -1049,7 +1021,7 @@ public class AdminDesign {
 		fornecedorTable = new JTable();
 		fornecedorTable.setSelectionForeground(Color.BLACK);
 		fornecedoresScrollPane.setViewportView(fornecedorTable);
-		fornecedoresPanel.setLayout(gl_fornecedoresPanel);
+		fornecedoresPanel.setLayout(glFornecedoresPanel);
 		fornecedorTable.setModel(modelFornecedor);
 
 		/* Para nao mover */
@@ -1104,7 +1076,7 @@ public class AdminDesign {
 		JPanel maquinaPanel = new JPanel();
 		maquina.add(maquinaPanel, BorderLayout.NORTH);
 
-		maquinaBtnRefresh = new JButton("Refresh");
+		maquinaBtnRefresh = new JButton(REFRESHSTRING);
 		maquinaBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
 
 		maquinaBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
@@ -1120,11 +1092,11 @@ public class AdminDesign {
 		maquinaBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
 		maquinaBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		maquinaBtnEditar = new JButton("Editar");
+		maquinaBtnEditar = new JButton(EDITARSTRING);
 		maquinaBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
 		maquinaBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		maquinaBtnRemover = new JButton("Remover");
+		maquinaBtnRemover = new JButton(REMOVERSTRING);
 		maquinaBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
 		maquinaBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -1320,10 +1292,6 @@ public class AdminDesign {
 		baseDadosBtnCriarTabelas.setHorizontalAlignment(SwingConstants.LEFT);
 		baseDadosBtnCriarTabelas.setIcon(new ImageIcon(AdminDesign.class.getResource(DB)));
 
-		baseDadosBtnBackup = new JButton("Backup");
-		baseDadosBtnBackup.setHorizontalAlignment(SwingConstants.LEFT);
-		baseDadosBtnBackup.setIcon(new ImageIcon(AdminDesign.class.getResource(BACKUP)));
-
 		baseDadosUrl = new JTextField();
 		baseDadosUrl.setText("db.fe.up.pt:5432");
 		baseDadosUrl.setColumns(10);
@@ -1331,86 +1299,70 @@ public class AdminDesign {
 		JLabel lblUrl = new JLabel("Url:");
 		lblUrl.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GroupLayout glBaseDadosPanel = new GroupLayout(baseDadosPanel);
-		glBaseDadosPanel
-				.setHorizontalGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING).addGroup(
-						glBaseDadosPanel.createSequentialGroup().addGap(42).addGroup(glBaseDadosPanel
-								.createParallelGroup(Alignment.LEADING).addGroup(glBaseDadosPanel
-										.createSequentialGroup().addGroup(glBaseDadosPanel
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(baseDadosBtnhome, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE)
-												.addGroup(glBaseDadosPanel.createSequentialGroup().addGap(2)
-														.addComponent(baseDadosSeparator, GroupLayout.PREFERRED_SIZE,
-																111, GroupLayout.PREFERRED_SIZE))
-												.addComponent(
-														baseDadosBtnTest, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(131)
-										.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.TRAILING).addGroup(
-												glBaseDadosPanel.createSequentialGroup().addGroup(glBaseDadosPanel
-														.createParallelGroup(Alignment.TRAILING)
-														.addComponent(baseDadosTextoUser, GroupLayout.PREFERRED_SIZE,
-																45, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblUrl).addComponent(baseDadosTextoPassword))
-														.addPreferredGap(ComponentPlacement.UNRELATED)
-														.addGroup(glBaseDadosPanel
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(baseDadosPassword,
-																		GroupLayout.PREFERRED_SIZE, 128,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(baseDadosUser, GroupLayout.PREFERRED_SIZE,
-																		128, GroupLayout.PREFERRED_SIZE)
-																.addComponent(baseDadosUrl, GroupLayout.PREFERRED_SIZE,
-																		128, GroupLayout.PREFERRED_SIZE)))
-												.addComponent(baseDadosBtnAdicionar))
-										.addGap(135)
-										.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.TRAILING)
-												.addComponent(baseDadosBtnBackup, GroupLayout.DEFAULT_SIZE, 146,
-														Short.MAX_VALUE)
-												.addComponent(baseDadosBtnCriarTabelas, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGap(94))
-								.addGroup(glBaseDadosPanel
-										.createSequentialGroup().addComponent(baseDadosTexto,
-												GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(728, Short.MAX_VALUE)))));
-		glBaseDadosPanel.setVerticalGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(glBaseDadosPanel.createSequentialGroup().addGap(85)
-						.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(glBaseDadosPanel.createSequentialGroup()
-										.addComponent(baseDadosBtnCriarTabelas, GroupLayout.PREFERRED_SIZE, 40,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(baseDadosBtnBackup))
-								.addGroup(glBaseDadosPanel.createSequentialGroup()
-										.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(baseDadosTextoUser, GroupLayout.PREFERRED_SIZE, 28,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(baseDadosUser, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(12)
-										.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(baseDadosTextoPassword, GroupLayout.PREFERRED_SIZE, 34,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(baseDadosPassword, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblUrl, GroupLayout.PREFERRED_SIZE, 34,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(baseDadosUrl, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(18).addComponent(baseDadosBtnAdicionar, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-						.addGap(107))
-				.addGroup(glBaseDadosPanel.createSequentialGroup().addContainerGap().addComponent(baseDadosTexto)
-						.addPreferredGap(ComponentPlacement.RELATED)
+		glBaseDadosPanel.setHorizontalGroup(
+			glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glBaseDadosPanel.createSequentialGroup()
+					.addGap(42)
+					.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(glBaseDadosPanel.createSequentialGroup()
-								.addComponent(baseDadosSeparator, GroupLayout.PREFERRED_SIZE, 15,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(14).addComponent(baseDadosBtnTest).addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(baseDadosBtnhome, GroupLayout.PREFERRED_SIZE, 59,
-										GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(134, Short.MAX_VALUE)));
+							.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(baseDadosBtnhome, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+								.addGroup(glBaseDadosPanel.createSequentialGroup()
+									.addGap(2)
+									.addComponent(baseDadosSeparator, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+								.addComponent(baseDadosBtnTest, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+							.addGap(131)
+							.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(glBaseDadosPanel.createSequentialGroup()
+									.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(baseDadosTextoUser, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblUrl)
+										.addComponent(baseDadosTextoPassword))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(baseDadosPassword, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+										.addComponent(baseDadosUser, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+										.addComponent(baseDadosUrl, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(baseDadosBtnAdicionar))
+							.addGap(135)
+							.addComponent(baseDadosBtnCriarTabelas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(94))
+						.addGroup(glBaseDadosPanel.createSequentialGroup()
+							.addComponent(baseDadosTexto, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(686, Short.MAX_VALUE))))
+		);
+		glBaseDadosPanel.setVerticalGroup(
+			glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glBaseDadosPanel.createSequentialGroup()
+					.addGap(85)
+					.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(baseDadosBtnCriarTabelas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+						.addGroup(glBaseDadosPanel.createSequentialGroup()
+							.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(baseDadosTextoUser, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(baseDadosUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(12)
+							.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(baseDadosTextoPassword, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addComponent(baseDadosPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(glBaseDadosPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblUrl, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addComponent(baseDadosUrl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(baseDadosBtnAdicionar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(107))
+				.addGroup(glBaseDadosPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(baseDadosTexto)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(baseDadosSeparator, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+					.addGap(14)
+					.addComponent(baseDadosBtnTest)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(baseDadosBtnhome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(136, Short.MAX_VALUE))
+		);
 		baseDadosPanel.setLayout(glBaseDadosPanel);
 	}
 
@@ -1437,11 +1389,11 @@ public class AdminDesign {
 		funcionarioBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
 		funcionarioBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		funcionarioBtnEditar = new JButton("Editar");
+		funcionarioBtnEditar = new JButton(EDITARSTRING);
 		funcionarioBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
 		funcionarioBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-		funcionarioBtnRemover = new JButton("Remover");
+		funcionarioBtnRemover = new JButton(REMOVERSTRING);
 		funcionarioBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
 		funcionarioBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -1456,7 +1408,7 @@ public class AdminDesign {
 		funcionarioBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
 		funcionarioBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
 
-		funcionarioBtnRefresh = new JButton("Refresh");
+		funcionarioBtnRefresh = new JButton(REFRESHSTRING);
 		funcionarioBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
 		funcionarioBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -1531,9 +1483,10 @@ public class AdminDesign {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class };
 
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 
@@ -1597,7 +1550,7 @@ public class AdminDesign {
 	private TableRowSorter<DefaultTableModel> sorterLogs;
 	private JButton logsBtnRefresh;
 	private JButton logsBtnHome;
-	private JComboBox numeroLinhasCombo;
+	private JComboBox<String> numeroLinhasCombo;
 	
 	private void showLogsMenu() {
 		logs = new JPanel();
@@ -1614,7 +1567,7 @@ public class AdminDesign {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
-		logsBtnRefresh = new JButton("Refresh");
+		logsBtnRefresh = new JButton(REFRESHSTRING);
 		logsBtnRefresh.setIcon(null);
 		logsBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
 
@@ -1635,11 +1588,11 @@ public class AdminDesign {
 		separator_2.setForeground(Color.BLUE);
 		separator_2.setFont(new Font("Dialog", Font.BOLD, 15));
 		
-		numeroLinhasCombo = new JComboBox();
+		numeroLinhasCombo = new JComboBox<String>();
 		
 		numeroLinhasCombo.setToolTipText("Numero de linhas");
 		numeroLinhasCombo.setFont(new Font("Consolas", Font.PLAIN, 14));
-		numeroLinhasCombo.setModel(new DefaultComboBoxModel(new String[] {"25", "50", "100", "200", "400"}));
+		numeroLinhasCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"25", "50", "100", "200", "400"}));
 		GroupLayout gl_logsPanel = new GroupLayout(logsPanel);
 		gl_logsPanel.setHorizontalGroup(
 			gl_logsPanel.createParallelGroup(Alignment.LEADING)
@@ -1858,13 +1811,11 @@ public class AdminDesign {
 					lblStatusDb.setText("ON");
 					lblStatusDb.setForeground(Color.GREEN);
 					db.disconnect();
-					isConnected = true;
 					first = true;
 				} else {
 
 					lblStatusDb.setText("OFF");
 					lblStatusDb.setForeground(Color.RED);
-					isConnected = false;
 					if (first) {
 						first = false;
 						int option = popUp.showPopUpDataBaseError();
@@ -1880,11 +1831,7 @@ public class AdminDesign {
 
 	}
 
-	/* AÇOES DOS BOTOES */
-	private void buttons() {
-		/****************************************
-		 * menu em cima *
-		 ****************************************/
+	private void buttonsMenu() {
 		mntmMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -1948,11 +1895,10 @@ public class AdminDesign {
 				help.selectHelp(frmMenuAdmin, currentPanel);
 			}
 		});
-		/********************************************/
+	}
+	
+	private void buttonsMainMenu() {
 
-		/************************
-		 * BOTOES Main Menu
-		 ************************/
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "user");
@@ -2001,14 +1947,10 @@ public class AdminDesign {
 
 			}
 		});
-		/******************************************/
-		/*
-		 * Menus secundarios
-		 */
-
-		/************************
-		 * BOTOES User Menu
-		 *************************/
+		
+	}
+	
+	private void buttonsUser() {
 		usersBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2047,11 +1989,9 @@ public class AdminDesign {
 			}
 		});
 
-		/*********************************************************************/
+	}
 
-		/************************
-		 * BOTOES Categoria Produto Menu
-		 *************************/
+	private void buttonsCategoria() {
 		categoriaProdutoBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2104,11 +2044,10 @@ public class AdminDesign {
 			}
 		});
 
-		/*********************************************************************/
-
-		/************************
-		 * BOTOES fornecedores Menu
-		 ***************************/
+	
+	}
+	
+	private void buttonsFornecedor() {
 		fornecedoresBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2154,11 +2093,9 @@ public class AdminDesign {
 				}
 			}
 		});
-		/*********************************************************************/
-
-		/************************
-		 * BOTOES Maquina Menu
-		 ************************/
+	}
+	
+	private void buttonsMaquina() {
 		maquinaBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2203,12 +2140,9 @@ public class AdminDesign {
 				}
 			}
 		});
-
-		/*********************************************************************/
-
-		/************************
-		 * BOTOES Funcionarios Menu
-		 **************************/
+	}
+	
+	private void buttonsFuncionarios() {
 		funcionarioBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2254,11 +2188,9 @@ public class AdminDesign {
 			}
 		});
 
-		/*********************************************************************/
-
-		/************************
-		 * BOTOES Base de Dados Menu
-		 *************************/
+	}
+	
+	private void buttonsBaseDados() {
 		baseDadosBtnhome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2296,11 +2228,9 @@ public class AdminDesign {
 
 			}
 		});
-		/*********************************************************************/
-
-		/************************
-		 * BOTOES Base de Dados Menu
-		 *************************/
+	}
+	
+	private void buttonsLogs() {
 		logsBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
@@ -2325,8 +2255,24 @@ public class AdminDesign {
 				db.getLogs(modelLogs, numeroLinhasCombo.getSelectedItem().toString());
 			}
 		});
+	}
+	
+	
+	
+	
+	/* AÇOES DOS BOTOES */
+	private void buttons() {
+		buttonsMenu();
+		buttonsMainMenu();
+		//butoes secundarios
+		buttonsUser();
+		buttonsCategoria();
+		buttonsFornecedor();
+		buttonsMaquina();
+		buttonsFuncionarios();
+		buttonsBaseDados();
+		buttonsLogs();
 		
-		/*********************************************************************/
 	}
 
 	public void initialize() {
