@@ -45,6 +45,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import db.DataBase;
+import gui.Interface;
 import gui.Help;
 import gui.PopUp;
 import guilogin.LoginDesign;
@@ -131,6 +132,14 @@ public class AdminDesign {
 	private CardLayout cl;
 
 	/* MAIN MENU */
+	private JSeparator separator1;
+	private JSeparator separator;
+	private JSeparator separator2;
+	private JSeparator separator3;
+	private JLabel lblControlo;
+	private JPanel menuAdminPanel;
+	private JLabel lblAtividade;
+	private JLabel lblSegurana;
 	private JButton btnUsers;
 	private JButton btnLog;
 	private JButton btnFuncionario;
@@ -141,12 +150,15 @@ public class AdminDesign {
 	/************/
 
 	/* USERS MENU */
+	private JPanel usersPanel;
 	private JButton usersBtnAdicionar;
 	private JButton usersBtnRemover;
 	private JButton usersBtnEditar;
 	private JButton usersBtnRefresh;
 	private JButton usersBtnHome;
 	private JTable usersTable;
+	private JLabel lblData;
+	private JEditorPane textoAdmin;
 	private DefaultTableModel modelUser;
 	private TableRowSorter<DefaultTableModel> sorterUser;
 	private JTextField userSearch;
@@ -267,20 +279,7 @@ public class AdminDesign {
 		cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);// mostrar o main menu
 	}
 
-	/* MAIN PANEL - PRINCIPAL */
-	private void showMainMenu() {
-		menuAdmin = new JPanel();
-
-		cl = new CardLayout(0, 0);
-		frmMenuAdmin.getContentPane().setLayout(cl);
-		frmMenuAdmin.getContentPane().add(menuAdmin, "name_1243457861194300");
-		menuAdmin.setLayout(new BorderLayout(0, 0));
-
-		/* MENU_ADMIN_PANEL PANEL */
-		JPanel menuAdminPanel = new JPanel();
-		menuAdminPanel.setPreferredSize(new Dimension(10, 16));
-		menuAdmin.add(menuAdminPanel, BorderLayout.CENTER);
-
+	private void insertBtnUsers() {
 		btnUsers = new JButton("Users");
 		btnUsers.setMargin(new Insets(10, 14, 10, 14));
 		btnUsers.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -294,6 +293,9 @@ public class AdminDesign {
 		btnUsers.setBackground(Color.LIGHT_GRAY);
 		btnUsers.setFont(new Font("Consolas", Font.BOLD, 13));
 
+	}
+	
+	private void insertBtnLog() {
 		btnLog = new JButton("Logs");
 		btnLog.setMargin(new Insets(10, 2, 10, 2));
 		btnLog.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -305,7 +307,9 @@ public class AdminDesign {
 		btnLog.setFont(new Font("Consolas", Font.BOLD, 13));
 		btnLog.setBorder(UIManager.getBorder("Button.border"));
 		btnLog.setBackground(Color.LIGHT_GRAY);
-
+	}
+	
+	private void insertBtnFuncionario() {
 		btnFuncionario = new JButton("<html>Funcionario</html>");
 		btnFuncionario.setMargin(new Insets(10, 2, 10, 2));
 		btnFuncionario.setIcon(new ImageIcon(AdminDesign.class.getResource(FUNCIONARIOMENU)));
@@ -317,7 +321,9 @@ public class AdminDesign {
 		btnFuncionario.setFont(new Font("Consolas", Font.BOLD, 13));
 		btnFuncionario.setBorder(UIManager.getBorder("Button.border"));
 		btnFuncionario.setBackground(Color.LIGHT_GRAY);
-
+	}
+	
+	private void insertBtnCategoria() {
 		btnCategoriaProduto = new JButton("Categoria");
 		btnCategoriaProduto.setMargin(new Insets(10, 2, 10, 2));
 		btnCategoriaProduto.setIcon(new ImageIcon(AdminDesign.class.getResource(CATEGORIAMENU)));
@@ -329,6 +335,9 @@ public class AdminDesign {
 		btnCategoriaProduto.setFont(new Font("Consolas", Font.BOLD, 13));
 		btnCategoriaProduto.setBorder(UIManager.getBorder("Button.border"));
 		btnCategoriaProduto.setBackground(Color.LIGHT_GRAY);
+	}
+	
+	private void insertBtnFornecedores() {
 
 		btnFornecedores = new JButton("Fornecedores");
 		btnFornecedores.setIcon(new ImageIcon(AdminDesign.class.getResource(FORNECEDORMENU)));
@@ -344,6 +353,10 @@ public class AdminDesign {
 		btnFornecedores.setBorder(UIManager.getBorder("Button.border"));
 		btnFornecedores.setBackground(Color.LIGHT_GRAY);
 
+	}
+	
+	private void insertBtnMaquinas() {
+
 		btnMaquinas = new JButton("Maquinas");
 		btnMaquinas.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnMaquinas.setMargin(new Insets(10, 14, 10, 14));
@@ -355,7 +368,9 @@ public class AdminDesign {
 		btnMaquinas.setFont(new Font("Consolas", Font.BOLD, 13));
 		btnMaquinas.setBorder(UIManager.getBorder("Button.border"));
 		btnMaquinas.setBackground(Color.LIGHT_GRAY);
-
+	}
+	
+	private void insertBtnBaseDados() {
 		btnDB = new JButton("<html>Base de<br >Dados</html>");
 		btnDB.setMargin(new Insets(5, 20, 5, 20));
 		btnDB.setIcon(new ImageIcon(AdminDesign.class.getResource(DBMENU)));
@@ -367,52 +382,9 @@ public class AdminDesign {
 		btnDB.setFont(new Font("Consolas", Font.BOLD, 13));
 		btnDB.setBorder(UIManager.getBorder("Button.border"));
 		btnDB.setBackground(Color.LIGHT_GRAY);
-
-		JLabel lblSegurana = new JLabel("Seguran\u00E7a");
-		lblSegurana.setFont(new Font("HP Simplified", Font.BOLD, 18));
-
-		JSeparator separator1 = new JSeparator();
-		separator1.setPreferredSize(new Dimension(0, 50));
-		separator1.setMinimumSize(new Dimension(20, 20));
-		separator1.setFont(new Font("Dialog", Font.BOLD, 15));
-		separator1.setForeground(Color.BLUE);
-
-		JSeparator separator = new JSeparator();
-		separator.setPreferredSize(new Dimension(0, 50));
-		separator.setMinimumSize(new Dimension(20, 20));
-		separator.setForeground(Color.BLUE);
-		separator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		JSeparator separator2 = new JSeparator();
-		separator2.setPreferredSize(new Dimension(0, 50));
-		separator2.setMinimumSize(new Dimension(20, 20));
-		separator2.setForeground(Color.BLUE);
-		separator2.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		JLabel lblControlo = new JLabel("Controlo");
-		lblControlo.setFont(new Font("HP Simplified", Font.BOLD, 18));
-
-		JLabel lblData = new JLabel("Data");
-		lblData.setFont(new Font("HP Simplified", Font.BOLD, 18));
-
-		JEditorPane textoAdmin = new JEditorPane();
-		textoAdmin.setBorder(new MatteBorder(1, 1, 3, 1, (Color) new Color(0, 0, 0)));
-		textoAdmin.setBackground(new Color(255, 250, 250));
-		textoAdmin.setFocusable(false);
-		textoAdmin.setIgnoreRepaint(true);
-		textoAdmin.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		textoAdmin.setFont(new Font("Lucida Sans", Font.BOLD, 22));
-		textoAdmin.setEditable(false);
-		textoAdmin.setText("ADMIN");
-
-		JLabel lblAtividade = new JLabel("Atividade");
-		lblAtividade.setFont(new Font("HP Simplified", Font.BOLD, 18));
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setPreferredSize(new Dimension(0, 50));
-		separator_1.setMinimumSize(new Dimension(20, 20));
-		separator_1.setForeground(Color.BLUE);
-		separator_1.setFont(new Font("Dialog", Font.BOLD, 15));
+	}
+	
+	private GroupLayout putMenuLayout() {
 		GroupLayout glMenuAdminPanel = new GroupLayout(menuAdminPanel);
 		glMenuAdminPanel.setHorizontalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(glMenuAdminPanel.createSequentialGroup().addGroup(glMenuAdminPanel
@@ -462,7 +434,7 @@ public class AdminDesign {
 								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblAtividade, GroupLayout.PREFERRED_SIZE, 129,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 99,
+										.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 99,
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnLog, GroupLayout.PREFERRED_SIZE, 100,
 												GroupLayout.PREFERRED_SIZE))))
@@ -497,7 +469,7 @@ public class AdminDesign {
 								.addPreferredGap(ComponentPlacement.UNRELATED))
 						.addGroup(Alignment.TRAILING,
 								glMenuAdminPanel.createSequentialGroup()
-										.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 15,
+										.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 15,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(15)))
 						.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
@@ -527,61 +499,79 @@ public class AdminDesign {
 														GroupLayout.PREFERRED_SIZE))))
 						.addContainerGap(64, Short.MAX_VALUE)));
 		menuAdminPanel.setLayout(glMenuAdminPanel);
+		return glMenuAdminPanel;
+	}
+	
+	/* MAIN PANEL - PRINCIPAL */
+	private void showMainMenu() {
+		menuAdmin = new JPanel();
+
+		cl = new CardLayout(0, 0);
+		frmMenuAdmin.getContentPane().setLayout(cl);
+		frmMenuAdmin.getContentPane().add(menuAdmin, "name_1243457861194300");
+		menuAdmin.setLayout(new BorderLayout(0, 0));
+
+		/* MENU_ADMIN_PANEL PANEL */
+		menuAdminPanel = new JPanel();
+		menuAdminPanel.setPreferredSize(new Dimension(10, 16));
+		menuAdmin.add(menuAdminPanel, BorderLayout.CENTER);
+
+		insertBtnUsers();
+		insertBtnLog();
+		insertBtnFuncionario();
+		insertBtnCategoria();
+		insertBtnFornecedores();
+		insertBtnMaquinas();
+		insertBtnBaseDados();
+
+		lblSegurana =  Interface.criaLabelMenu("Seguran\u00E7a");
+		separator1 = Interface.criaSeparator();
+		separator = Interface.criaSeparator();
+		separator2 = Interface.criaSeparator();
+		lblControlo = Interface.criaLabelMenu("Controlo");
+		lblData =Interface.criaLabelMenu("Data");
+		textoAdmin = Interface.criaTituloMenu("Admin");
+		lblAtividade = Interface.criaLabelMenu("Atividade");
+		separator3 = Interface.criaSeparator();
+		GroupLayout glMenuAdminPanel = putMenuLayout();
+		menuAdminPanel.setLayout(glMenuAdminPanel);
 	}
 
-	/* USER PANEL - SECUNDARIO */
-	private void showUserMenu() {
+	private void criaUserSearch() {
+		sorterUser = new TableRowSorter<>(modelUser);
+		usersTable.setRowSorter(sorterUser);
+		userSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				userSearch.setText("");
+			}
+		});
+		userSearch.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
 
-		users = new JPanel();
-		frmMenuAdmin.getContentPane().add(users, "name_1243457881841100");
-		users.setLayout(new BorderLayout(0, 0));
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
 
-		JPanel usersPanel = new JPanel();
-		users.add(usersPanel, BorderLayout.CENTER);
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
 
-		JScrollPane usersScrollPane = new JScrollPane();
-		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		usersBtnAdicionar = new JButton("Adicionar");
-
-		usersBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-		usersBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-
-		usersBtnRemover = new JButton(REMOVERSTRING);
-		usersBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
-		usersBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
-
-		usersBtnEditar = new JButton(EDITARSTRING);
-
-		usersBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
-		usersBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
-
-		usersBtnRefresh = new JButton(REFRESHSTRING);
-		usersBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
-		usersBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
-
-		JLabel usersTexto = new JLabel("Users");
-		usersTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
-
-		JSeparator usersSeparator = new JSeparator();
-		usersSeparator.setPreferredSize(new Dimension(0, 50));
-		usersSeparator.setMinimumSize(new Dimension(20, 20));
-		usersSeparator.setForeground(Color.BLUE);
-		usersSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		usersBtnHome = new JButton("Home");
-
-		usersBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
-		usersBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		usersBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		usersBtnHome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		usersBtnHome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-
-		userSearch = new JTextField();
-
-		userSearch.setText("Quick Access");
-		userSearch.setToolTipText("Quick Access");
-		userSearch.setColumns(10);
+			public void search(String str) {
+				if (str.length() == 0) {
+					sorterUser.setRowFilter(null);
+				} else {
+					sorterUser.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+				}
+			}
+		});
+	}
+	private GroupLayout putUserLayout(JLabel usersTexto, JScrollPane usersScrollPane, JSeparator usersSeparator) {
 		GroupLayout glUsersPanel = new GroupLayout(usersPanel);
 		glUsersPanel.setHorizontalGroup(glUsersPanel.createParallelGroup(Alignment.TRAILING).addGroup(glUsersPanel
 				.createSequentialGroup().addGap(37)
@@ -633,103 +623,36 @@ public class AdminDesign {
 												glUsersPanel.createSequentialGroup().addComponent(usersScrollPane,
 														GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
 														.addContainerGap()))));
+		return glUsersPanel;
+	}
+	/* USER PANEL - SECUNDARIO */
+	private void showUserMenu() {
 
-		modelUser = new DefaultTableModel(new Object[][] {}, new String[] { "NIF", "Username", "Admin" }) {
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = 60845133227382893L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false, false };
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};
-
-		usersTable = new JTable();
-		usersTable.setSelectionForeground(Color.BLACK);
-		usersTable.setModel(modelUser);
+		users = new JPanel();
+		frmMenuAdmin.getContentPane().add(users, "name_1243457881841100");
+		users.setLayout(new BorderLayout(0, 0));
+		usersPanel = new JPanel();
+		users.add(usersPanel, BorderLayout.CENTER);
+		JScrollPane usersScrollPane = new JScrollPane();
+		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		usersBtnAdicionar = Interface.criaBotaoSimples("Adicionar", ADD);
+		usersBtnRemover =  Interface.criaBotaoSimples(REMOVERSTRING, REMOVE);
+		usersBtnEditar = Interface.criaBotaoSimples(EDITARSTRING, EDIT);
+		usersBtnRefresh = Interface.criaBotaoSimples(REFRESHSTRING, REFRESH);
+		JLabel usersTexto = Interface.criaLabel("Users");
+		
+		JSeparator usersSeparator = Interface.criaSeparator();
+		usersBtnHome = Interface.criaBotaoHome("Home", HOME);
+		userSearch = Interface.criaSearch();
+		
+		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
+		modelUser = usersClass.getModelUser();
+		usersTable = usersClass.getUsersTable();
 		usersScrollPane.setViewportView(usersTable);
 		usersPanel.setLayout(glUsersPanel);
-
-		/* Para nao mover */
-		usersTable.getTableHeader().setReorderingAllowed(false);
-		usersTable.setAutoCreateRowSorter(true);// para ordenar
-		usersTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+		criaUserSearch();
 		db.nifusernameadminLogin(modelUser);
 
-		sorterUser = new TableRowSorter<>(modelUser);
-		usersTable.setRowSorter(sorterUser);
-
-		userSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				userSearch.setText("");
-			}
-		});
-		userSearch.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				search(userSearch.getText());
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				search(userSearch.getText());
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				search(userSearch.getText());
-			}
-
-			public void search(String str) {
-				if (str.length() == 0) {
-					sorterUser.setRowFilter(null);
-				} else {
-					sorterUser.setRowFilter(RowFilter.regexFilter("(?i)" + str));
-				}
-			}
-		});
-	}
-
-	/* ARMAZEM MENU - SECUNDARIO */
-	private void showArmazemMenu() {
-
-		 DefaultTableModel modelArmazem = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Localização" }) {
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = 60845133227382893L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class };
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false };
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};
-
-		db.nomelocalizacaoArmazem(modelArmazem);
 	}
 
 	/* CATEGORIA PRODUTO MENU - SECUNDARIO */
@@ -1957,23 +1880,23 @@ public class AdminDesign {
 		});
 		usersBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.adicionarUser(modelUser, nomeArmazem);
+				usersClass.adicionarUser(nomeArmazem);
 
 			}
 		});
 		usersBtnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.editarUser(usersTable, modelUser, nomeArmazem);
+				usersClass.editarUser( nomeArmazem);
 			}
 		});
 		usersBtnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.refresh(modelUser);
+				usersClass.refresh();
 			}
 		});
 		usersBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.removeUser(usersTable, modelUser, nomeArmazem);
+				usersClass.removeUser(nomeArmazem);
 
 			}
 		});
@@ -1981,7 +1904,7 @@ public class AdminDesign {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
-					usersClass.removeUser(usersTable, modelUser, nomeArmazem);
+					usersClass.removeUser(nomeArmazem);
 
 			}
 		});
@@ -2254,14 +2177,11 @@ public class AdminDesign {
 		});
 	}
 	
-	
-	
-	
 	/* AÇOES DOS BOTOES */
 	private void buttons() {
 		buttonsMenu();
 		buttonsMainMenu();
-		//butoes secundarios
+		//botoes secundarios
 		buttonsUser();
 		buttonsCategoria();
 		buttonsFornecedor();
@@ -2304,8 +2224,6 @@ public class AdminDesign {
 		showMainMenu();// MAIN MENU - PRINCIPAL
 
 		showUserMenu();// USER MENU - SECUNDARIO
-
-		showArmazemMenu();// ARMAZEM MENU - SECUNDARIO
 
 		showCategoriaProduto();// CATEGORIA PRODUTO MENU - SECUNDARIO
 

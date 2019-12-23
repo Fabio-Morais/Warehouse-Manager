@@ -3,6 +3,8 @@ package guiadmin;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -14,11 +16,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
+import gui.Interface;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
@@ -31,7 +39,8 @@ public class Users {
 	private Check check;
 	
 	private String loginUsername;
-
+	private DefaultTableModel modelUser;
+	private JTable usersTable;
 	/* POP UP */
 	private JComboBox<String> comboBox;
 	private JTextField userField;
@@ -52,6 +61,41 @@ public class Users {
 		db = DataBase.getInstance();
 		messageLogs = MessageLogs.getInstance();
 		this.loginUsername = username;
+		criaTabela();
+	}
+
+	private void criaTabela() {
+		modelUser = new DefaultTableModel(new Object[][] {}, new String[] { "NIF", "Username", "Admin" }) {
+			/**
+					 * 
+					 */
+			private static final long serialVersionUID = 60845133227382893L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			boolean[] columnEditables = new boolean[] { false, false, false };
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};
+		usersTable = Interface.criaTabela(modelUser);
+	}
+	
+	public DefaultTableModel getModelUser() {
+		return modelUser;
+	}
+	
+
+	public JTable getUsersTable() {
+		return usersTable;
 	}
 
 	private void resetBorders() {
@@ -165,7 +209,7 @@ public class Users {
 	}
 
 	/* User POP UP Editar */
-	private int showUserPopUpEditar(Object nome, String userName, String pass, String pass2, boolean admin) {
+	private int showUserPopUpEditar(Object nome, String userName, boolean admin) {
 		Object[] options1 = { "Ok", "Sair" };
 		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(USER));
 
@@ -184,12 +228,12 @@ public class Users {
 		panel.add(lblPassword);
 
 		panel.add(passwordField);
-		passwordField.setText(pass);
+		passwordField.setText(null);
 
 		JLabel lblRepeatPassword = new JLabel("Repeat Password");
 		panel.add(lblRepeatPassword);
 
-		passwordField2.setText(pass2);
+		passwordField2.setText(null);
 		panel.add(passwordField2);
 
 		JLabel lblAdmin = new JLabel("Admin");
@@ -203,7 +247,7 @@ public class Users {
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
 	}
 
-	public void removeUser(JTable usersTable, DefaultTableModel modelUser, String nomeArmazem) {
+	public void removeUser( String nomeArmazem) {
 		int[] selectedRows = usersTable.getSelectedRows();
 
 		if (selectedRows.length <= 0) {
@@ -229,7 +273,7 @@ public class Users {
 
 	}
 
-	public void refresh(DefaultTableModel modelUser) {
+	public void refresh() {
 		int rowCount = modelUser.getRowCount();
 		if (!db.connect()) {
 			popUp.showPopUpDataBaseError();
@@ -242,7 +286,7 @@ public class Users {
 		}
 	}
 
-	public void editarUser(JTable usersTable, DefaultTableModel modelUser, String nomeArmazem) {
+	public void editarUser(String nomeArmazem) {
 		boolean isFinished = false;
 		int[] indexOfRow = usersTable.getSelectedRows();
 		if (check.multipleSelection(indexOfRow)) {
@@ -253,7 +297,7 @@ public class Users {
 																			// ordena)
 		while (!isFinished) {
 			int option = showUserPopUpEditar(modelUser.getValueAt(indexOfRow[0], 0).toString(),
-					modelUser.getValueAt(indexOfRow[0], 1).toString(), null, null,
+					modelUser.getValueAt(indexOfRow[0], 1).toString(), 
 					(boolean) modelUser.getValueAt(indexOfRow[0], 2));
 			if (option == JOptionPane.YES_OPTION) {
 				isFinished = confirmData(1);
@@ -282,7 +326,7 @@ public class Users {
 
 	}
 
-	public void adicionarUser(DefaultTableModel modelUser, String nomeArmazem) {
+	public void adicionarUser( String nomeArmazem) {
 		boolean itsFinished = false;
 		Object nif = null;
 		String username = null;
@@ -316,4 +360,6 @@ public class Users {
 
 	}
 
+	
+	
 }
