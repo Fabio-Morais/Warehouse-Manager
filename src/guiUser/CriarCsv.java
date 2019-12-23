@@ -55,15 +55,15 @@ public class CriarCsv {
 			String TipoRelatorio = comboBox.getSelectedItem().toString();
 			if( (TipoRelatorio != null) && (TipoRelatorio.length() > 0) ) {
 			
-				if (TipoRelatorio.equals("Funcionários"))
+				if ("Funcionários".equals(TipoRelatorio))
 					csvFuncionarios(chckbx.isSelected());
-				else if (TipoRelatorio.equals("Produtos"))
+				else if ("Produtos".equals(TipoRelatorio))
 					csvProdutos(chckbx.isSelected());
-				else if	(TipoRelatorio.equals("Atividade"))
+				else if	("Atividade".equals(TipoRelatorio))
 					csvAtividade(chckbx.isSelected());
-				else if	(TipoRelatorio.equals("Lotes"))
+				else if	("Lotes".equals(TipoRelatorio))
 					csvLotes(chckbx.isSelected());
-				else if	(TipoRelatorio.equals("Maquinas"))
+				else if	("Maquinas".equals(TipoRelatorio))
 					csvMaquinas(chckbx.isSelected());
 			}
 		}
