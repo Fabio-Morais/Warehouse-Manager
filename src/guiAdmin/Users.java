@@ -1,16 +1,13 @@
-package guiAdmin;
+package guiadmin;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,9 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
 import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.PopUp;
@@ -270,10 +265,10 @@ public class Users {
 		}
 		/* editar na base de dados */
 		if (isFinished) {
-			String pass_encri = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
+			String passEncript = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
 			String oldUser = modelUser.getValueAt(indexOfRow[0], 1).toString();
 			String user = userField.getText();
-			if (db.updateUserLogin(oldUser, user, pass_encri,
+			if (db.updateUserLogin(oldUser, user, passEncript,
 					chckbxAdmin.isSelected())) {
 				messageLogs.editaUser(loginUsername, true, oldUser, user, nomeArmazem);
 				popUp.showPopUpEditarSucesso();
@@ -306,8 +301,8 @@ public class Users {
 			}
 		}
 		if (itsFinished) {
-			String pass_encri = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
-			if (db.addUserLogin(comboBox.getSelectedItem().toString(), userField.getText(),  emailField.getText(), pass_encri,
+			String passEncript = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
+			if (db.addUserLogin(comboBox.getSelectedItem().toString(), userField.getText(),  emailField.getText(), passEncript,
 					chckbxAdmin.isSelected())) {
 				messageLogs.adicionaUser(loginUsername, true, comboBox.getSelectedItem().toString(), userField.getText(), nomeArmazem);
 				popUp.showPopUpAdicionadoSucesso();

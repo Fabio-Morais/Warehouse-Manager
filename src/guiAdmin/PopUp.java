@@ -1,4 +1,4 @@
-package guiAdmin;
+package guiadmin;
 
 import java.awt.GridLayout;
 
@@ -60,11 +60,6 @@ public class PopUp {
 	public int showPopUpConfirmation(String string, String titulo) {
 		return JOptionPane.showConfirmDialog(null,string, titulo,
 				JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-	}
-	
-	private void showPopUpError(String string, String titulo) {
-		JOptionPane.showMessageDialog(null,string, titulo,
-				 JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private void showPopUpInformation(String string, String titulo) {

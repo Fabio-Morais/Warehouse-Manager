@@ -1,12 +1,8 @@
-package guiAdmin;
+package guiadmin;
 
 
 import java.awt.Color;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-
 import db.DataBase;
 import gui.PopUp;
 import logic.Check;
@@ -16,7 +12,6 @@ public class BaseDados {
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
 
-	private static final String CATEGORIA = "/list.png";
 	private PopUp popUp;
 	private Check check;
 

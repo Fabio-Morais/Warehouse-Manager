@@ -1,22 +1,16 @@
-package guiAdmin;
+package guiadmin;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -179,7 +173,7 @@ public class Funcionarios {
 		this.salario = new JSpinner();
 		panel.add(this.salario);
 		this.salario
-				.setModel(new SpinnerNumberModel(new Float(salario), new Float(0), new Float(500000), new Float(200)));
+				.setModel(new SpinnerNumberModel(Float.valueOf(salario), Float.valueOf(0), Float.valueOf(500000), Float.valueOf(200)));
 
 		return JOptionPane.showOptionDialog(null, panel, "Editar " + nome, JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
