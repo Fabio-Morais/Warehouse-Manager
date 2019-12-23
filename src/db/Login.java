@@ -252,7 +252,7 @@ public class Login {
 			while(rs.next()) {
 				String user = rs.getString("username");
 				String pass_encr = rs.getString("password");
-				boolean admin = rs.getBoolean("admin");;
+				boolean admin = rs.getBoolean("admin");
 				
 				if(username.equals(user) && BCrypt.checkpw(password,pass_encr)) {
 					if(admin) {

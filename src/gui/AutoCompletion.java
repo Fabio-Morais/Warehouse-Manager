@@ -85,8 +85,13 @@ public class AutoCompletion extends PlainDocument {
 		configureEditor(comboBox.getEditor());
 		// Handle initially selected object
 		Object selected = comboBox.getSelectedItem();
-		if (selected != null)
-			setText(selected.toString());
+		if (selected != null) {
+			try {
+				setText(selected.toString());
+			} catch (BadLocationException e1) {
+				e1.printStackTrace();
+			}
+		}
 		highlightCompletedText(0);
 	}
 
@@ -124,7 +129,6 @@ public class AutoCompletion extends PlainDocument {
 			} else {
 				// User hit backspace with the cursor positioned on the start => beep
 				comboBox.getToolkit().beep(); // when available use:
-												// UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
 			}
 			highlightCompletedText(offs);
 		} else {
@@ -151,20 +155,21 @@ public class AutoCompletion extends PlainDocument {
 			// provide feedback to the user that his input has been received but can not be
 			// accepted
 			comboBox.getToolkit().beep(); // when available use:
-											// UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
 		}
-		setText(item.toString());
+		if (item != null) {
+			setText(item.toString());
+		}
 		// select the completed part
 		highlightCompletedText(offs + str.length());
 	}
 
-	private void setText(String text) {
+	private void setText(String text) throws BadLocationException {
 		try {
 			// remove all text and insert the completed string
 			super.remove(0, getLength());
 			super.insertString(0, text, null);
 		} catch (BadLocationException e) {
-			throw new RuntimeException(e.toString());
+			throw new BadLocationException(e.toString(), 1);
 		}
 	}
 

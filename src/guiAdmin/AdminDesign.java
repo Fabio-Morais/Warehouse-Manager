@@ -1557,7 +1557,7 @@ public class AdminDesign {
 		frmMenuAdmin.getContentPane().add(logs, "name_317578181588800");
 		logs.setLayout(new BorderLayout(0, 0));
 
-		logsPanel = new JPanel();
+		JPanel logsPanel = new JPanel();
 		logs.add(logsPanel, BorderLayout.CENTER);
 
 		JLabel lblLogs = new JLabel("Logs");
@@ -1582,7 +1582,7 @@ public class AdminDesign {
 		logsSearch.setText("Quick Access");
 		logsSearch.setColumns(10);
 
-		separator_2 = new JSeparator();
+		JSeparator separator_2 = new JSeparator();
 		separator_2.setPreferredSize(new Dimension(0, 50));
 		separator_2.setMinimumSize(new Dimension(20, 20));
 		separator_2.setForeground(Color.BLUE);
@@ -1660,7 +1660,7 @@ public class AdminDesign {
 			}
 		};
 
-		logsTable = new JTable();
+		JTable logsTable = new JTable();
 		logsTable.setModel(modelLogs);
 		logsTable.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(logsTable);
@@ -1796,10 +1796,7 @@ public class AdminDesign {
 
 	private boolean first = true;
 	private JPanel logs;
-	private JPanel logsPanel;
 	private JTextField logsSearch;
-	private JTable logsTable;
-	private JSeparator separator_2;
 
 	/* TEMPO COMO BACKGROUND */
 	private void backgroundTimer() {
