@@ -14,7 +14,7 @@ import java.util.Properties;
 public class Mail {
 
 	
-    public void sendEmail(String email, String key) {
+    public boolean sendEmail(String email, String key) {
 
     	final String username = "lprofeup@gmail.com";
         final String password = "lpro1920";
@@ -43,10 +43,11 @@ public class Mail {
             message.setText(key);
 
             Transport.send(message);
-
+            return true;
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
 
         

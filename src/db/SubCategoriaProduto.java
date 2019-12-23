@@ -30,9 +30,8 @@ public class SubCategoriaProduto {
 			stmt = db.getC().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String sub_categoria = rs.getString("sub_categoria");
-				String categoria2 = rs.getString("categoria");
-				modelCategoria.addRow(new Object[] { sub_categoria });
+				String subCategoria = rs.getString("sub_categoria");
+				modelCategoria.addRow(new Object[] { subCategoria });
 			}
 		} catch (Exception e) {
 			db.disconnect();
@@ -80,7 +79,6 @@ public class SubCategoriaProduto {
 	public boolean remove(DataBase db, String subCategoria, String categoria) {
 		db.connect();
 		String sql = "DELETE FROM  sub_categoria WHERE sub_categoria='"+subCategoria+"' AND categoria='"+categoria+"'";
-		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);

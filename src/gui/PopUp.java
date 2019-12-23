@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import guiAdmin.AdminDesign;
+import guiadmin.AdminDesign;
 
 public class PopUp {
 	

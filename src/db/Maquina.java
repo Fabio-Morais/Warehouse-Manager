@@ -64,11 +64,9 @@ public class Maquina {
 			stmt = db.getC().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String numero_serie =rs.getString("numero_serie");
+				String numeroSerie =rs.getString("numero_serie");
 				String nome = rs.getString("nome");
-				int id_armazem = rs.getInt("id_armazem");
-				String descricao_avaria = rs.getString("descricao_avaria");
-				modelMaquina.addRow(new Object[] {nome , ""+numero_serie, true});
+				modelMaquina.addRow(new Object[] {nome , ""+numeroSerie, true});
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +97,6 @@ public class Maquina {
 					String id =rs.getString("numero_serie");
 					String nome = rs.getString("nome");
 					Boolean avariada=rs.getBoolean("avariada");
-					int id_armazem = rs.getInt("id_armazem");
 					modelMaquina.addRow(new Object[] {nome , ""+id,avariada});
 				}
 			} catch (Exception e) {
@@ -151,7 +148,6 @@ public class Maquina {
 		String sql = "UPDATE maquina " + 
 					 "SET nome='"+nome+"' ,numero_serie='"+numeroSerie+"'"+
 					 "WHERE numero_serie='"+numeroSerieAntigo+"'";
-		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);
@@ -176,7 +172,6 @@ public class Maquina {
 		db.connect();
 		String sql = "INSERT INTO maquina (numero_serie, nome, avariada, id_armazem)"
 				   + "VALUES ('"+numero_serie+"', '"+nome+"', "+false+", "+"(SELECT id from armazem where nome='"+armazem+"')"+")";
-		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);
@@ -198,7 +193,6 @@ public class Maquina {
 	public boolean remove(DataBase db, String numeroSerie) {
 		db.connect();
 		String sql = "DELETE FROM maquina WHERE numero_serie='"+numeroSerie+"'";
-		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);
@@ -220,7 +214,6 @@ public class Maquina {
 	public boolean corrigeAvariaMaquina(DataBase db, String numeroSerie) {
 		db.connect();
 		String sql = "UPDATE maquina SET avariada='false', descricao_avaria="+null+ " WHERE numero_serie='"+numeroSerie+"'";
-		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);

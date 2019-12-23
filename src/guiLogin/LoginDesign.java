@@ -29,7 +29,7 @@ import javax.swing.JToggleButton;
 
 import db.DataBase;
 import guiadmin.AdminDesign;
-import guiUser.userDesign;
+import guiuser.userDesign;
 import logic.MessageLogs;
 
 import java.awt.event.KeyAdapter;
@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 import gui.PopUp;
 import gui.StyledButtonUI;
+
 import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

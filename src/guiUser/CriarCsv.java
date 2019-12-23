@@ -1,4 +1,4 @@
-package guiUser;
+package guiuser;
 
 import java.awt.Desktop;
 import java.awt.GridLayout;
@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import db.DataBase;
-import guiAdmin.AdminDesign;
+import guiadmin.AdminDesign;
 
 
 public class CriarCsv {

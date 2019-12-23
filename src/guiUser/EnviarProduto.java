@@ -1,4 +1,4 @@
-package guiUser;
+package guiuser;
 
 import javax.swing.JPanel;
 

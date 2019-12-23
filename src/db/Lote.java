@@ -1,6 +1,5 @@
 package db;
 
-import java.security.Timestamp;
 import java.sql.ResultSet;
 import java.sql.Statement;
 

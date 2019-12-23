@@ -1,11 +1,12 @@
-package guiUser;
+package guiuser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
-import guiAdmin.AdminDesign;
+import guiadmin.AdminDesign;
+
 import javax.swing.ImageIcon;
 
 public class Funcionario {

@@ -13,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import db.DataBase;
-import guiAdmin.AdminDesign;
-import logic.Check;
 
 class DataBaseTest {
 
@@ -120,7 +118,6 @@ class DataBaseTest {
 		DefaultTableModel modelFornecedor = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nome", "Localização" });
 		assertEquals(true, db.nomeFornecedor(modelFornecedor));
-		int size = modelFornecedor.getRowCount();
 		
 		ArrayList<String> result= db.getAllFornecedores();
 		int i;

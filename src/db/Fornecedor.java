@@ -31,11 +31,7 @@ public class Fornecedor {
 			stmt = db.getC().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				int id =rs.getInt("id");
 				String nome = rs.getString("nome");
-				int id_armazem = rs.getInt("id_armazem");
-				//String format = "%-25s%-25s%s%n";
-				//System.out.printf(format,"id: "+id,"nome: "+nome,"id_armazem: "+id_armazem);
 				modelFornecedor.addRow(new Object[] { nome });
 			}
 		} catch (Exception e) {
@@ -59,7 +55,6 @@ public class Fornecedor {
 		db.connect();
 		String sql = "INSERT INTO fornecedor (nome, id_armazem)"
 				   + "VALUES ('"+nome+"',"+"(SELECT id FROM armazem WHERE nome="+"'"+nomeArmazem+"')"+")";
-		//System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);
@@ -106,7 +101,6 @@ public class Fornecedor {
 	public boolean remove(DataBase db, String nome) {
 		db.connect();
 		String sql = "DELETE FROM fornecedor WHERE nome="+"'"+nome+"'";
-		//System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();
 			stmt.executeUpdate(sql);

@@ -1,4 +1,4 @@
-package guiLogin;
+package guilogin;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.PopUp;
-import guiAdmin.AdminDesign;
+import guiadmin.AdminDesign;
 import logic.Check;
 import logic.Mail;
 

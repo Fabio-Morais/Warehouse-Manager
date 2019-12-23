@@ -1,4 +1,4 @@
-package guiUser;
+package guiuser;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
 public class Vendas {

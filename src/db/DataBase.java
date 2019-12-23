@@ -14,19 +14,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
-import java.net.Socket;
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-
 import org.apache.ibatis.jdbc.ScriptRunner;
-
 import javax.swing.table.DefaultTableModel;
 /**
  * Classe de acesso a base de dados
@@ -211,7 +203,6 @@ public class DataBase {
 		      disconnect();
 		      return true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	      disconnect();

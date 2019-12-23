@@ -2,7 +2,7 @@ package logic;
 
 import java.awt.EventQueue;
 
-import guiLogin.LoginDesign;
+import guilogin.LoginDesign;
 
 public class Main {
 

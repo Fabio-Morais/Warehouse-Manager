@@ -1,4 +1,4 @@
-package guiUser;
+package guiuser;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import java.awt.CardLayout;
@@ -39,8 +39,8 @@ import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartPanel;
 import db.DataBase;
 import gui.PopUp;
-import guiAdmin.AdminDesign;
-import guiLogin.LoginDesign;
+import guiadmin.AdminDesign;
+import guilogin.LoginDesign;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;

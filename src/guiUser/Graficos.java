@@ -1,4 +1,4 @@
-package guiUser;
+package guiuser;
 import db.*;
 
 import java.awt.Color;
