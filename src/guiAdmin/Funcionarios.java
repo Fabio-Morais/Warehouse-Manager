@@ -235,8 +235,8 @@ public class Funcionarios {
 			}
 		}
 		if (isFinished) {
-			db.updateFuncionario(modelFuncionario.getValueAt(indexOfRow[0],0 ).toString(), nifField.getText(),
-					nomeField.getText(), (int)this.idade.getValue(), funcaoField.getText(), (double)this.salario.getValue());
+			String dados = nifField.getText()+";"+nomeField.getText()+";"+this.idade.getValue()+";"+funcaoField.getText()+";"+this.salario.getValue();
+			db.updateFuncionario(modelFuncionario.getValueAt(indexOfRow[0],0 ).toString(), dados);
 			modelFuncionario.setValueAt(nomeField.getText(), indexOfRow[0], 1);
 			modelFuncionario.setValueAt(nifField.getText(), indexOfRow[0], 0);
 		}

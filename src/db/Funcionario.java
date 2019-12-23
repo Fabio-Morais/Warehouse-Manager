@@ -152,17 +152,14 @@ public class Funcionario {
 	 * Update no utilizador
 	 * @param db Base de Dados referente 
 	 * @param nifAntigo Nif antigo 
-	 * @param nif Nif novo do funcionario
-	 * @param nome Nome do funcionario
-	 * @param idade Idade do funcionario
-	 * @param funcao Função do funcionario
-	 * @param salario Salario do funiconario
+	 * @param novosDados dados do novo funcionario separado por ";", contem o nif, nome, idaide, funcao e salario do funcionario
 	 * @return Boolean True se inseriu corretamente/False caso contrario
 	 */
-	public boolean updateFuncionario(DataBase db, String nifAntigo,String nif, String nome, int idade, String funcao, double salario) {
+	public boolean updateFuncionario(DataBase db, String nifAntigo, String novosDados) {
+		String[] dados= novosDados.split(";");
 		db.connect();
 		String sql ="UPDATE funcionario "
-				  + "SET nif = '"+nif+"' ,nome= '"+nome+"' ,idade= '"+idade+"' ,funcao= '"+funcao+"' ,salario=' "+salario+"'"
+				  + "SET nif = '"+dados[0]+"' ,nome= '"+dados[1]+"' ,idade= '"+dados[2]+"' ,funcao= '"+dados[3]+"' ,salario=' "+dados[4]+"'"
 				  + " WHERE nif = '"+nifAntigo+"'";
 		//System.out.println(sql);
 		try {

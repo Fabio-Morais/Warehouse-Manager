@@ -172,7 +172,7 @@ class DataBaseTest {
 		
 		/*Update*/
 		String[] dados2= {"nomeNovo","32","engenheiro2","700.5", "1"};//2-> id do armazem em questão
-		assertEquals(true, db.updateFuncionario("123456789123","987654321","nomeNovo",32,"engenheiro2",700.5));
+		assertEquals(true, db.updateFuncionario("123456789123","987654321;nomeNovo;32;engenheiro2;700.5"));
 		assertTrue(Arrays.equals(dados2, db.getFuncinarioByNif("987654321")));
 		
 		/*Remove*/

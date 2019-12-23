@@ -390,15 +390,11 @@ public class DataBase {
 	/**
 	 * Update no utilizador
 	 * @param nifAntigo Nif antigo 
-	 * @param nif Nif novo do funcionario
-	 * @param nome Nome do funcionario
-	 * @param idade Idade do funcionario
-	 * @param funcao Função do funcionario
-	 * @param salario Salario do funiconario
+	 * @param novosDados dados do novo funcionario separado por ";", contem o nif, nome, idaide, funcao e salario do funcionario
 	 * @return Boolean True se inseriu corretamente/False caso contrario
 	 */
-	public boolean updateFuncionario(String nifAntigo,String nif, String nome, int idade, String funcao, double salario){
-		return funcionario.updateFuncionario(this, nifAntigo, nif, nome, idade, funcao, salario);
+	public boolean updateFuncionario(String nifAntigo,String novosDados){
+		return funcionario.updateFuncionario(this, nifAntigo, novosDados);
 	}
 	
 	/**
