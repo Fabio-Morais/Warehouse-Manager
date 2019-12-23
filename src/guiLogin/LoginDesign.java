@@ -37,10 +37,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutionException;
-
 import gui.PopUp;
 import gui.StyledButtonUI;
 import java.awt.Cursor;
@@ -62,6 +58,13 @@ public class LoginDesign {
 	private PopUp popUp;
 
 	private String loginUsername;
+	private Timer counterTimer;
+	//private boolean isConnected;
+	private boolean first = false;
+	private JLabel lblConectado;
+	private JLabel label_2;
+	private JLabel loadingIcon;
+
 
 	/**
 	 * Create the application.
@@ -127,37 +130,19 @@ public class LoginDesign {
 		return loginUsername;
 	}
 
-	private Timer counterTimer;
-	private boolean isConnected;
-	private boolean first = false;
-	private JLabel lblConectado;
-	private JLabel label_2;
-
+	
 	/* TEMPO COMO BACKGROUND */
 	private void backgroundTimer() {
 		counterTimer = new Timer(2000, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				/*Set<Thread> threads = Thread.getAllStackTraces().keySet();
-				 System.out.println("\n\n\n\n");
-				for (Thread t : threads) {
-				    String name = t.getName();
-				    Thread.State state = t.getState();
-				    int priority = t.getPriority();
-				    String type = t.isDaemon() ? "Daemon" : "Normal";
-				    System.out.printf("%-20s \t %s \t %d \t %s\n", name, state, priority, type);
-				}	*/		
-				
+			public void actionPerformed(ActionEvent e) {				
 				if (db.connect()) {
 					lblConectado.setText("Conectado");
 					label_2.setIcon(new ImageIcon(AdminDesign.class.getResource(ON)));
 					db.disconnect();
-					isConnected = true;
 					first = true;
 				} else {
 					lblConectado.setText("Desconectado");
 					label_2.setIcon(new ImageIcon(AdminDesign.class.getResource(OFF)));
-					isConnected = false;
 					if (first) {
 						first = false;
 						popUp.showPopUpDataBaseError2();
@@ -169,7 +154,6 @@ public class LoginDesign {
 		});
 	}
 
-	private JLabel loadingIcon;
 
 	/**
 	 * Initialize the contents of the frame.

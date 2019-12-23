@@ -4,13 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,13 +14,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
-
 import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import db.DataBase;
 import gui.PopUp;
 import guiAdmin.AdminDesign;
-import guiUser.userDesign;
 import logic.Check;
 import logic.Mail;
 
