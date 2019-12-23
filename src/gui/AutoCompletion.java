@@ -11,20 +11,24 @@ import javax.swing.text.*;
  * http://creativecommons.org/licenses/publicdomain/
  */
 public class AutoCompletion extends PlainDocument {
-	JComboBox comboBox;
-	ComboBoxModel model;
-	JTextComponent editor;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2013898825421502284L;
+	private JComboBox<String> comboBox;
+	private ComboBoxModel<String> model;
+	private JTextComponent editor;
 // flag to indicate if setSelectedItem has been called
 // subsequent calls to remove/insertString should be ignored
-	boolean selecting = false;
-	boolean hidePopupOnFocusLoss;
-	boolean hitBackspace = false;
-	boolean hitBackspaceOnSelection;
+	private boolean selecting = false;
+	private boolean hidePopupOnFocusLoss;
+	private boolean hitBackspace = false;
+	private boolean hitBackspaceOnSelection;
 
-	KeyListener editorKeyListener;
-	FocusListener editorFocusListener;
+	private KeyListener editorKeyListener;
+	private FocusListener editorFocusListener;
 
-	public AutoCompletion(final JComboBox comboBox) {
+	public AutoCompletion(final JComboBox<String> comboBox) {
 		this.comboBox = comboBox;
 		model = comboBox.getModel();
 		comboBox.addActionListener(new ActionListener() {
@@ -34,11 +38,12 @@ public class AutoCompletion extends PlainDocument {
 			}
 		});
 		comboBox.addPropertyChangeListener(new PropertyChangeListener() {
+			@SuppressWarnings("unchecked")
 			public void propertyChange(PropertyChangeEvent e) {
 				if (e.getPropertyName().equals("editor"))
 					configureEditor((ComboBoxEditor) e.getNewValue());
 				if (e.getPropertyName().equals("model"))
-					model = (ComboBoxModel) e.getNewValue();
+					model = (ComboBoxModel<String>) e.getNewValue();
 			}
 		});
 		editorKeyListener = new KeyAdapter() {
@@ -46,7 +51,8 @@ public class AutoCompletion extends PlainDocument {
 				if (comboBox.isDisplayable())
 					comboBox.setPopupVisible(true);
 				hitBackspace = false;
-				switch (e.getKeyCode()) {
+				int x = e.getKeyCode();
+				switch (x) {
 				// determine if the pressed key is backspace (needed by the remove method)
 				case KeyEvent.VK_BACK_SPACE:
 					hitBackspace = true;
@@ -56,6 +62,8 @@ public class AutoCompletion extends PlainDocument {
 				case KeyEvent.VK_DELETE:
 					e.consume();
 					comboBox.getToolkit().beep();
+					break;
+				default:
 					break;
 				}
 			}
@@ -82,7 +90,7 @@ public class AutoCompletion extends PlainDocument {
 		highlightCompletedText(0);
 	}
 
-	public static void enable(JComboBox comboBox) {
+	public static void enable(JComboBox<String> comboBox) {
 		// has to be editable
 		comboBox.setEditable(true);
 		// change the editor's document
@@ -195,24 +203,4 @@ public class AutoCompletion extends PlainDocument {
 		return str1.toUpperCase().startsWith(str2.toUpperCase());
 	}
 
-	private static void createAndShowGUI() {
-		// the combo box (add/modify items if you like to)
-		final JComboBox comboBox = new JComboBox(new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
-		enable(comboBox);
-
-		// create and show a window containing the combo box
-		final JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(3);
-		frame.getContentPane().add(comboBox);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
-	}
 }

@@ -14,11 +14,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Armazem {
 	
-	/**
-	 * Construtor vazio
-	 */
-	public Armazem() {
-	}
 	
 	/**
 	 * Insere no TableModel os dados Nome e Localização 
