@@ -3,123 +3,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Properties;
 import javax.swing.JPanel;
-
 import javax.swing.JComboBox;
-
 import javax.swing.JLabel;
-
 import javax.swing.JOptionPane;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
-import javax.swing.table.DefaultTableModel;
-
 import com.toedter.calendar.JDateChooser;
-
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.DateLabelFormatter;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
-
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Properties;
-
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import gui.DateLabelFormatter;
-import gui.AutoCompletion;
-import gui.DateLabelFormatter;
-import com.toedter.calendar.JDateChooser;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Properties;
-import javax.swing.JFrame;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.text.SimpleDateFormat;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.awt.color.CMMException;
-
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.UIManager;
-import java.awt.Cursor;
-import java.awt.ComponentOrientation;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.JSeparator;
 import javax.swing.JSpinner;
-
-import java.awt.Dimension;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
-import javax.swing.JEditorPane;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.table.DefaultTableModel;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
-import com.toedter.calendar.JDateChooser;
-
-import db.DataBase;
-import gui.PopUp;
-//import GUI.Maquinas;
-import guiLogin.LoginDesign;
-import logic.Check;
-
-import javax.swing.ImageIcon;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 
 public class ReceberProduto {
 	private JSpinner quantidadeJS;

@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +19,6 @@ import com.toedter.calendar.JDateChooser;
 
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.DateLabelFormatter;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
@@ -33,7 +31,6 @@ import javax.swing.border.LineBorder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Properties;
 
 public class EnviarProduto {
 	private static final String SEND = "/send.png";

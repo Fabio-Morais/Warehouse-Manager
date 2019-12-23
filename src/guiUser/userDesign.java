@@ -1,16 +1,10 @@
 package guiUser;
-
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,67 +16,43 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.color.CMMException;
-
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Insets;
-
 import javax.swing.UIManager;
 import java.awt.Cursor;
-import java.awt.ComponentOrientation;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.metal.MetalToggleButtonUI;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.CategoryDataset;
-
 import db.DataBase;
 import gui.PopUp;
 import guiAdmin.AdminDesign;
-//import GUI.Maquinas;
 import guiLogin.LoginDesign;
 import logic.Check;
 import logic.MessageLogs;
-
 import javax.swing.ImageIcon;
-import javax.swing.AbstractListModel;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -93,18 +63,10 @@ public class userDesign {
 
 	private JFrame frmUserDesign;
 	// Imagens
-	private static final String ADD = "/add.png";
-	private static final String REMOVE = "/remove.png";
-	private static final String HOME = "/home.png";
-	private static final String REFRESH = "/refresh.png";
-	private static final String EDIT = "/edit1.png";
-
-	private static final String MORE = "/more.png";
 	private static final String WEBSITE = "/website.PNG";
 	private static final String HELP = "/help.png";
 	private static final String HOMEMIN = "/homeMin.png";
 	private static final String LOGOUT = "/logout.png";
-	private static final String CHANGE = "/change.png";
 	private static final String RECEBER = "/receber.png";
 	private static final String MAQUINA = "/machineMin.png";
 	private static final String ENVIAR = "/truckMin.png";
@@ -113,7 +75,6 @@ public class userDesign {
 	private static final String VENDAS = "/vendas.png";
 	private static final String PRODUTO = "/box.png";
 	private static final String GRAFICO = "/grafico.png";
-
 	// Classes
 	private Maquinas maquinaClass;
 	private Funcionario funcionarioClasse;
@@ -123,7 +84,6 @@ public class userDesign {
 	private ReceberProduto receberprodutoClass;
 	private CriarCsv criarCsvClasse;
 	private Graficos Chart;
-
 	// Panels
 	private JPanel userDesign;
 	private JPanel Vendas;
@@ -187,9 +147,7 @@ public class userDesign {
 	private CardLayout cl;
 	private CardLayout clGrafico;
 
-	private JTextField skuField;
-	private JTextField dataField;
-	private JTextField userField;
+	
 	private JMenuItem mntmMenu;
 	private JMenuItem mntmExit1;
 	private JMenuItem menuWebsite;
@@ -201,7 +159,7 @@ public class userDesign {
 	/******************/
 	private Timer counterTimer;
 
-	private Check check;
+	//private Check check;
 	private PopUp popUp;
 
 	private MessageLogs messageLogs;
@@ -235,7 +193,7 @@ public class userDesign {
 		this.Chart = new Graficos();
 		db = DataBase.getInstance();
 		this.messageLogs = MessageLogs.getInstance();
-		check = new Check();
+		//check = new Check();
 		popUp = new PopUp();
 		initialize();
 	}

@@ -18,18 +18,13 @@ import org.jfree.data.general.PieDataset;
 
 
 public class Graficos extends JFrame {
-    
-	/**
-	 * 
-	 */
+   
 	private static final long serialVersionUID = 1L;
 
 	public Graficos() {
     }
-
-	
-//Origem dos Lotes
-    public ChartPanel origemLotes() {
+    
+	public ChartPanel origemLotes() {
     	
         CategoryDataset dataset = dadosOrigemLotes();
         JFreeChart chart = criarGraficoOrigemLotes(dataset);
