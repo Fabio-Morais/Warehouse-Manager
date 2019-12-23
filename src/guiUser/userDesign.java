@@ -105,7 +105,6 @@ public class userDesign {
 	// Menu Vendas
 	private JButton btnRefreshVendas;
 	private JButton btnHomeVendas;
-	private JTable table_Vendas;
 	private DefaultTableModel modelVendas;
 	private TableRowSorter<DefaultTableModel> sorterVendas;
 
@@ -149,11 +148,8 @@ public class userDesign {
 	
 	private JMenuItem mntmMenu;
 	private JMenuItem mntmExit1;
-	private JMenuItem menuWebsite;
-	private JMenuItem menuHelpMe;
-	private JLabel lblArmazem;
+	
 	private JLabel lblStatusDb;
-	private JMenu mnNewMenu;
 
 	/******************/
 	private Timer counterTimer;
@@ -162,6 +158,21 @@ public class userDesign {
 	private PopUp popUp;
 
 	private MessageLogs messageLogs;
+	
+
+	private boolean first = true;
+	private JTextField funcionarioSearch;
+	private JTextField produtosSearch;
+	private JTextField maquinaSearch;
+	private JTextField vendasSearch;
+	private JPanel Grafico;
+	private JPanel GraficoMenu;
+	private JPanel Grafico1;
+	private JPanel Grafico2;
+	private JPanel Grafico3;	
+	private JPanel Grafico4;	
+	private JPanel Grafico5;	
+	
 
 	/**
 	 * Adiciona os panels a janela principal
@@ -250,9 +261,6 @@ public class userDesign {
 		btnVendas.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnVendas.setIcon(new ImageIcon(AdminDesign.class.getResource(VENDAS)));
 		btnVendas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
 		});
 		btnVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVendas.setFont(new Font("Consolas", Font.BOLD, 13));
@@ -561,30 +569,30 @@ public class userDesign {
 			}
 		};
 
-		table_Vendas = new JTable();
-		table_Vendas.setModel(modelVendas);
-		table_Vendas.getColumnModel().getColumn(0).setResizable(true);
-		table_Vendas.getColumnModel().getColumn(0).setMinWidth(140);
-		table_Vendas.getColumnModel().getColumn(0).setMaxWidth(150);
-		table_Vendas.getColumnModel().getColumn(1).setResizable(true);
-		table_Vendas.getColumnModel().getColumn(1).setMinWidth(90);
-		table_Vendas.getColumnModel().getColumn(1).setMaxWidth(120);
-		table_Vendas.getColumnModel().getColumn(2).setMinWidth(90);
-		table_Vendas.getColumnModel().getColumn(2).setMaxWidth(120);
-		table_Vendas.getColumnModel().getColumn(3).setMinWidth(90);
-		table_Vendas.getColumnModel().getColumn(3).setMaxWidth(120);
-		scrollPane.setViewportView(table_Vendas);
+		JTable tableVendas = new JTable();
+		tableVendas.setModel(modelVendas);
+		tableVendas.getColumnModel().getColumn(0).setResizable(true);
+		tableVendas.getColumnModel().getColumn(0).setMinWidth(140);
+		tableVendas.getColumnModel().getColumn(0).setMaxWidth(150);
+		tableVendas.getColumnModel().getColumn(1).setResizable(true);
+		tableVendas.getColumnModel().getColumn(1).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(1).setMaxWidth(120);
+		tableVendas.getColumnModel().getColumn(2).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(2).setMaxWidth(120);
+		tableVendas.getColumnModel().getColumn(3).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(3).setMaxWidth(120);
+		scrollPane.setViewportView(tableVendas);
 		VendasMenu.setLayout(gl_VendasMenu);
 
-		table_Vendas.getTableHeader().setReorderingAllowed(false);
-		table_Vendas.setAutoCreateRowSorter(true);// para ordenar
-		table_Vendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tableVendas.getTableHeader().setReorderingAllowed(false);
+		tableVendas.setAutoCreateRowSorter(true);// para ordenar
+		tableVendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		db.produtoVendido(modelVendas);
 		
 		
 		sorterVendas = new TableRowSorter<>(modelVendas);
-		table_Vendas.setRowSorter(sorterVendas);
+		tableVendas.setRowSorter(sorterVendas);
 
 		vendasSearch.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1080,23 +1088,6 @@ public class userDesign {
 
 	}
 
-	private boolean first = true;
-	private JTextField funcionarioSearch;
-	private JTextField produtosSearch;
-	private JTextField maquinaSearch;
-	private JTextField vendasSearch;
-	private JPanel Grafico;
-	private JPanel GraficoMenu;
-	private JPanel Grafico1;
-	private JPanel Grafico2;
-	private JPanel Grafico3;	
-	private JPanel Grafico4;	
-	private JPanel Grafico5;	
-	private ChartPanel chartPanel1;	
-	private ChartPanel chartPanel2;	
-	private ChartPanel chartPanel3;	
-	private ChartPanel chartPanel4;	
-	private ChartPanel chartPanel5;
 	
 	private void putPanelsGrafico() {
 		GraficoMenu.add(Grafico1, "grafico1");
@@ -1109,6 +1100,11 @@ public class userDesign {
 	
 	private void showGraficos() {
 		Grafico = new JPanel();
+		ChartPanel chartPanel1;	
+		ChartPanel chartPanel2;	
+		ChartPanel chartPanel3;	
+		ChartPanel chartPanel4;	
+		ChartPanel chartPanel5;
 		frmUserDesign.getContentPane().add(Grafico, "name_1773234573107200");
 		Grafico.setLayout(new BorderLayout(0, 0));
 		
@@ -1217,9 +1213,14 @@ public class userDesign {
 		separator.setMaximumSize(new Dimension(100, 50));
 		menuBar1.add(separator);
 
+		JMenu mnNewMenu;
+
 		mnNewMenu = new JMenu("Help");
 		menuBar1.add(mnNewMenu);
 
+		JMenuItem menuWebsite;
+		JMenuItem menuHelpMe;
+		
 		menuWebsite = new JMenuItem("Website");
 
 		menuWebsite.setIcon(new ImageIcon(AdminDesign.class.getResource(WEBSITE)));
@@ -1247,6 +1248,8 @@ public class userDesign {
 
 		JLabel lblDg = new JLabel("                                                                               ");
 		panel.add(lblDg);
+
+		JLabel lblArmazem;
 
 		lblArmazem = new JLabel(nomeArmazem);
 		lblArmazem.setForeground(Color.BLACK);

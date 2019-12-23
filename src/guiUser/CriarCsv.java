@@ -53,21 +53,24 @@ public class CriarCsv {
 		
 		if(result == JOptionPane.YES_OPTION) {
 			String TipoRelatorio = comboBox.getSelectedItem().toString();
-			if( (TipoRelatorio != null) && (TipoRelatorio.length() > 0) );
-				if (TipoRelatorio =="Funcionários")
+			if( (TipoRelatorio != null) && (TipoRelatorio.length() > 0) ) {
+			
+				if (TipoRelatorio.equals("Funcionários"))
 					csvFuncionarios(chckbx.isSelected());
-				else if (TipoRelatorio == "Produtos")
+				else if (TipoRelatorio.equals("Produtos"))
 					csvProdutos(chckbx.isSelected());
-				else if	(TipoRelatorio == "Atividade")
+				else if	(TipoRelatorio.equals("Atividade"))
 					csvAtividade(chckbx.isSelected());
-				else if	(TipoRelatorio == "Lotes")
+				else if	(TipoRelatorio.equals("Lotes"))
 					csvLotes(chckbx.isSelected());
-				else if	(TipoRelatorio == "Maquinas")
+				else if	(TipoRelatorio.equals("Maquinas"))
 					csvMaquinas(chckbx.isSelected());
+			}
 		}
 	}
 	
- 	public File localSave(File file) {
+ 	public File localSave() {
+ 		File file=null;
 		JFrame parentFrame = new JFrame();
 		JFileChooser fileChooser = new JFileChooser();		
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.csv", "csv");
@@ -97,8 +100,7 @@ public class CriarCsv {
 	
 	public void csvFuncionarios(boolean openFile){
 		 
-		File file = null;
-		file = localSave(file);
+		 File file = localSave();
 			
 		StringBuilder sb = new StringBuilder();
 		
@@ -148,8 +150,7 @@ public class CriarCsv {
 	
 	public void csvProdutos(boolean openFile){
 		 
-		File file = null;
-		file = localSave(file);		
+		 File file = localSave();		
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -202,8 +203,7 @@ public class CriarCsv {
 	}
 
 	public void csvAtividade(boolean openFile) {
-		File file = null;
-		file = localSave(file);		
+		File file = localSave();		
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -256,8 +256,7 @@ public class CriarCsv {
 	}
 	
 	public void csvMaquinas(boolean openFile) {
-		File file = null;
-		file = localSave(file);		
+		File file = localSave();		
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -306,8 +305,8 @@ public class CriarCsv {
 	}
 	
 	public void csvLotes(boolean openFile) {
-		File file = null;
-		file = localSave(file);		
+		 
+		 File file = localSave();		
 		
 		StringBuilder sb = new StringBuilder();
 		
