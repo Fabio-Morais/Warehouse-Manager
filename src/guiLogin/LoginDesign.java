@@ -1,4 +1,4 @@
-package guiLogin;
+package guilogin;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,7 +28,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 
 import db.DataBase;
-import guiAdmin.AdminDesign;
+import guiadmin.AdminDesign;
 import guiUser.userDesign;
 import logic.MessageLogs;
 
