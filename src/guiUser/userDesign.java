@@ -41,7 +41,6 @@ import db.DataBase;
 import gui.PopUp;
 import guiAdmin.AdminDesign;
 import guiLogin.LoginDesign;
-import logic.Check;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
@@ -139,7 +138,7 @@ public class userDesign {
 
 	//menu grafico
 	private JButton btnGraficos;
-	private JComboBox selectGraph;
+	private JComboBox<String> selectGraph;
 	
 	/**
 	 * Launch the application.
@@ -1152,9 +1151,10 @@ public class userDesign {
 		panel.setBackground(Color.GRAY);
 		Grafico.add(panel, BorderLayout.NORTH);
 		
-		selectGraph = new JComboBox();
-		
-		selectGraph.setModel(new DefaultComboBoxModel(new String[] {"Origem Lotes", "Vendas Sub-Categoria", "Média Salários Idade", "Vendas por Dia", "Atividade diária Utilizadores"}));		GroupLayout gl_panel = new GroupLayout(panel);
+		selectGraph = new JComboBox<>();
+		DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>(new String[] {"Origem Lotes", "Vendas Sub-Categoria", "Média Salários Idade", "Vendas por Dia", "Atividade diária Utilizadores"});
+		selectGraph.setModel(model3);		
+		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
