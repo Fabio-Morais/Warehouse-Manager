@@ -109,7 +109,10 @@ public class userDesign {
 	private TableRowSorter<DefaultTableModel> sorterVendas;
 
 	// Menu Maquinas
-
+	private JPanel funcionariosMenu;
+	private JScrollPane scrollPaneFuncionario;
+	private JLabel lblFuncionarios;
+	private JSeparator separatorFuncionario;
 	private JButton btnRefreshMaquinas;
 	private JButton btnHomeMaquinas;
 	private JButton btnReportarAvaria;
@@ -672,112 +675,7 @@ public class userDesign {
 
 	}
 
-	private void showFuncionariosMenu() {
-		Funcionarios = new JPanel();
-		frmUserDesign.getContentPane().add(Funcionarios, "name_126627817283200");
-		Funcionarios.setLayout(new BorderLayout(0, 0));
-
-		JPanel funcionariosMenu = new JPanel();
-		Funcionarios.add(funcionariosMenu, BorderLayout.CENTER);
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-
-		JLabel lblFuncionarios = new JLabel("Funcionarios\r\n");
-		lblFuncionarios.setFont(new Font("Dialog", Font.BOLD, 22));
-
-		btnRefreshFuncionarios = new JButton("Refresh");
-		btnRefreshFuncionarios.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnRefreshFuncionarios.setBackground(Color.LIGHT_GRAY);
-		btnRefreshFuncionarios.setIcon(new ImageIcon(userDesign.class.getResource("/refresh.png")));
-
-		btnHomeFuncionarios = new JButton("Home");
-		btnHomeFuncionarios.setVerticalAlignment(SwingConstants.TOP);
-		btnHomeFuncionarios.setHorizontalAlignment(SwingConstants.LEFT);
-		btnHomeFuncionarios.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnHomeFuncionarios.setBackground(Color.LIGHT_GRAY);
-		btnHomeFuncionarios.setIcon(new ImageIcon(userDesign.class.getResource("/home.png")));
-
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setForeground(Color.BLUE);
-
-		funcionarioSearch = new JTextField();
-		funcionarioSearch.setColumns(10);
-		funcionarioSearch.setText("Quick Access");
-		funcionarioSearch.setToolTipText("Quick Access");
-		GroupLayout gl_FuncionariosMenu = new GroupLayout(funcionariosMenu);
-		gl_FuncionariosMenu.setHorizontalGroup(gl_FuncionariosMenu.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_FuncionariosMenu.createSequentialGroup().addGap(33).addGroup(gl_FuncionariosMenu
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_FuncionariosMenu.createSequentialGroup().addGroup(gl_FuncionariosMenu
-								.createParallelGroup(Alignment.LEADING)
-								.addComponent(separator_5, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_FuncionariosMenu.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(btnRefreshFuncionarios, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnHomeFuncionarios, GroupLayout.DEFAULT_SIZE, 109,
-												Short.MAX_VALUE)))
-								.addPreferredGap(ComponentPlacement.RELATED, 135, Short.MAX_VALUE).addComponent(
-										scrollPane_1, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_FuncionariosMenu.createSequentialGroup().addComponent(lblFuncionarios)
-								.addPreferredGap(ComponentPlacement.RELATED, 560, Short.MAX_VALUE)
-								.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)))
-						.addGap(38)));
-		gl_FuncionariosMenu.setVerticalGroup(gl_FuncionariosMenu.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_FuncionariosMenu.createSequentialGroup().addGap(41)
-						.addComponent(lblFuncionarios, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(separator_5, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addGap(43)
-						.addComponent(btnRefreshFuncionarios, GroupLayout.PREFERRED_SIZE, 33,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addComponent(btnHomeFuncionarios, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING,
-						gl_FuncionariosMenu.createSequentialGroup().addContainerGap(73, Short.MAX_VALUE)
-								.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-								.addGap(19)));
-		modelFuncionarios = new DefaultTableModel(new Object[][] {},
-				new String[] { "NIF", "Nome", "Idade", "Fun\u00E7\u00E3o" }) {
-			private static final long serialVersionUID = 1L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class };
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		};
-
-		tabela_Funcionarios = new JTable();
-		tabela_Funcionarios.setModel(modelFuncionarios);
-		tabela_Funcionarios.getColumnModel().getColumn(0).setMinWidth(80);
-		tabela_Funcionarios.getColumnModel().getColumn(0).setMaxWidth(80);
-
-		tabela_Funcionarios.getColumnModel().getColumn(1).setMinWidth(100);
-		tabela_Funcionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
-		tabela_Funcionarios.getColumnModel().getColumn(2).setMinWidth(40);
-		tabela_Funcionarios.getColumnModel().getColumn(2).setMaxWidth(50);
-		tabela_Funcionarios.getColumnModel().getColumn(3).setMinWidth(150);
-
-		scrollPane_1.setViewportView(tabela_Funcionarios);
-		funcionariosMenu.setLayout(gl_FuncionariosMenu);
-
-		tabela_Funcionarios.getTableHeader().setReorderingAllowed(false);
-		tabela_Funcionarios.setAutoCreateRowSorter(true);// para ordenar
-		tabela_Funcionarios.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.nifIdadeNomeFuncaoFuncionario(nomeArmazem, modelFuncionarios);
-
+	private void criaFuncionariosrSearch() {
 		sorterFuncionario = new TableRowSorter<>(modelFuncionarios);
 		tabela_Funcionarios.setRowSorter(sorterFuncionario);
 
@@ -811,6 +709,117 @@ public class userDesign {
 				}
 			}
 		});
+
+	}
+	private void criaBotoesFuncionarios() {
+		btnRefreshFuncionarios = new JButton("Refresh");
+		Interface.styleBotaoSimples(btnRefreshFuncionarios, "/refresh.png");
+
+		btnHomeFuncionarios = new JButton("Home");
+		Interface.styleBotaoHome(btnHomeFuncionarios);
+	}
+	private GroupLayout putFuncionariosLayout() {
+		GroupLayout glFuncionariosMenu = new GroupLayout(funcionariosMenu);
+		glFuncionariosMenu.setHorizontalGroup(glFuncionariosMenu.createParallelGroup(Alignment.LEADING)
+				.addGroup(glFuncionariosMenu.createSequentialGroup().addGap(33).addGroup(glFuncionariosMenu
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(glFuncionariosMenu.createSequentialGroup().addGroup(glFuncionariosMenu
+								.createParallelGroup(Alignment.LEADING)
+								.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+								.addGroup(glFuncionariosMenu.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(btnRefreshFuncionarios, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnHomeFuncionarios, GroupLayout.DEFAULT_SIZE, 109,
+												Short.MAX_VALUE)))
+								.addPreferredGap(ComponentPlacement.RELATED, 135, Short.MAX_VALUE).addComponent(
+										scrollPaneFuncionario, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glFuncionariosMenu.createSequentialGroup().addComponent(lblFuncionarios)
+								.addPreferredGap(ComponentPlacement.RELATED, 560, Short.MAX_VALUE)
+								.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)))
+						.addGap(38)));
+		glFuncionariosMenu.setVerticalGroup(glFuncionariosMenu.createParallelGroup(Alignment.LEADING)
+				.addGroup(glFuncionariosMenu.createSequentialGroup().addGap(41)
+						.addComponent(lblFuncionarios, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGap(43)
+						.addComponent(btnRefreshFuncionarios, GroupLayout.PREFERRED_SIZE, 33,
+								GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(btnHomeFuncionarios, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING,
+						glFuncionariosMenu.createSequentialGroup().addContainerGap(73, Short.MAX_VALUE)
+								.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(scrollPaneFuncionario, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+								.addGap(19)));
+		return glFuncionariosMenu;
+	}
+	private void showFuncionariosMenu() {
+		Funcionarios = new JPanel();
+		frmUserDesign.getContentPane().add(Funcionarios, "name_126627817283200");
+		Funcionarios.setLayout(new BorderLayout(0, 0));
+
+		funcionariosMenu = new JPanel();
+		Funcionarios.add(funcionariosMenu, BorderLayout.CENTER);
+
+		scrollPaneFuncionario = new JScrollPane();
+
+		lblFuncionarios = new JLabel("Funcionarios\r\n");
+		lblFuncionarios.setFont(new Font("Dialog", Font.BOLD, 22));
+
+		criaBotoesFuncionarios();
+
+		separatorFuncionario = new JSeparator();
+		separatorFuncionario.setForeground(Color.BLUE);
+
+		funcionarioSearch = new JTextField();
+		Interface.styleSearch(funcionarioSearch);
+		
+		GroupLayout glFuncionariosMenu = putFuncionariosLayout();
+		
+		modelFuncionarios = new DefaultTableModel(new Object[][] {},
+				new String[] { "NIF", "Nome", "Idade", "Fun\u00E7\u00E3o" }) {
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class };
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		};
+
+		tabela_Funcionarios = new JTable();
+		tabela_Funcionarios.setModel(modelFuncionarios);
+		tabela_Funcionarios.getColumnModel().getColumn(0).setMinWidth(80);
+		tabela_Funcionarios.getColumnModel().getColumn(0).setMaxWidth(80);
+
+		tabela_Funcionarios.getColumnModel().getColumn(1).setMinWidth(100);
+		tabela_Funcionarios.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tabela_Funcionarios.getColumnModel().getColumn(2).setMinWidth(40);
+		tabela_Funcionarios.getColumnModel().getColumn(2).setMaxWidth(50);
+		tabela_Funcionarios.getColumnModel().getColumn(3).setMinWidth(150);
+
+		scrollPaneFuncionario.setViewportView(tabela_Funcionarios);
+		funcionariosMenu.setLayout(glFuncionariosMenu);
+
+		tabela_Funcionarios.getTableHeader().setReorderingAllowed(false);
+		tabela_Funcionarios.setAutoCreateRowSorter(true);// para ordenar
+		tabela_Funcionarios.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		db.nifIdadeNomeFuncaoFuncionario(nomeArmazem, modelFuncionarios);
+
+		criaFuncionariosrSearch();
 
 	}
 
