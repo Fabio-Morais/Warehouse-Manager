@@ -236,7 +236,7 @@ public class ReceberProduto {
 	public void sendtoBD(String dadosLote,int quantidade,String SKU) {		
 		String[] aux= dadosLote.split(";");
 
-		if(db.addLote(dadosLote)==false) {
+		if(!db.addLote(dadosLote)) {
 			popUp.showPopUp("O Lote ja existe", "Lote invalido");
 			return;
 		}
