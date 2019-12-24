@@ -1,6 +1,7 @@
 package guiadmin;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
@@ -27,7 +28,10 @@ public class CategoriaProduto {
 	private static final String CATEGORIA = "/list.png";
 	private PopUp popUp;
 	private Check check;
-
+	private DefaultTableModel modelCategoriaProduto;
+	private DefaultTableModel modelSubCategoriaProduto;
+	private JTable subCategoriaProdutoTable;
+	private JTable categoriaProdutoTable;
 	private String loginUsername;
 
 	/* POP UP */
@@ -42,7 +46,82 @@ public class CategoriaProduto {
 		db = DataBase.getInstance();
 		messageLogs = MessageLogs.getInstance();
 		this.loginUsername = username;
+		criaTabela();
 
+	}
+	private DefaultTableModel criaCategoriaModel() {
+		return new DefaultTableModel(new Object[][] {}, new String[] { "Categoria" }) {
+
+			private static final long serialVersionUID = -4871994548676222605L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+	}
+	private DefaultTableModel criaSubCategoriaModel() {
+		return new DefaultTableModel(new Object[][] {}, new String[] { "Sub-Categoria" }) {
+			private static final long serialVersionUID = 7212103990277148587L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+	}
+	
+	private void criaTabela() {
+		modelCategoriaProduto = criaCategoriaModel();
+		modelSubCategoriaProduto = criaSubCategoriaModel();
+		
+		subCategoriaProdutoTable = new JTable();
+		categoriaProdutoTable = new JTable();
+		subCategoriaProdutoTable.setModel(modelSubCategoriaProduto);
+		categoriaProdutoTable.setModel(modelCategoriaProduto);
+
+		/* Para nao mover */
+		subCategoriaProdutoTable.getTableHeader().setReorderingAllowed(false);
+		subCategoriaProdutoTable.setAutoCreateRowSorter(true);// para ordenar
+		subCategoriaProdutoTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		/* Para nao mover */
+		categoriaProdutoTable.getTableHeader().setReorderingAllowed(false);
+		categoriaProdutoTable.setAutoCreateRowSorter(true);// para ordenar
+		categoriaProdutoTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+	}
+	
+	
+	public DefaultTableModel getModelCategoriaProduto() {
+		return modelCategoriaProduto;
+	}
+
+	public DefaultTableModel getModelSubCategoriaProduto() {
+		return modelSubCategoriaProduto;
+	}
+
+	public JTable getSubCategoriaProdutoTable() {
+		return subCategoriaProdutoTable;
+	}
+
+	public JTable getCategoriaProdutoTable() {
+		return categoriaProdutoTable;
 	}
 
 	private boolean confirmData() {

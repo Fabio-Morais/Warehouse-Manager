@@ -29,11 +29,9 @@ import java.net.URI;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import javax.swing.UIManager;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.ComponentOrientation;
-import javax.swing.border.MatteBorder;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.JTable;
@@ -54,7 +52,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.Component;
 import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -166,6 +163,11 @@ public class AdminDesign {
 	/**************/
 
 	/* CATEGORIA PRODUTO MENU */
+	private JLabel categoriaProdutoTexto;
+	private JSeparator categoriaProdutoSeparator;
+	private JScrollPane categoriaProdutoScrollPane;
+	private JScrollPane categoriaProdutoScrollPane2;
+	private JPanel categoriaProdutoPanel;
 	private JButton categoriaProdutoBtnAdicionar;
 	private JButton categoriaProdutoBtnRemover;
 	private JButton categoriaProdutoBtnRefresh;
@@ -279,110 +281,6 @@ public class AdminDesign {
 		cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);// mostrar o main menu
 	}
 
-	private void insertBtnUsers() {
-		btnUsers = new JButton("Users");
-		btnUsers.setMargin(new Insets(10, 14, 10, 14));
-		btnUsers.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnUsers.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnUsers.setVerticalTextPosition(SwingConstants.TOP);
-		btnUsers.setIcon(new ImageIcon(AdminDesign.class.getResource(USERMENU)));
-
-		btnUsers.setBorder(UIManager.getBorder("Button.border"));
-		btnUsers.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnUsers.setForeground(new Color(0, 0, 0));
-		btnUsers.setBackground(Color.LIGHT_GRAY);
-		btnUsers.setFont(new Font("Consolas", Font.BOLD, 13));
-
-	}
-	
-	private void insertBtnLog() {
-		btnLog = new JButton("Logs");
-		btnLog.setMargin(new Insets(10, 2, 10, 2));
-		btnLog.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnLog.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnLog.setVerticalTextPosition(SwingConstants.TOP);
-
-		btnLog.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnLog.setIcon(new ImageIcon(AdminDesign.class.getResource(LOG)));
-		btnLog.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnLog.setBorder(UIManager.getBorder("Button.border"));
-		btnLog.setBackground(Color.LIGHT_GRAY);
-	}
-	
-	private void insertBtnFuncionario() {
-		btnFuncionario = new JButton("<html>Funcionario</html>");
-		btnFuncionario.setMargin(new Insets(10, 2, 10, 2));
-		btnFuncionario.setIcon(new ImageIcon(AdminDesign.class.getResource(FUNCIONARIOMENU)));
-		btnFuncionario.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnFuncionario.setVerticalTextPosition(SwingConstants.TOP);
-		btnFuncionario.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnFuncionario.setForeground(new Color(0, 0, 0));
-		btnFuncionario.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnFuncionario.setBorder(UIManager.getBorder("Button.border"));
-		btnFuncionario.setBackground(Color.LIGHT_GRAY);
-	}
-	
-	private void insertBtnCategoria() {
-		btnCategoriaProduto = new JButton("Categoria");
-		btnCategoriaProduto.setMargin(new Insets(10, 2, 10, 2));
-		btnCategoriaProduto.setIcon(new ImageIcon(AdminDesign.class.getResource(CATEGORIAMENU)));
-		btnCategoriaProduto.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnCategoriaProduto.setVerticalTextPosition(SwingConstants.TOP);
-		btnCategoriaProduto.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnCategoriaProduto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCategoriaProduto.setForeground(new Color(0, 0, 0));
-		btnCategoriaProduto.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnCategoriaProduto.setBorder(UIManager.getBorder("Button.border"));
-		btnCategoriaProduto.setBackground(Color.LIGHT_GRAY);
-	}
-	
-	private void insertBtnFornecedores() {
-
-		btnFornecedores = new JButton("Fornecedores");
-		btnFornecedores.setIcon(new ImageIcon(AdminDesign.class.getResource(FORNECEDORMENU)));
-		btnFornecedores.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnFornecedores.setVerticalTextPosition(SwingConstants.TOP);
-		btnFornecedores.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnFornecedores.setMargin(new Insets(10, 5, 10, 5));
-		btnFornecedores.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		btnFornecedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnFornecedores.setForeground(new Color(0, 0, 0));
-		btnFornecedores.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnFornecedores.setBorder(UIManager.getBorder("Button.border"));
-		btnFornecedores.setBackground(Color.LIGHT_GRAY);
-
-	}
-	
-	private void insertBtnMaquinas() {
-
-		btnMaquinas = new JButton("Maquinas");
-		btnMaquinas.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnMaquinas.setMargin(new Insets(10, 14, 10, 14));
-		btnMaquinas.setVerticalTextPosition(SwingConstants.TOP);
-		btnMaquinas.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnMaquinas.setIcon(new ImageIcon(AdminDesign.class.getResource(MACHINEMENU)));
-		btnMaquinas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnMaquinas.setForeground(new Color(0, 0, 0));
-		btnMaquinas.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnMaquinas.setBorder(UIManager.getBorder("Button.border"));
-		btnMaquinas.setBackground(Color.LIGHT_GRAY);
-	}
-	
-	private void insertBtnBaseDados() {
-		btnDB = new JButton("<html>Base de<br >Dados</html>");
-		btnDB.setMargin(new Insets(5, 20, 5, 20));
-		btnDB.setIcon(new ImageIcon(AdminDesign.class.getResource(DBMENU)));
-		btnDB.setVerticalTextPosition(SwingConstants.TOP);
-		btnDB.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnDB.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnDB.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDB.setForeground(new Color(0, 0, 0));
-		btnDB.setFont(new Font("Consolas", Font.BOLD, 13));
-		btnDB.setBorder(UIManager.getBorder("Button.border"));
-		btnDB.setBackground(Color.LIGHT_GRAY);
-	}
 	
 	private GroupLayout putMenuLayout() {
 		GroupLayout glMenuAdminPanel = new GroupLayout(menuAdminPanel);
@@ -501,8 +399,23 @@ public class AdminDesign {
 		menuAdminPanel.setLayout(glMenuAdminPanel);
 		return glMenuAdminPanel;
 	}
-	
-	/* MAIN PANEL - PRINCIPAL */
+	private void criaBotoesMenu() {
+		btnUsers = new JButton("Users");
+		btnLog =  new JButton("Logs");
+		btnFuncionario =  new JButton("<html>Funcionario</html>");
+		btnCategoriaProduto =  new JButton("Categoria");
+		btnFornecedores =  new JButton("<html>Fornecedores<html>");
+		btnMaquinas =  new JButton("Maquinas");
+		btnDB =  new JButton("<html>Base de<br >Dados</html>");
+		Interface.styleButton(btnDB, DBMENU, new Insets(5, 20, 5, 20));
+		Interface.styleButton(btnUsers, USERMENU, new Insets(10, 14, 10, 14));
+		Interface.styleButton(btnLog, LOG, new Insets(10, 2, 10, 2));
+		Interface.styleButton(btnFuncionario, FUNCIONARIOMENU, new Insets(10, 2, 10, 2));
+		Interface.styleButton(btnCategoriaProduto, CATEGORIAMENU, new Insets(10, 2, 10, 2));
+		Interface.styleButton(btnFornecedores, FORNECEDORMENU, new Insets(10, 5, 10, 5));
+		Interface.styleButton(btnMaquinas, MACHINEMENU, new Insets(10, 14, 10, 14));
+	}
+		/* MAIN PANEL - PRINCIPAL */
 	private void showMainMenu() {
 		menuAdmin = new JPanel();
 
@@ -516,27 +429,33 @@ public class AdminDesign {
 		menuAdminPanel.setPreferredSize(new Dimension(10, 16));
 		menuAdmin.add(menuAdminPanel, BorderLayout.CENTER);
 
-		insertBtnUsers();
-		insertBtnLog();
-		insertBtnFuncionario();
-		insertBtnCategoria();
-		insertBtnFornecedores();
-		insertBtnMaquinas();
-		insertBtnBaseDados();
+		criaBotoesMenu();
 
-		lblSegurana =  Interface.criaLabelMenu("Seguran\u00E7a");
-		separator1 = Interface.criaSeparator();
-		separator = Interface.criaSeparator();
-		separator2 = Interface.criaSeparator();
-		lblControlo = Interface.criaLabelMenu("Controlo");
-		lblData =Interface.criaLabelMenu("Data");
-		textoAdmin = Interface.criaTituloMenu("Admin");
-		lblAtividade = Interface.criaLabelMenu("Atividade");
-		separator3 = Interface.criaSeparator();
+		lblSegurana =  new JLabel("Seguran\u00E7a");
+		Interface.styleLabelMenu(lblSegurana);
+		separator1 = new JSeparator();
+		Interface.styleSeparator(separator1);
+		separator = new JSeparator();
+		Interface.styleSeparator(separator);
+		separator2 = new JSeparator();
+		Interface.styleSeparator(separator2);
+		lblControlo = new JLabel("Controlo");
+		Interface.styleLabelMenu(lblControlo);
+		lblData =new JLabel("Data");
+		Interface.styleLabelMenu(lblData);
+		lblAtividade = new JLabel("Atividade");
+		Interface.styleLabelMenu(lblAtividade);
+		separator3 = new JSeparator();
+		Interface.styleSeparator(separator3);
+		
+		textoAdmin = new JEditorPane();
+		Interface.styleTituloMenu(textoAdmin,"Admin");
+		
 		GroupLayout glMenuAdminPanel = putMenuLayout();
 		menuAdminPanel.setLayout(glMenuAdminPanel);
 	}
 
+	
 	private void criaUserSearch() {
 		sorterUser = new TableRowSorter<>(modelUser);
 		usersTable.setRowSorter(sorterUser);
@@ -635,15 +554,22 @@ public class AdminDesign {
 		users.add(usersPanel, BorderLayout.CENTER);
 		JScrollPane usersScrollPane = new JScrollPane();
 		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		usersBtnAdicionar = Interface.criaBotaoSimples("Adicionar", ADD);
-		usersBtnRemover =  Interface.criaBotaoSimples(REMOVERSTRING, REMOVE);
-		usersBtnEditar = Interface.criaBotaoSimples(EDITARSTRING, EDIT);
-		usersBtnRefresh = Interface.criaBotaoSimples(REFRESHSTRING, REFRESH);
-		JLabel usersTexto = Interface.criaLabel("Users");
-		
-		JSeparator usersSeparator = Interface.criaSeparator();
-		usersBtnHome = Interface.criaBotaoHome("Home", HOME);
-		userSearch = Interface.criaSearch();
+		usersBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(usersBtnAdicionar, ADD);
+		usersBtnRemover =  new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(usersBtnRemover, REMOVE);
+		usersBtnEditar = new JButton(EDITARSTRING);
+		Interface.styleBotaoSimples(usersBtnEditar, EDIT);
+		usersBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		JLabel usersTexto = new JLabel("Users");
+		Interface.styleLabel(usersTexto);
+		JSeparator usersSeparator = new JSeparator();
+		Interface.styleSeparator(usersSeparator);
+		usersBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(usersBtnHome,HOME );
+		userSearch = new JTextField();
+		Interface.styleSearch(userSearch);
 		
 		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
 		modelUser = usersClass.getModelUser();
@@ -655,55 +581,7 @@ public class AdminDesign {
 
 	}
 
-	/* CATEGORIA PRODUTO MENU - SECUNDARIO */
-	private void showCategoriaProduto() {
-		categoriaProduto = new JPanel();
-		frmMenuAdmin.getContentPane().add(categoriaProduto, "name_1323741143870400");
-		categoriaProduto.setLayout(new BorderLayout(0, 0));
-
-		JPanel categoriaProdutoPanel = new JPanel();
-		categoriaProdutoPanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				categoriaProdutoTable.clearSelection();
-				subCategoriaProdutoTable.clearSelection();
-
-			}
-		});
-		categoriaProduto.add(categoriaProdutoPanel, BorderLayout.CENTER);
-
-		JLabel categoriaProdutoTexto = new JLabel("<html>Categoria<br>Produto</html>");
-		categoriaProdutoTexto.setFont(new Font("HP Simplified", Font.BOLD, 28));
-
-		JSeparator categoriaProdutoSeparator = new JSeparator();
-		categoriaProdutoSeparator.setPreferredSize(new Dimension(0, 50));
-		categoriaProdutoSeparator.setMinimumSize(new Dimension(20, 20));
-		categoriaProdutoSeparator.setForeground(Color.BLUE);
-		categoriaProdutoSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		JScrollPane categoriaProdutoScrollPane = new JScrollPane();
-		categoriaProdutoScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
-		categoriaProdutoBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-		categoriaProdutoBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
-		categoriaProdutoBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
-		categoriaProdutoBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		JScrollPane categoriaProdutoScrollPane2 = new JScrollPane();
-		categoriaProdutoScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
-		categoriaProdutoBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
-		categoriaProdutoBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		categoriaProdutoBtnHome = new JButton("Home");
-		categoriaProdutoBtnHome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-		categoriaProdutoBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		categoriaProdutoBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		categoriaProdutoBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
+	private GroupLayout putCategoriaLayout() {
 		GroupLayout glCategoriaProdutoPanel = new GroupLayout(categoriaProdutoPanel);
 		glCategoriaProdutoPanel.setHorizontalGroup(
 				glCategoriaProdutoPanel.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
@@ -755,71 +633,59 @@ public class AdminDesign {
 								.addGap(18).addComponent(categoriaProdutoScrollPane2, GroupLayout.PREFERRED_SIZE, 117,
 										GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(34, Short.MAX_VALUE)));
+		return glCategoriaProdutoPanel;
+	}
+	/* CATEGORIA PRODUTO MENU - SECUNDARIO */
+	private void showCategoriaProduto() {
+		categoriaProduto = new JPanel();
+		frmMenuAdmin.getContentPane().add(categoriaProduto, "name_1323741143870400");
+		categoriaProduto.setLayout(new BorderLayout(0, 0));
 
-		modelCategoriaProduto = new DefaultTableModel(new Object[][] {}, new String[] { "Categoria" }) {
+		categoriaProdutoPanel = new JPanel();
+		
+		categoriaProduto.add(categoriaProdutoPanel, BorderLayout.CENTER);
 
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = -4871994548676222605L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class };
+		categoriaProdutoTexto = new JLabel("<html>Categoria<br>Produto</html>");
+		Interface.styleLabel28(categoriaProdutoTexto);
+		categoriaProdutoSeparator = new JSeparator();
+		Interface.styleSeparator(categoriaProdutoSeparator);
+		
+		categoriaProdutoScrollPane = new JScrollPane();
+		categoriaProdutoScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
+		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
 
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		modelSubCategoriaProduto = new DefaultTableModel(new Object[][] {}, new String[] { "Sub-Categoria" }) {
+		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
 
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = 7212103990277148587L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class };
+		categoriaProdutoScrollPane2 = new JScrollPane();
+		categoriaProdutoScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
+		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
 
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		subCategoriaProdutoTable = new JTable();
-		categoriaProdutoTable = new JTable();
+		categoriaProdutoBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(categoriaProdutoBtnHome, HOME);
+		
+		GroupLayout glCategoriaProdutoPanel = putCategoriaLayout();
 
-		subCategoriaProdutoTable.setModel(modelSubCategoriaProduto);
-		categoriaProdutoTable.setModel(modelCategoriaProduto);
+		
+		subCategoriaProdutoTable = categoriaProdutoClass.getSubCategoriaProdutoTable();
+		categoriaProdutoTable = categoriaProdutoClass.getCategoriaProdutoTable();
+		modelCategoriaProduto = categoriaProdutoClass.getModelCategoriaProduto();
+		modelSubCategoriaProduto = categoriaProdutoClass.getModelSubCategoriaProduto();
+		
 		categoriaProdutoScrollPane2.setViewportView(subCategoriaProdutoTable);
-
 		categoriaProdutoScrollPane.setViewportView(categoriaProdutoTable);
 		categoriaProdutoPanel.setLayout(glCategoriaProdutoPanel);
-
-		/* Para nao mover */
-		subCategoriaProdutoTable.getTableHeader().setReorderingAllowed(false);
-		subCategoriaProdutoTable.setAutoCreateRowSorter(true);// para ordenar
-		subCategoriaProdutoTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		/* Para nao mover */
-		categoriaProdutoTable.getTableHeader().setReorderingAllowed(false);
-		categoriaProdutoTable.setAutoCreateRowSorter(true);// para ordenar
-		categoriaProdutoTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		db.categoriaProduto(modelCategoriaProduto);
 
 	}
 
 	/* FORNECEDORES MENU - SECUNDARIO */
+	
 	private void showFornecedoresMenu() {
 		fornecedores = new JPanel();
 		frmMenuAdmin.getContentPane().add(fornecedores, "name_1323749306915900");
@@ -1964,7 +1830,14 @@ public class AdminDesign {
 			}
 		});
 
-	
+		categoriaProdutoPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				categoriaProdutoTable.clearSelection();
+				subCategoriaProdutoTable.clearSelection();
+
+			}
+		});
 	}
 	
 	private void buttonsFornecedor() {
