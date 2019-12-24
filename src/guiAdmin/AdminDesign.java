@@ -260,7 +260,7 @@ public class AdminDesign {
 		menuBar = new MenuBar(frmMenuAdmin, cl, username);
 		menuBar.setCurrentPanel(MENUADMINSTRING);
 		menuBar.setNomeArmazem(nomeArmazem);
-		menuBar.showMenuBar();
+		menuBar.showMenuBar(0);
 	}
 
 	/* Coloca os panels para conseguir mudar */

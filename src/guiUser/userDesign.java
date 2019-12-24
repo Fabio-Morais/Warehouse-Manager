@@ -1,6 +1,5 @@
 package guiuser;
 
-import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -10,15 +9,11 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
 import java.awt.Color;
 import java.awt.Toolkit;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,8 +21,6 @@ import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.UIManager;
 import java.awt.Cursor;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JSeparator;
@@ -40,9 +33,7 @@ import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartPanel;
 import db.DataBase;
 import gui.Interface;
-import gui.PopUp;
-import guiadmin.AdminDesign;
-import guilogin.LoginDesign;
+import gui.MenuBar;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
@@ -64,10 +55,7 @@ public class userDesign {
 
 	private JFrame frmUserDesign;
 	// Imagens
-	private static final String WEBSITE = "/website.PNG";
-	private static final String HELP = "/help.png";
-	private static final String HOMEMIN = "/homeMin.png";
-	private static final String LOGOUT = "/logout.png";
+
 	private static final String RECEBER = "/receber.png";
 	private static final String MAQUINA = "/machineMin.png";
 	private static final String ENVIAR = "/truckMin.png";
@@ -157,31 +145,22 @@ public class userDesign {
 	private CardLayout cl;
 	private CardLayout clGrafico;
 
-	private JMenuItem mntmMenu;
-	private JMenuItem mntmExit1;
 
-	private JLabel lblStatusDb;
-
-	/******************/
-	private Timer counterTimer;
-
-	// private Check check;
-	private PopUp popUp;
+	private MenuBar menuBar;
 
 	private MessageLogs messageLogs;
 
-	private boolean first = true;
 	private JTextField funcionarioSearch;
 	private JTextField produtosSearch;
 	private JTextField maquinaSearch;
 	private JTextField vendasSearch;
-	private JPanel Grafico;
-	private JPanel GraficoMenu;
-	private JPanel Grafico1;
-	private JPanel Grafico2;
-	private JPanel Grafico3;
-	private JPanel Grafico4;
-	private JPanel Grafico5;
+	private JPanel grafico;
+	private JPanel graficoMenu;
+	private JPanel grafico1;
+	private JPanel grafico2;
+	private JPanel grafico3;
+	private JPanel grafico4;
+	private JPanel grafico5;
 
 	/**
 	 * Adiciona os panels a janela principal
@@ -192,7 +171,7 @@ public class userDesign {
 		frmUserDesign.getContentPane().add(Maquinas, "Maquinas");
 		frmUserDesign.getContentPane().add(Funcionarios, "Funcionarios");
 		frmUserDesign.getContentPane().add(Produtos, "Produtos");
-		frmUserDesign.getContentPane().add(Grafico, "Grafico");
+		frmUserDesign.getContentPane().add(grafico, "Grafico");
 		cl.show(frmUserDesign.getContentPane(), "userDesign");// mostrar o main menu
 	}
 
@@ -212,8 +191,10 @@ public class userDesign {
 		this.Chart = new Graficos();
 		db = DataBase.getInstance();
 		this.messageLogs = MessageLogs.getInstance();
-		popUp = new PopUp();
 		initialize();
+		menuBar = new MenuBar(frmUserDesign, cl, username);
+		menuBar.setNomeArmazem(nomeArmazem);
+		menuBar.showMenuBar(1);
 	}
 
 	private void criaTituloMenu() {
@@ -396,8 +377,8 @@ public class userDesign {
 		frmUserDesign.getContentPane().add(Vendas, "name_148919274819900");
 		Vendas.setLayout(new BorderLayout(0, 0));
 
-		JPanel VendasMenu = new JPanel();
-		Vendas.add(VendasMenu, BorderLayout.CENTER);
+		JPanel vendasMenu = new JPanel();
+		Vendas.add(vendasMenu, BorderLayout.CENTER);
 
 		JLabel lblVendas = new JLabel("Vendas");
 		lblVendas.setFont(new Font("Dialog", Font.BOLD, 32));
@@ -427,13 +408,13 @@ public class userDesign {
 		vendasSearch.setText("Quick Access");
 		vendasSearch.setToolTipText("Quick Access");
 		vendasSearch.setColumns(10);
-		GroupLayout gl_VendasMenu = new GroupLayout(VendasMenu);
-		gl_VendasMenu.setHorizontalGroup(gl_VendasMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_VendasMenu
+		GroupLayout glVendasMenu = new GroupLayout(vendasMenu);
+		glVendasMenu.setHorizontalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
 				.createSequentialGroup().addGap(48)
-				.addGroup(gl_VendasMenu.createParallelGroup(Alignment.LEADING, false).addGroup(gl_VendasMenu
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING, false).addGroup(glVendasMenu
 						.createSequentialGroup()
-						.addGroup(gl_VendasMenu.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_VendasMenu.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
+								.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(btnHomeVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(btnRefreshVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
@@ -441,19 +422,19 @@ public class userDesign {
 								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
 						.addGap(134)
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_VendasMenu.createSequentialGroup().addComponent(lblVendas)
+						.addGroup(glVendasMenu.createSequentialGroup().addComponent(lblVendas)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(vendasSearch, GroupLayout.PREFERRED_SIZE, 118,
 										GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(60, Short.MAX_VALUE)));
-		gl_VendasMenu.setVerticalGroup(gl_VendasMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_VendasMenu
+		glVendasMenu.setVerticalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
 				.createSequentialGroup().addGap(42)
-				.addGroup(gl_VendasMenu.createParallelGroup(Alignment.TRAILING).addComponent(lblVendas).addComponent(
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING).addComponent(lblVendas).addComponent(
 						vendasSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_VendasMenu.createParallelGroup(Alignment.LEADING)
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-						.addGroup(gl_VendasMenu.createSequentialGroup()
+						.addGroup(glVendasMenu.createSequentialGroup()
 								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addGap(39)
 								.addComponent(btnRefreshVendas, GroupLayout.PREFERRED_SIZE, 33,
@@ -467,7 +448,6 @@ public class userDesign {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			Class[] columnTypes = new Class[] { String.class, String.class };
 
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -487,7 +467,7 @@ public class userDesign {
 		tableVendas.getColumnModel().getColumn(3).setMinWidth(90);
 		tableVendas.getColumnModel().getColumn(3).setMaxWidth(120);
 		scrollPane.setViewportView(tableVendas);
-		VendasMenu.setLayout(gl_VendasMenu);
+		vendasMenu.setLayout(glVendasMenu);
 
 		tableVendas.getTableHeader().setReorderingAllowed(false);
 		tableVendas.setAutoCreateRowSorter(true);// para ordenar
@@ -539,8 +519,8 @@ public class userDesign {
 		frmUserDesign.getContentPane().add(Maquinas, "name_111064051438100");
 		Maquinas.setLayout(new BorderLayout(0, 0));
 
-		JPanel MaquinasMenu = new JPanel();
-		Maquinas.add(MaquinasMenu, BorderLayout.CENTER);
+		JPanel maquinasMenu = new JPanel();
+		Maquinas.add(maquinasMenu, BorderLayout.CENTER);
 
 		JLabel lblMaquinas = new JLabel("Maquinas");
 		lblMaquinas.setFont(new Font("Dialog", Font.BOLD, 29));
@@ -580,7 +560,7 @@ public class userDesign {
 		maquinaSearch.setText("Quick Access");
 		maquinaSearch.setToolTipText("Quick Access");
 		maquinaSearch.setColumns(10);
-		GroupLayout gl_MaquinasMenu = new GroupLayout(MaquinasMenu);
+		GroupLayout gl_MaquinasMenu = new GroupLayout(maquinasMenu);
 		gl_MaquinasMenu.setHorizontalGroup(gl_MaquinasMenu
 				.createParallelGroup(Alignment.LEADING).addGroup(gl_MaquinasMenu.createSequentialGroup().addGap(39)
 						.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.LEADING).addComponent(lblMaquinas)
@@ -629,8 +609,10 @@ public class userDesign {
 			 * 
 			 */
 			private static final long serialVersionUID = -96636141310423198L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
 
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -646,7 +628,7 @@ public class userDesign {
 		table_Maquinas.getColumnModel().getColumn(0).setMaxWidth(150);
 
 		scrollPane_2.setViewportView(table_Maquinas);
-		MaquinasMenu.setLayout(gl_MaquinasMenu);
+		maquinasMenu.setLayout(gl_MaquinasMenu);
 
 		table_Maquinas.getTableHeader().setReorderingAllowed(false);
 		table_Maquinas.setAutoCreateRowSorter(true);// para ordenar
@@ -695,8 +677,8 @@ public class userDesign {
 		frmUserDesign.getContentPane().add(Funcionarios, "name_126627817283200");
 		Funcionarios.setLayout(new BorderLayout(0, 0));
 
-		JPanel FuncionariosMenu = new JPanel();
-		Funcionarios.add(FuncionariosMenu, BorderLayout.CENTER);
+		JPanel funcionariosMenu = new JPanel();
+		Funcionarios.add(funcionariosMenu, BorderLayout.CENTER);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 
@@ -722,7 +704,7 @@ public class userDesign {
 		funcionarioSearch.setColumns(10);
 		funcionarioSearch.setText("Quick Access");
 		funcionarioSearch.setToolTipText("Quick Access");
-		GroupLayout gl_FuncionariosMenu = new GroupLayout(FuncionariosMenu);
+		GroupLayout gl_FuncionariosMenu = new GroupLayout(funcionariosMenu);
 		gl_FuncionariosMenu.setHorizontalGroup(gl_FuncionariosMenu.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_FuncionariosMenu.createSequentialGroup().addGap(33).addGroup(gl_FuncionariosMenu
 						.createParallelGroup(Alignment.LEADING)
@@ -762,6 +744,7 @@ public class userDesign {
 		modelFuncionarios = new DefaultTableModel(new Object[][] {},
 				new String[] { "NIF", "Nome", "Idade", "Fun\u00E7\u00E3o" }) {
 			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class };
 
 			public boolean isCellEditable(int row, int column) {
@@ -787,7 +770,7 @@ public class userDesign {
 		tabela_Funcionarios.getColumnModel().getColumn(3).setMinWidth(150);
 
 		scrollPane_1.setViewportView(tabela_Funcionarios);
-		FuncionariosMenu.setLayout(gl_FuncionariosMenu);
+		funcionariosMenu.setLayout(gl_FuncionariosMenu);
 
 		tabela_Funcionarios.getTableHeader().setReorderingAllowed(false);
 		tabela_Funcionarios.setAutoCreateRowSorter(true);// para ordenar
@@ -990,62 +973,62 @@ public class userDesign {
 	}
 
 	private void putPanelsGrafico() {
-		GraficoMenu.add(Grafico1, "grafico1");
-		GraficoMenu.add(Grafico2, "grafico2");
-		GraficoMenu.add(Grafico3, "grafico3");
-		GraficoMenu.add(Grafico4, "grafico4");
-		GraficoMenu.add(Grafico5, "grafico5");
-		clGrafico.show(GraficoMenu, "grafico1");
+		graficoMenu.add(grafico1, "grafico1");
+		graficoMenu.add(grafico2, "grafico2");
+		graficoMenu.add(grafico3, "grafico3");
+		graficoMenu.add(grafico4, "grafico4");
+		graficoMenu.add(grafico5, "grafico5");
+		clGrafico.show(graficoMenu, "grafico1");
 	}
 
 	private void showGraficos() {
-		Grafico = new JPanel();
+		grafico = new JPanel();
 		ChartPanel chartPanel1;
 		ChartPanel chartPanel2;
 		ChartPanel chartPanel3;
 		ChartPanel chartPanel4;
 		ChartPanel chartPanel5;
-		frmUserDesign.getContentPane().add(Grafico, "name_1773234573107200");
-		Grafico.setLayout(new BorderLayout(0, 0));
+		frmUserDesign.getContentPane().add(grafico, "name_1773234573107200");
+		grafico.setLayout(new BorderLayout(0, 0));
 
-		GraficoMenu = new JPanel();
-		Grafico.add(GraficoMenu, BorderLayout.CENTER);
+		graficoMenu = new JPanel();
+		grafico.add(graficoMenu, BorderLayout.CENTER);
 		clGrafico = new CardLayout(0, 0);
-		GraficoMenu.setLayout(clGrafico);
+		graficoMenu.setLayout(clGrafico);
 
-		Grafico1 = new JPanel();
-		Grafico1.setLayout(new BorderLayout(0, 0));
+		grafico1 = new JPanel();
+		grafico1.setLayout(new BorderLayout(0, 0));
 
 		chartPanel1 = Chart.origemLotes();
-		Grafico1.add(chartPanel1);
+		grafico1.add(chartPanel1);
 
-		Grafico2 = new JPanel();
-		Grafico2.setLayout(new BorderLayout(0, 0));
+		grafico2 = new JPanel();
+		grafico2.setLayout(new BorderLayout(0, 0));
 
 		chartPanel2 = Chart.VendasSubCategoria();
-		Grafico2.add(chartPanel2);
+		grafico2.add(chartPanel2);
 
-		Grafico3 = new JPanel();
-		Grafico3.setLayout(new BorderLayout(0, 0));
+		grafico3 = new JPanel();
+		grafico3.setLayout(new BorderLayout(0, 0));
 
 		chartPanel3 = Chart.mediaSalariosIdade();
-		Grafico3.add(chartPanel3);
+		grafico3.add(chartPanel3);
 
-		Grafico4 = new JPanel();
-		Grafico4.setLayout(new BorderLayout(0, 0));
+		grafico4 = new JPanel();
+		grafico4.setLayout(new BorderLayout(0, 0));
 
 		chartPanel4 = Chart.VendasPorDia();
-		Grafico4.add(chartPanel4);
+		grafico4.add(chartPanel4);
 
-		Grafico5 = new JPanel();
-		Grafico5.setLayout(new BorderLayout(0, 0));
+		grafico5 = new JPanel();
+		grafico5.setLayout(new BorderLayout(0, 0));
 
 		chartPanel5 = Chart.AtividadeUser();
-		Grafico5.add(chartPanel5);
+		grafico5.add(chartPanel5);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
-		Grafico.add(panel, BorderLayout.NORTH);
+		grafico.add(panel, BorderLayout.NORTH);
 
 		selectGraph = new JComboBox<>();
 		DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>(new String[] { "Origem Lotes",
@@ -1059,129 +1042,6 @@ public class userDesign {
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addComponent(selectGraph,
 				Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE));
 		panel.setLayout(gl_panel);
-	}
-
-	/* TEMPO COMO BACKGROUND */
-	private void backgroundTimer() {
-		counterTimer = new Timer(2000, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (db.connect()) {
-					lblStatusDb.setText("ON");
-					lblStatusDb.setForeground(Color.GREEN);
-					db.disconnect();
-					first = true;
-				} else {
-					lblStatusDb.setText("OFF");
-					lblStatusDb.setForeground(Color.RED);
-					if (first) {
-						int option = popUp.showPopUpDataBaseError2();
-
-						if (option == JOptionPane.NO_OPTION) {
-							cl.show(frmUserDesign.getContentPane(), "base_dados");
-						}
-						first = false;
-					}
-				}
-			}
-
-		});
-	}
-
-	/* BARRA MENU */
-	private void showMenuBar() {
-		JMenuBar menuBar1 = new JMenuBar();
-		menuBar1.setBackground(Color.WHITE);
-		frmUserDesign.setJMenuBar(menuBar1);
-
-		JMenu mnFile1 = new JMenu("File");
-		mnFile1.setBackground(Color.LIGHT_GRAY);
-		menuBar1.add(mnFile1);
-
-		mntmMenu = new JMenuItem("Menu");
-		mntmMenu.setIcon(new ImageIcon(AdminDesign.class.getResource(HOMEMIN)));
-		mnFile1.add(mntmMenu);
-
-		mntmExit1 = new JMenuItem("Exit");
-		mntmExit1.setIcon(new ImageIcon(AdminDesign.class.getResource(LOGOUT)));
-		mnFile1.add(mntmExit1);
-
-		JSeparator separator = new JSeparator();
-		separator.setMaximumSize(new Dimension(100, 50));
-		menuBar1.add(separator);
-
-		JMenu mnNewMenu;
-
-		mnNewMenu = new JMenu("Help");
-		menuBar1.add(mnNewMenu);
-
-		JMenuItem menuWebsite;
-		JMenuItem menuHelpMe;
-
-		menuWebsite = new JMenuItem("Website");
-
-		menuWebsite.setIcon(new ImageIcon(AdminDesign.class.getResource(WEBSITE)));
-		mnNewMenu.add(menuWebsite);
-
-		JSeparator separator_1 = new JSeparator();
-		mnNewMenu.add(separator_1);
-
-		menuHelpMe = new JMenuItem("Help Me");
-		menuHelpMe.setIcon(new ImageIcon(AdminDesign.class.getResource(HELP)));
-		mnNewMenu.add(menuHelpMe);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		menuBar1.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-		JLabel lblBaseDeDados = new JLabel("Base de Dados:");
-		panel.add(lblBaseDeDados);
-
-		lblStatusDb = new JLabel("ON");
-		lblStatusDb.setForeground(Color.GREEN);
-		lblStatusDb.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel.add(lblStatusDb);
-
-		JLabel lblDg = new JLabel("                                                                               ");
-		panel.add(lblDg);
-
-		JLabel lblArmazem;
-
-		lblArmazem = new JLabel(nomeArmazem);
-		lblArmazem.setForeground(Color.BLACK);
-		lblArmazem.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
-		lblArmazem.setBackground(Color.BLACK);
-		panel.add(lblArmazem);
-		lblArmazem.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblArmazem.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		JLabel label = new JLabel("       ");
-		menuBar1.add(label);
-		label.setBackground(Color.WHITE);
-
-		backgroundTimer();
-
-		counterTimer.start();
-
-	}
-
-	private void botoesMenu() {
-		mntmMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmUserDesign.getContentPane(), "userDesign");
-			}
-		});
-		mntmExit1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				counterTimer.stop();
-				messageLogs.saiuSistema(username, false, nomeArmazem);
-				LoginDesign window2 = new LoginDesign();
-				window2.getFrmLogin().setVisible(true);
-				frmUserDesign.dispose();
-
-			}
-		});
-
 	}
 
 	private void botoesVendas() {
@@ -1318,18 +1178,18 @@ public class userDesign {
 		selectGraph.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if (selectGraph.getSelectedItem().toString().equals("Origem Lotes")) {
-					clGrafico.show(GraficoMenu, "grafico1");
+					clGrafico.show(graficoMenu, "grafico1");
 				} else if (selectGraph.getSelectedItem().toString().equals("Vendas Sub-Categoria")) {
-					clGrafico.show(GraficoMenu, "grafico2");
+					clGrafico.show(graficoMenu, "grafico2");
 
 				} else if (selectGraph.getSelectedItem().toString().equals("Média Salários Idade")) {
-					clGrafico.show(GraficoMenu, "grafico3");
+					clGrafico.show(graficoMenu, "grafico3");
 
 				} else if (selectGraph.getSelectedItem().toString().equals("Vendas por Dia")) {
-					clGrafico.show(GraficoMenu, "grafico4");
+					clGrafico.show(graficoMenu, "grafico4");
 
 				} else {
-					clGrafico.show(GraficoMenu, "grafico5");
+					clGrafico.show(graficoMenu, "grafico5");
 
 				}
 			}
@@ -1338,7 +1198,6 @@ public class userDesign {
 	
 	private void botoes() {
 		
-		botoesMenu();
 		botoesVendas();
 		botoesFuncionarios();
 		botoesProdutos();
@@ -1395,11 +1254,7 @@ public class userDesign {
 		showGraficos();
 		putPanels();
 		putPanelsGrafico();
-		// Menu Principal
 
-		/***** MENU BAR *****/
-		showMenuBar();
-		/***********************/
 		botoes();
 	}
 

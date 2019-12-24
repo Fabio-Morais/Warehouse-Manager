@@ -55,12 +55,12 @@ public class MenuBar {
 	private JLabel lblStatusDb;
 	private JFrame frame;
 	private String nomeArmazem;
-	
+
 	private boolean first = true;
 	private Timer counterTimer;
 	private String currentPanel;
 	private String username;
-	
+
 	private DataBase db;
 	private MessageLogs messageLogs;
 	private Armazem armazemClass;
@@ -70,7 +70,7 @@ public class MenuBar {
 	private CardLayout cl;
 
 	/******************/
-	public MenuBar(JFrame frame,  CardLayout cl, String username) {
+	public MenuBar(JFrame frame, CardLayout cl, String username) {
 		this.frame = frame;
 		this.cl = cl;
 		db = DataBase.getInstance();
@@ -78,38 +78,34 @@ public class MenuBar {
 		armazemClass = new Armazem(username);
 		help = new Help();
 		popUp = new PopUp();
-		
+
 	}
-	
 
 	public String getCurrentPanel() {
 		return currentPanel;
 	}
 
-
 	public String getNomeArmazem() {
 		return nomeArmazem;
 	}
-
 
 	public void setNomeArmazem(String nomeArmazem) {
 		this.nomeArmazem = nomeArmazem;
 	}
 
-
 	public void setLblStatusDb(String string) {
 		this.lblStatusDb.setText(string);
 	}
-
 
 	public void setCurrentPanel(String currentPanel) {
 		this.currentPanel = currentPanel;
 	}
 
-
-	/** Mostra a barra menu
+	/**
+	 * Mostra a barra menu
+	 * 
 	 * @param choice - 0:admin menu; 1:user menu
-	 * */
+	 */
 	public void showMenuBar(int choice) {
 		JMenuBar menuBar1 = new JMenuBar();
 		menuBar1.setBackground(Color.WHITE);
@@ -169,31 +165,31 @@ public class MenuBar {
 		panel.add(lblArmazem);
 		lblArmazem.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblArmazem.setHorizontalAlignment(SwingConstants.RIGHT);
+		if (choice == 0) {
+			menuBarArmazem = new JMenu("");
+			menuBarArmazem.setMaximumSize(new Dimension(50, 50));
+			menuBarArmazem.setMargin(new Insets(0, 0, 0, 0));
 
-		menuBarArmazem = new JMenu("");
-		menuBarArmazem.setMaximumSize(new Dimension(50, 50));
-		menuBarArmazem.setMargin(new Insets(0, 0, 0, 0));
+			menuBarArmazem.setHorizontalAlignment(SwingConstants.LEFT);
+			menuBarArmazem.setBackground(Color.WHITE);
+			menuBar1.add(menuBarArmazem);
+			menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
 
-		menuBarArmazem.setHorizontalAlignment(SwingConstants.LEFT);
-		menuBarArmazem.setBackground(Color.WHITE);
-		menuBar1.add(menuBarArmazem);
-		menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
+			menuMudarNomeArmazem = new JMenuItem("Mudar informação");
 
-		menuMudarNomeArmazem = new JMenuItem("Mudar informação");
-
-		menuMudarNomeArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(CHANGE)));
-		menuBarArmazem.add(menuMudarNomeArmazem);
-
+			menuMudarNomeArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(CHANGE)));
+			menuBarArmazem.add(menuMudarNomeArmazem);
+		}
 		JLabel label = new JLabel("       ");
 		menuBar1.add(label);
 		label.setBackground(Color.WHITE);
-		buttonsMenu();
+		buttonsMenu(choice);
 		backgroundTimer();
 
 		counterTimer.start();
 
 	}
-	
+
 	public JLabel getLblStatusDb() {
 		return lblStatusDb;
 	}
@@ -227,7 +223,7 @@ public class MenuBar {
 
 	}
 
-	private void buttonsMenu() {
+	private void buttonsMenu(int choice) {
 		mntmMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frame.getContentPane(), MENUADMINSTRING);
@@ -257,34 +253,36 @@ public class MenuBar {
 				}
 			}
 		});
-		menuBarArmazem.addMenuListener(new MenuListener() {
-			public void menuDeselected(MenuEvent arg0) {
-				menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
+		if (choice == 0) {
+			menuBarArmazem.addMenuListener(new MenuListener() {
+				public void menuDeselected(MenuEvent arg0) {
+					menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
 
-			}
-
-			public void menuSelected(MenuEvent arg0) {
-				menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE1)));
-
-			}
-
-			@Override
-			public void menuCanceled(MenuEvent arg0) {
-				// Empty method
-			}
-		});
-		menuMudarNomeArmazem.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				String localizacao = db.localizacaoArmazem(nomeArmazem);
-				String[] x = armazemClass.editarArmazem(nomeArmazem, localizacao);
-				if (x[0] != null) {
-					nomeArmazem = x[0];
-					lblArmazem.setText(nomeArmazem);
 				}
 
-			}
-		});
+				public void menuSelected(MenuEvent arg0) {
+					menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE1)));
+
+				}
+
+				@Override
+				public void menuCanceled(MenuEvent arg0) {
+					// Empty method
+				}
+			});
+			menuMudarNomeArmazem.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					String localizacao = db.localizacaoArmazem(nomeArmazem);
+					String[] x = armazemClass.editarArmazem(nomeArmazem, localizacao);
+					if (x[0] != null) {
+						nomeArmazem = x[0];
+						lblArmazem.setText(nomeArmazem);
+					}
+
+				}
+			});
+		}
 		menuHelpMe.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
