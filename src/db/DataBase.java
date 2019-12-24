@@ -660,15 +660,11 @@ public class DataBase {
 	
 	/**
 	 * Insere informação do Lote
-	 * @param numeroLote Numero de lote da subCategoria pertencente
-	 * @param origem Origem do lote
-	 * @param dataChegada data de chegada do lote
-	 * @param subCategoria subCategoria que pertence o lote
-	 * @param nome Nome do produto que o lote tem
+	 * @param dadosLote dados do lote numa string separado por ";", numero de lote, origem, data chegada, sub categoria e nome do lote
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
-	public boolean addLote(String numeroLote, String origem, String dataChegada, String subCategoria, String nome) {
-		return lote.insertAll(this, numeroLote, origem, dataChegada, subCategoria, nome);
+	public boolean addLote(String dadosLote) {
+		return lote.insertAll(this, dadosLote);
 	}	
 	/**
 	 * Insere na tabela o numero de lote e o nome do produto

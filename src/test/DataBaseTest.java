@@ -362,8 +362,8 @@ class DataBaseTest {
 		db.removeLote("123123");
 		
 		/*Adiciona*/
-		assertEquals(true, db.addLote("123123","portugal", db.localDate(), "sub categoria teste", "produto nome"));
-		assertEquals(false, db.addLote("123123","portugal", db.localDate(), "sub categoria teste", "produto nome"));
+		assertEquals(true, db.addLote("123123;portugal"+";"+db.localDate()+";"+"sub categoria teste"+";"+"produto nome"));
+		assertEquals(false, db.addLote("123123;portugal"+";"+ db.localDate()+";"+"sub categoria teste"+";"+"produto nome"));
 
 		/*numeroNomeLote*/
 		DefaultTableModel modelLote = new DefaultTableModel(new Object[][] {},
@@ -389,7 +389,7 @@ class DataBaseTest {
 		 db.removeLote("num123");
 		assertEquals(true, db.addCategoriaProduto("categoria", armazem));
 		assertEquals(true, db.addSubCategoria("sub categoria","categoria"));
-		assertEquals(true, db.addLote("num123","portugal", db.localDate(), "sub categoria", "produto nome"));
+		assertEquals(true, db.addLote("num123"+";"+"portugal"+";"+db.localDate()+";"+"sub categoria"+";"+"produto nome"));
 		
 		/*Adiciona*/
 		assertEquals(true, db.addProduto("sku123", "num123"));

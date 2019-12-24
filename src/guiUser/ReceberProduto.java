@@ -227,20 +227,76 @@ public class ReceberProduto {
 			java.sql.Timestamp timestamp = new java.sql.Timestamp(dateChooser.getDate().getTime());			
 			String data = new SimpleDateFormat("MM/dd/yyyy").format(timestamp);
 			String sku=SKUField.getText();
-			sendtoBD(numeroLote+"",origem,data,subCategoria,nomeProduto,quantidade,sku);
+			sendtoBD(numeroLote+";"+origem+";"+data+";"+subCategoria+";"+nomeProduto,quantidade,sku);
 			String dados = nomeProduto+";"+quantidade+";"+origem+";"+data+";"+numeroLote;
 			messageLogs.receberProduto(loginUsername, false, dados, nomeArmazem);
 		}
 	}
 	
-	public void sendtoBD(String numeroLote,String origem,String dataChegada,String subCategoria,String nome,int quantidade,String SKU) {		
-		if(db.addLote(numeroLote, origem, dataChegada, subCategoria, nome)==false) {
+	public void sendtoBD(String dadosLote,int quantidade,String SKU) {		
+		String[] aux= dadosLote.split(";");
+
+		if(db.addLote(dadosLote)==false) {
 			popUp.showPopUp("O Lote ja existe", "Lote invalido");
 			return;
 		}
 		for (int i=0;i<quantidade;i++) {
-			db.addProduto(SKU+Integer.toString(i+1), numeroLote);
+			db.addProduto(SKU+Integer.toString(i+1), aux[0]);
 		}
+	}
+	
+	class RecebeProduto{
+		private String numeroLote;
+		private String origem;
+		private String dataChegada;
+		private String subCategoria;
+		private String nome; 
+		private int quantidade;
+		private String SKU;
+		public String getNumeroLote() {
+			return numeroLote;
+		}
+		public void setNumeroLote(String numeroLote) {
+			this.numeroLote = numeroLote;
+		}
+		public String getOrigem() {
+			return origem;
+		}
+		public void setOrigem(String origem) {
+			this.origem = origem;
+		}
+		public String getDataChegada() {
+			return dataChegada;
+		}
+		public void setDataChegada(String dataChegada) {
+			this.dataChegada = dataChegada;
+		}
+		public String getSubCategoria() {
+			return subCategoria;
+		}
+		public void setSubCategoria(String subCategoria) {
+			this.subCategoria = subCategoria;
+		}
+		public String getNome() {
+			return nome;
+		}
+		public void setNome(String nome) {
+			this.nome = nome;
+		}
+		public int getQuantidade() {
+			return quantidade;
+		}
+		public void setQuantidade(int quantidade) {
+			this.quantidade = quantidade;
+		}
+		public String getSKU() {
+			return SKU;
+		}
+		public void setSKU(String sKU) {
+			SKU = sKU;
+		}
+		
+		
 	}
 	
 }

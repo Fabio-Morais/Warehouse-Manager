@@ -10,17 +10,14 @@ public class Lote {
 	/**
 	 * Insere informação do Lote
 	 * @param db Base de Dados referente
-	 * @param numeroLote Numero de lote da subCategoria pertencente
-	 * @param origem Origem do lote
-	 * @param dataChegada data de chegada do lote
-	 * @param subCategoria subCategoria que pertence o lote
-	 * @param nome Nome do produto que o lote tem
+	 * @param dadosLote dados do lote numa string separado por ";", numero de lote, origem, data chegada, sub categoria e nome do lote
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
-	public boolean insertAll(DataBase db,String numeroLote, String origem, String dataChegada, String subCategoria, String nome) {
+	public boolean insertAll(DataBase db, String dadosLote) {
+		String[] aux= dadosLote.split(";");
 		db.connect();
 		String sql = "INSERT INTO lote "
-				   + "VALUES ('"+numeroLote+"', "+"'"+origem+"', "+" '"+dataChegada+"', '"+subCategoria+"', '"+nome+"')";
+				   + "VALUES ('"+aux[0]+"', "+"'"+aux[1]+"', "+" '"+aux[2]+"', '"+aux[3]+"', '"+aux[4]+"')";
 		System.out.println(sql);
 		try {
 			Statement stmt = db.getC().createStatement();

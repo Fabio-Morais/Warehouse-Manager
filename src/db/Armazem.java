@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
 
-public class Armazem {
+public class Armazem extends ExecuteQuery {
 	
 	
 	/**
@@ -83,20 +83,9 @@ public class Armazem {
 	 * @return boolean True se inseriu corretamente / False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String nome, String localizacao) {
-		db.connect();
 		String sql = "INSERT INTO armazem (nome, localizacao)"
 				   + "VALUES ('"+nome+"', '"+localizacao+"');";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return executeQuery(db, sql);
 	}
 	
 	/**
