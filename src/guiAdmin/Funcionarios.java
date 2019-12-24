@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import db.DataBase;
+import gui.Interface;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
@@ -27,6 +28,8 @@ public class Funcionarios {
 	private Check check;
 
 	private String loginUsername;
+	private DefaultTableModel modelFuncionario;
+	private JTable funcionarioTable;
 
 	/* POP UP */
 	private JTextField nifField;
@@ -44,7 +47,42 @@ public class Funcionarios {
 		db = DataBase.getInstance();
 		messageLogs = MessageLogs.getInstance();
 		this.loginUsername = username;
+		criaTabela();
 
+	}
+	
+	private void criaTabela() {
+		modelFuncionario = new DefaultTableModel(new Object[][] {}, new String[] { "NIF", "Nome" }) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class };
+
+			public Class<?> getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		funcionarioTable = new JTable();
+		Interface.styleTabela(funcionarioTable,modelFuncionario);
+		funcionarioTable.getColumnModel().getColumn(0).setResizable(true);
+		funcionarioTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+		funcionarioTable.getColumnModel().getColumn(0).setMaxWidth(150);
+		funcionarioTable.getColumnModel().getColumn(1).setResizable(true);
+	}
+
+	
+	public DefaultTableModel getModelFuncionario() {
+		return modelFuncionario;
+	}
+
+	public JTable getFuncionarioTable() {
+		return funcionarioTable;
 	}
 
 	private boolean confirmData() {

@@ -6,18 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,12 +20,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.net.URI;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.ComponentOrientation;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
@@ -44,9 +37,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.Interface;
-import gui.Help;
-import gui.PopUp;
-import guilogin.LoginDesign;
+import gui.MenuBar;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -55,40 +46,28 @@ import java.awt.event.KeyEvent;
 import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.FlowLayout;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.event.MenuEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 public class AdminDesign {
 
 	private String nomeArmazem;
-	private String currentPanel;
 	private String username;
 
 	private JFrame frmMenuAdmin;
 	private static final String MENUADMINSTRING = "menu_admin";
 	private static final String ADD = "/add.png";
 	private static final String REMOVE = "/remove.png";
-	private static final String HOME = "/home.png";
 	private static final String REFRESH = "/refresh.png";
 	private static final String EDIT = "/edit1.png";
-	private static final String MORE = "/more.png";
-	private static final String MORE1 = "/more1.png";
-	private static final String WEBSITE = "/website.PNG";
-	private static final String HELP = "/help.png";
-	private static final String HOMEMIN = "/homeMin.png";
-	private static final String LOGOUT = "/logout.png";
-	private static final String CHANGE = "/change.png";
+
 	private static final String WIFI = "/wifi.png";
-	private static final String DB = "/db.png";
+	private static final String DBICON = "/db.png";
 	private static final String LOG = "/log.png";
 
 	/* MENU */
@@ -108,7 +87,6 @@ public class AdminDesign {
 
 	/* LOGIC CLASS */
 	private Users usersClass;
-	private Armazem armazemClass;
 	private Funcionarios funcionarioClass;
 	private Fornecedores fornecedorClass;
 	private Maquina maquinaClass;
@@ -179,6 +157,10 @@ public class AdminDesign {
 	/******************/
 
 	/* FORNECEDORES MENU */
+	private JPanel fornecedoresPanel;
+	private JLabel fornecedoresTexto;
+	private JSeparator fornecedoresSeparator;
+	private JScrollPane fornecedoresScrollPane;
 	private JButton fornecedoresBtnAdicionar;
 	private JButton fornecedoresBtnEditar;
 	private JButton fornecedoresBtnRemover;
@@ -192,6 +174,10 @@ public class AdminDesign {
 	/**************/
 
 	/* MAQUINA MENU */
+	private JPanel maquinaPanel ;
+	private JScrollPane maquinaScrollPane;
+	private JSeparator maquinaSeparator;
+	private JLabel maquinaTexto;
 	private JButton maquinaBtnRefresh;
 	private JButton maquinaBtnHome;
 	private JButton maquinaBtnAdicionar;
@@ -208,7 +194,12 @@ public class AdminDesign {
 	private JTextField baseDadosUser;
 	private JTextField baseDadosPassword;
 	private JTextField baseDadosUrl;
-
+	private JPanel baseDadosPanel;
+	private JLabel baseDadosTexto;
+	private JSeparator baseDadosSeparator;
+	private JLabel baseDadosTextoUser;
+	private JLabel baseDadosTextoPassword;
+	private JLabel lblUrl;
 	private JButton baseDadosBtnAdicionar;
 	private JButton baseDadosBtnhome;
 	private JButton baseDadosBtnTest;
@@ -216,6 +207,10 @@ public class AdminDesign {
 	/********************/
 
 	/* FUNCIONARIO MENU */
+	private JPanel funcionarioPanel;
+	private JLabel funcionarioTexto;
+	private JSeparator funcionarioSeparator;
+	private JScrollPane funcionarioScrollPane;
 	private JButton funcionarioBtnAdicionar;
 	private JButton funcionarioBtnEditar;
 	private JButton funcionarioBtnRemover;
@@ -227,23 +222,24 @@ public class AdminDesign {
 	private JTextField funcionarioSearch;
 
 	/******************/
-
-	/* MENU BAR */
-	private JMenu menuBarArmazem;
-	private JMenuItem mntmMenu;
-	private JMenuItem mntmExit1;
-	private JMenuItem menuWebsite;
-	private JMenuItem menuHelpMe;
-	private JMenuItem menuMudarNomeArmazem;
-	private JLabel lblArmazem;
-
+	
+	/* LOGS MENU */
+	private JPanel logs;
+	private JPanel logsPanel;
+	private JLabel lblLogs;
+	private JTable logsTable;
+	private JSeparator logSeparator;
+	private JScrollPane scrollPane;
+	private JTextField logsSearch;
+	private DefaultTableModel modelLogs;
+	private TableRowSorter<DefaultTableModel> sorterLogs;
+	private JButton logsBtnRefresh;
+	private JButton logsBtnHome;
+	private JComboBox<String> numeroLinhasCombo;
 	/******************/
+	
 	private DataBase db;// BASE DE DADOS
-	private Help help;// HELP interface
-	private PopUp popUp;
-	private JMenu mnNewMenu;
-	private JLabel lblStatusDb;
-	private Timer counterTimer;
+	private MenuBar menuBar;
 
 	/*
 	 * Create the application.
@@ -252,19 +248,19 @@ public class AdminDesign {
 		db = DataBase.getInstance();
 		this.nomeArmazem = nomeArmazem;
 		this.usersClass = new Users(username);
-		this.armazemClass = new Armazem(username);
 		this.funcionarioClass = new Funcionarios(username);
 		this.fornecedorClass = new Fornecedores(username);
 		this.maquinaClass = new Maquina(username);
 		this.categoriaProdutoClass = new CategoriaProduto(username);
 		this.baseDadosClass = new BaseDados(username);
-		this.popUp = new PopUp();
-		this.currentPanel = MENUADMINSTRING;
 		this.username = username;
 		this.messageLogs = MessageLogs.getInstance();
 
-		help = new Help();
 		initialize();
+		menuBar = new MenuBar(frmMenuAdmin, cl, username);
+		menuBar.setCurrentPanel(MENUADMINSTRING);
+		menuBar.setNomeArmazem(nomeArmazem);
+		menuBar.showMenuBar();
 	}
 
 	/* Coloca os panels para conseguir mudar */
@@ -281,7 +277,7 @@ public class AdminDesign {
 		cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);// mostrar o main menu
 	}
 
-	
+	/* MAIN PANEL - PRINCIPAL */
 	private GroupLayout putMenuLayout() {
 		GroupLayout glMenuAdminPanel = new GroupLayout(menuAdminPanel);
 		glMenuAdminPanel.setHorizontalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
@@ -415,7 +411,6 @@ public class AdminDesign {
 		Interface.styleButton(btnFornecedores, FORNECEDORMENU, new Insets(10, 5, 10, 5));
 		Interface.styleButton(btnMaquinas, MACHINEMENU, new Insets(10, 14, 10, 14));
 	}
-		/* MAIN PANEL - PRINCIPAL */
 	private void showMainMenu() {
 		menuAdmin = new JPanel();
 
@@ -454,8 +449,24 @@ public class AdminDesign {
 		GroupLayout glMenuAdminPanel = putMenuLayout();
 		menuAdminPanel.setLayout(glMenuAdminPanel);
 	}
-
 	
+	/* USER PANEL - SECUNDARIO */
+	private void criaBotoesUser() {
+		usersBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(usersBtnAdicionar, ADD);
+		
+		usersBtnRemover =  new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(usersBtnRemover, REMOVE);
+		
+		usersBtnEditar = new JButton(EDITARSTRING);
+		Interface.styleBotaoSimples(usersBtnEditar, EDIT);
+		
+		usersBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		
+		usersBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(usersBtnHome );
+	}
 	private void criaUserSearch() {
 		sorterUser = new TableRowSorter<>(modelUser);
 		usersTable.setRowSorter(sorterUser);
@@ -544,7 +555,6 @@ public class AdminDesign {
 														.addContainerGap()))));
 		return glUsersPanel;
 	}
-	/* USER PANEL - SECUNDARIO */
 	private void showUserMenu() {
 
 		users = new JPanel();
@@ -554,20 +564,14 @@ public class AdminDesign {
 		users.add(usersPanel, BorderLayout.CENTER);
 		JScrollPane usersScrollPane = new JScrollPane();
 		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		usersBtnAdicionar = new JButton("Adicionar");
-		Interface.styleBotaoSimples(usersBtnAdicionar, ADD);
-		usersBtnRemover =  new JButton(REMOVERSTRING);
-		Interface.styleBotaoSimples(usersBtnRemover, REMOVE);
-		usersBtnEditar = new JButton(EDITARSTRING);
-		Interface.styleBotaoSimples(usersBtnEditar, EDIT);
-		usersBtnRefresh = new JButton(REFRESHSTRING);
-		Interface.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		
 		JLabel usersTexto = new JLabel("Users");
 		Interface.styleLabel(usersTexto);
 		JSeparator usersSeparator = new JSeparator();
 		Interface.styleSeparator(usersSeparator);
-		usersBtnHome = new JButton("Home");
-		Interface.styleBotaoHome(usersBtnHome,HOME );
+		
+		criaBotoesUser();
+		
 		userSearch = new JTextField();
 		Interface.styleSearch(userSearch);
 		
@@ -580,7 +584,21 @@ public class AdminDesign {
 		db.nifusernameadminLogin(modelUser);
 
 	}
+	
+	/* CATEGORIA PRODUTO MENU - SECUNDARIO */
+	private void criaBotoesCategoria() {
+		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
 
+		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
+		
+		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
+
+		categoriaProdutoBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(categoriaProdutoBtnHome);
+	}
 	private GroupLayout putCategoriaLayout() {
 		GroupLayout glCategoriaProdutoPanel = new GroupLayout(categoriaProdutoPanel);
 		glCategoriaProdutoPanel.setHorizontalGroup(
@@ -635,42 +653,29 @@ public class AdminDesign {
 						.addContainerGap(34, Short.MAX_VALUE)));
 		return glCategoriaProdutoPanel;
 	}
-	/* CATEGORIA PRODUTO MENU - SECUNDARIO */
 	private void showCategoriaProduto() {
 		categoriaProduto = new JPanel();
 		frmMenuAdmin.getContentPane().add(categoriaProduto, "name_1323741143870400");
 		categoriaProduto.setLayout(new BorderLayout(0, 0));
-
 		categoriaProdutoPanel = new JPanel();
-		
 		categoriaProduto.add(categoriaProdutoPanel, BorderLayout.CENTER);
 
 		categoriaProdutoTexto = new JLabel("<html>Categoria<br>Produto</html>");
 		Interface.styleLabel28(categoriaProdutoTexto);
+		
 		categoriaProdutoSeparator = new JSeparator();
 		Interface.styleSeparator(categoriaProdutoSeparator);
 		
 		categoriaProdutoScrollPane = new JScrollPane();
 		categoriaProdutoScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
-		Interface.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
-
-		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
-		Interface.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
-
 		categoriaProdutoScrollPane2 = new JScrollPane();
 		categoriaProdutoScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
-		Interface.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
-
-		categoriaProdutoBtnHome = new JButton("Home");
-		Interface.styleBotaoHome(categoriaProdutoBtnHome, HOME);
+		criaBotoesCategoria();
 		
 		GroupLayout glCategoriaProdutoPanel = putCategoriaLayout();
 
-		
 		subCategoriaProdutoTable = categoriaProdutoClass.getSubCategoriaProdutoTable();
 		categoriaProdutoTable = categoriaProdutoClass.getCategoriaProdutoTable();
 		modelCategoriaProduto = categoriaProdutoClass.getModelCategoriaProduto();
@@ -685,141 +690,7 @@ public class AdminDesign {
 	}
 
 	/* FORNECEDORES MENU - SECUNDARIO */
-	
-	private void showFornecedoresMenu() {
-		fornecedores = new JPanel();
-		frmMenuAdmin.getContentPane().add(fornecedores, "name_1323749306915900");
-		fornecedores.setLayout(new BorderLayout(0, 0));
-
-		JPanel fornecedoresPanel = new JPanel();
-		fornecedores.add(fornecedoresPanel, BorderLayout.CENTER);
-
-		JLabel fornecedoresTexto = new JLabel("Fornecedores");
-		fornecedoresTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
-
-		JSeparator fornecedoresdestinosSeparator = new JSeparator();
-		fornecedoresdestinosSeparator.setPreferredSize(new Dimension(0, 50));
-		fornecedoresdestinosSeparator.setMinimumSize(new Dimension(20, 20));
-		fornecedoresdestinosSeparator.setForeground(Color.BLUE);
-		fornecedoresdestinosSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		JScrollPane fornecedoresScrollPane = new JScrollPane();
-		fornecedoresScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		fornecedoresBtnAdicionar = new JButton("Adicionar");
-		fornecedoresBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-		fornecedoresBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		fornecedoresBtnEditar = new JButton(EDITARSTRING);
-		fornecedoresBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
-		fornecedoresBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		fornecedoresBtnRemover = new JButton(REMOVERSTRING);
-		fornecedoresBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
-		fornecedoresBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		fornecedoresBtnRefresh = new JButton(REFRESHSTRING);
-		fornecedoresBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
-		fornecedoresBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		fornecedoresBtnHome = new JButton("Home");
-		fornecedoresBtnHome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-		fornecedoresBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		fornecedoresBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		fornecedoresBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
-
-		fornecedorSearch = new JTextField();
-		fornecedorSearch.setToolTipText("Quick Access");
-		fornecedorSearch.setText("Quick Access");
-		fornecedorSearch.setColumns(10);
-		GroupLayout glFornecedoresPanel = new GroupLayout(fornecedoresPanel);
-		glFornecedoresPanel.setHorizontalGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(glFornecedoresPanel.createSequentialGroup().addGap(37).addGroup(glFornecedoresPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(glFornecedoresPanel.createSequentialGroup().addGroup(glFornecedoresPanel
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(glFornecedoresPanel
-										.createSequentialGroup().addGap(30).addGroup(glFornecedoresPanel
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(85)
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
-												.addGroup(glFornecedoresPanel.createSequentialGroup()
-														.addComponent(fornecedoresBtnAdicionar).addGap(18)
-														.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE,
-																105, GroupLayout.PREFERRED_SIZE)
-														.addGap(18).addComponent(fornecedoresBtnRemover,
-																GroupLayout.PREFERRED_SIZE, 113,
-																GroupLayout.PREFERRED_SIZE))
-												.addComponent(fornecedoresScrollPane, 0, 0, Short.MAX_VALUE))
-										.addGap(6).addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE, 127,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 261,
-										GroupLayout.PREFERRED_SIZE))
-								.addGap(383))
-						.addComponent(fornecedoresdestinosSeparator, GroupLayout.PREFERRED_SIZE, 222,
-								GroupLayout.PREFERRED_SIZE))));
-		glFornecedoresPanel.setVerticalGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(glFornecedoresPanel.createSequentialGroup().addContainerGap()
-						.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(fornecedoresdestinosSeparator, GroupLayout.PREFERRED_SIZE, 15,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-						.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(glFornecedoresPanel.createSequentialGroup()
-										.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 59,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(64))
-								.addGroup(glFornecedoresPanel.createSequentialGroup()
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(fornecedoresBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(fornecedoresScrollPane, GroupLayout.PREFERRED_SIZE, 170,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(34)))));
-		modelFornecedor = new DefaultTableModel(new Object[][] {}, new String[] { "Nome" }) {
-
-			private static final long serialVersionUID = 1L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class };
-
-			public Class<?> getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		fornecedorTable = new JTable();
-		fornecedorTable.setSelectionForeground(Color.BLACK);
-		fornecedoresScrollPane.setViewportView(fornecedorTable);
-		fornecedoresPanel.setLayout(glFornecedoresPanel);
-		fornecedorTable.setModel(modelFornecedor);
-
-		/* Para nao mover */
-		fornecedorTable.getTableHeader().setReorderingAllowed(false);
-		fornecedorTable.setAutoCreateRowSorter(true);
-		fornecedorTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.nomeFornecedor(modelFornecedor);
-
+	private void criaFornecedorSearch() {
 		sorterFornecedor = new TableRowSorter<>(modelFornecedor);
 		fornecedorTable.setRowSorter(sorterFornecedor);
 
@@ -855,58 +726,173 @@ public class AdminDesign {
 		});
 
 	}
+	private void criaBotoesFornecedores() {
+		fornecedoresBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(fornecedoresBtnAdicionar, ADD);
+
+		fornecedoresBtnEditar = new JButton(EDITARSTRING);
+		Interface.styleBotaoSimples(fornecedoresBtnEditar, EDIT);
+
+		fornecedoresBtnRemover = new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(fornecedoresBtnRemover, REMOVE);
+
+		fornecedoresBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(fornecedoresBtnRefresh, REFRESH);
+
+		fornecedoresBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(fornecedoresBtnHome);
+	}
+	private GroupLayout putFornecedoresLayout() {
+		GroupLayout glFornecedoresPanel = new GroupLayout(fornecedoresPanel);
+		glFornecedoresPanel.setHorizontalGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup().addGap(37).addGroup(glFornecedoresPanel
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(glFornecedoresPanel.createSequentialGroup().addGroup(glFornecedoresPanel
+								.createParallelGroup(Alignment.LEADING)
+								.addGroup(glFornecedoresPanel
+										.createSequentialGroup().addGap(30).addGroup(glFornecedoresPanel
+												.createParallelGroup(Alignment.LEADING)
+												.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 113,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 113,
+														GroupLayout.PREFERRED_SIZE))
+										.addGap(85)
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
+												.addGroup(glFornecedoresPanel.createSequentialGroup()
+														.addComponent(fornecedoresBtnAdicionar).addGap(18)
+														.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE,
+																105, GroupLayout.PREFERRED_SIZE)
+														.addGap(18).addComponent(fornecedoresBtnRemover,
+																GroupLayout.PREFERRED_SIZE, 113,
+																GroupLayout.PREFERRED_SIZE))
+												.addComponent(fornecedoresScrollPane, 0, 0, Short.MAX_VALUE))
+										.addGap(6).addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE, 127,
+												GroupLayout.PREFERRED_SIZE))
+								.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 261,
+										GroupLayout.PREFERRED_SIZE))
+								.addGap(383))
+						.addComponent(fornecedoresSeparator, GroupLayout.PREFERRED_SIZE, 222,
+								GroupLayout.PREFERRED_SIZE))));
+		glFornecedoresPanel.setVerticalGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup().addContainerGap()
+						.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(fornecedoresSeparator, GroupLayout.PREFERRED_SIZE, 15,
+								GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+						.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(glFornecedoresPanel.createSequentialGroup()
+										.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 59,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(64))
+								.addGroup(glFornecedoresPanel.createSequentialGroup()
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(fornecedoresBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 40,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(fornecedoresScrollPane, GroupLayout.PREFERRED_SIZE, 170,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGap(34)))));
+		return glFornecedoresPanel;
+	}
+	private void showFornecedoresMenu() {
+		fornecedores = new JPanel();
+		frmMenuAdmin.getContentPane().add(fornecedores, "name_1323749306915900");
+		fornecedores.setLayout(new BorderLayout(0, 0));
+
+		fornecedoresPanel = new JPanel();
+		fornecedores.add(fornecedoresPanel, BorderLayout.CENTER);
+
+		fornecedoresTexto = new JLabel("Fornecedores");
+		fornecedoresTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
+
+		fornecedoresSeparator = new JSeparator();
+		Interface.styleSeparator(fornecedoresSeparator);
+
+		fornecedoresScrollPane = new JScrollPane();
+		fornecedoresScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		criaBotoesFornecedores();
+
+		fornecedorSearch = new JTextField();
+		Interface.styleSearch(fornecedorSearch);
+		GroupLayout glFornecedoresPanel = putFornecedoresLayout();
+
+		
+		modelFornecedor = fornecedorClass.getModelFornecedor();
+		fornecedorTable = fornecedorClass.getFornecedoresTable();
+		fornecedoresScrollPane.setViewportView(fornecedorTable);
+		fornecedoresPanel.setLayout(glFornecedoresPanel);
+		
+		db.nomeFornecedor(modelFornecedor);
+		criaFornecedorSearch();
+		
+	}
 
 	/* MAQUINA MENU - SECUNDARIO */
-	private void showMaquinaMenu() {
-		maquina = new JPanel();
-		frmMenuAdmin.getContentPane().add(maquina, "name_1323854438390700");
-		maquina.setLayout(new BorderLayout(0, 0));
+	private void criaMaquinaSearch() {
+		sorterMaquina = new TableRowSorter<>(modelMaquina);
+		maquinaTable.setRowSorter(sorterMaquina);
 
-		JPanel maquinaPanel = new JPanel();
-		maquina.add(maquinaPanel, BorderLayout.NORTH);
+		maquinaSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				maquinaSearch.setText("");
+			}
+		});
+		maquinaSearch.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search(maquinaSearch.getText());
+			}
 
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				search(maquinaSearch.getText());
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				search(maquinaSearch.getText());
+			}
+
+			public void search(String str) {
+				if (str.length() == 0) {
+					sorterMaquina.setRowFilter(null);
+				} else {
+					sorterMaquina.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+				}
+			}
+		});
+
+	}
+	private void criaBotoesMaquina() {
 		maquinaBtnRefresh = new JButton(REFRESHSTRING);
-		maquinaBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
-
-		maquinaBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
+		Interface.styleBotaoSimples(maquinaBtnRefresh, REFRESH);
 
 		maquinaBtnHome = new JButton("Home");
-
-		maquinaBtnHome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-		maquinaBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		maquinaBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		maquinaBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
-
+		Interface.styleBotaoHome(maquinaBtnHome);
+		
 		maquinaBtnAdicionar = new JButton("Adicionar");
-		maquinaBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-		maquinaBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
+		Interface.styleBotaoSimples(maquinaBtnAdicionar, ADD);
+		
 		maquinaBtnEditar = new JButton(EDITARSTRING);
-		maquinaBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
-		maquinaBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
+		Interface.styleBotaoSimples(maquinaBtnEditar, EDIT);
+		
 		maquinaBtnRemover = new JButton(REMOVERSTRING);
-		maquinaBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
-		maquinaBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		JScrollPane maquinaScrollPane = new JScrollPane();
-		maquinaScrollPane.setBorder(new LineBorder(Color.BLACK));
-		maquinaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		JSeparator maquinaSeparator = new JSeparator();
-		maquinaSeparator.setPreferredSize(new Dimension(0, 50));
-		maquinaSeparator.setMinimumSize(new Dimension(20, 20));
-		maquinaSeparator.setForeground(Color.BLUE);
-		maquinaSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		JLabel maquinaTexto = new JLabel("Maquinas");
-		maquinaTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
-
-		maquinaSearch = new JTextField();
-		maquinaSearch.setColumns(10);
-		maquinaSearch.setText("Quick Access");
-		maquinaSearch.setToolTipText("Quick Access");
-
+		Interface.styleBotaoSimples(maquinaBtnRemover, REMOVE);
+	}
+	private GroupLayout putMaquinaLayout() {
 		GroupLayout glMaquinaPanel = new GroupLayout(maquinaPanel);
 		glMaquinaPanel.setHorizontalGroup(glMaquinaPanel.createParallelGroup(Alignment.TRAILING).addGroup(glMaquinaPanel
 				.createSequentialGroup().addGap(37)
@@ -963,130 +949,57 @@ public class AdminDesign {
 								.addPreferredGap(ComponentPlacement.RELATED).addComponent(maquinaScrollPane,
 										GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 								.addGap(34)))));
-		modelMaquina = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Numero Serie" }) {
+		return glMaquinaPanel;
+	}
+	private void showMaquinaMenu() {
+		maquina = new JPanel();
+		frmMenuAdmin.getContentPane().add(maquina, "name_1323854438390700");
+		maquina.setLayout(new BorderLayout(0, 0));
 
-			private static final long serialVersionUID = 1880689174093893276L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class };
+		maquinaPanel = new JPanel();
+		maquina.add(maquinaPanel, BorderLayout.NORTH);
 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
+		criaBotoesMaquina();
 
-			boolean[] columnEditables = new boolean[] { false, false };
+		maquinaScrollPane = new JScrollPane();
+		maquinaScrollPane.setBorder(new LineBorder(Color.BLACK));
+		maquinaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		};
-		maquinaTable = new JTable();
-		maquinaTable.setModel(modelMaquina);
+		maquinaSeparator = new JSeparator();
+		Interface.styleSeparator(maquinaSeparator);
+
+		maquinaTexto = new JLabel("Maquinas");
+		Interface.styleLabel(maquinaTexto);
+
+		maquinaSearch = new JTextField();
+		Interface.styleSearch(maquinaSearch);
+
+		GroupLayout glMaquinaPanel = putMaquinaLayout();
+		modelMaquina = maquinaClass.getModelMaquina();
+		maquinaTable = maquinaClass.getMaquinaTable();
 		maquinaScrollPane.setViewportView(maquinaTable);
 		maquinaPanel.setLayout(glMaquinaPanel);
-		/* Para nao mover */
-		maquinaTable.getTableHeader().setReorderingAllowed(false);
-		maquinaTable.setAutoCreateRowSorter(true);// para ordenar
-		maquinaTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+		
 		db.nomenumeroMaquina(nomeArmazem, modelMaquina);
 
-		sorterMaquina = new TableRowSorter<>(modelMaquina);
-		maquinaTable.setRowSorter(sorterMaquina);
-
-		maquinaSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				maquinaSearch.setText("");
-			}
-		});
-		maquinaSearch.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			public void search(String str) {
-				if (str.length() == 0) {
-					sorterMaquina.setRowFilter(null);
-				} else {
-					sorterMaquina.setRowFilter(RowFilter.regexFilter("(?i)" + str));
-				}
-			}
-		});
-
+		criaMaquinaSearch();
 	}
 
 	/* BASE DE DADOS MENU - SECUNDARIO */
-	private void showBaseDadosMenu() {
-		baseDados = new JPanel();
-		frmMenuAdmin.getContentPane().add(baseDados, "name_1323856331283900");
-		baseDados.setLayout(new BorderLayout(0, 0));
-
-		JPanel baseDadosPanel = new JPanel();
-		baseDados.add(baseDadosPanel, BorderLayout.CENTER);
-
-		JLabel baseDadosTexto = new JLabel("<html>Base de <br>Dados</html>");
-		baseDadosTexto.setFont(new Font("HP Simplified", Font.BOLD, 27));
-
-		JSeparator baseDadosSeparator = new JSeparator();
-		baseDadosSeparator.setPreferredSize(new Dimension(0, 50));
-		baseDadosSeparator.setMinimumSize(new Dimension(20, 20));
-		baseDadosSeparator.setForeground(Color.BLUE);
-		baseDadosSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
+	private void criaBotoesBaseDados() {
 		baseDadosBtnAdicionar = new JButton("Atualizar");
-		baseDadosBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-		baseDadosBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		JLabel baseDadosTextoUser = new JLabel("User:");
-		baseDadosTextoUser.setFont(new Font("Tahoma", Font.BOLD, 16));
-
-		JLabel baseDadosTextoPassword = new JLabel("Password:");
-		baseDadosTextoPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
-
-		baseDadosUser = new JTextField();
-		baseDadosUser.setText("sinf19a38");
-		baseDadosUser.setToolTipText("");
-		baseDadosUser.setColumns(10);
-
-		baseDadosPassword = new JTextField();
-		baseDadosPassword.setText("UbwJSLsu");
-		baseDadosPassword.setColumns(10);
+		Interface.styleBotaoSimples(baseDadosBtnAdicionar, ADD);
 
 		baseDadosBtnhome = new JButton("Home");
-		baseDadosBtnhome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-		baseDadosBtnhome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		baseDadosBtnhome.setHorizontalTextPosition(SwingConstants.CENTER);
-		baseDadosBtnhome.setFont(new Font("Consolas", Font.BOLD, 12));
+		Interface.styleBotaoHome(baseDadosBtnhome);
 
 		baseDadosBtnTest = new JButton("<html>Testar<br> Conex\u00E3o</html>");
-
-		baseDadosBtnTest.setIcon(new ImageIcon(AdminDesign.class.getResource(WIFI)));
-		baseDadosBtnTest.setFont(new Font("Consolas", Font.PLAIN, 12));
+		Interface.styleBotaoSimples(baseDadosBtnTest, WIFI);
 
 		baseDadosBtnCriarTabelas = new JButton("Criar Tabelas");
-		baseDadosBtnCriarTabelas.setHorizontalAlignment(SwingConstants.LEFT);
-		baseDadosBtnCriarTabelas.setIcon(new ImageIcon(AdminDesign.class.getResource(DB)));
-
-		baseDadosUrl = new JTextField();
-		baseDadosUrl.setText("db.fe.up.pt:5432");
-		baseDadosUrl.setColumns(10);
-
-		JLabel lblUrl = new JLabel("Url:");
-		lblUrl.setFont(new Font("Tahoma", Font.BOLD, 16));
+		Interface.styleBotaoSimples(baseDadosBtnCriarTabelas, DBICON);
+	}
+	private GroupLayout putBaseDadosLayout() {
 		GroupLayout glBaseDadosPanel = new GroupLayout(baseDadosPanel);
 		glBaseDadosPanel.setHorizontalGroup(
 			glBaseDadosPanel.createParallelGroup(Alignment.LEADING)
@@ -1152,153 +1065,50 @@ public class AdminDesign {
 					.addComponent(baseDadosBtnhome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(136, Short.MAX_VALUE))
 		);
+		return glBaseDadosPanel;
+	}
+	private void showBaseDadosMenu() {
+		baseDados = new JPanel();
+		frmMenuAdmin.getContentPane().add(baseDados, "name_1323856331283900");
+		baseDados.setLayout(new BorderLayout(0, 0));
+
+		baseDadosPanel = new JPanel();
+		baseDados.add(baseDadosPanel, BorderLayout.CENTER);
+
+		baseDadosTexto = new JLabel("<html>Base de <br>Dados</html>");
+		baseDadosTexto.setFont(new Font("HP Simplified", Font.BOLD, 27));
+
+		baseDadosSeparator = new JSeparator();
+		Interface.styleSeparator(baseDadosSeparator);
+
+		baseDadosTextoUser = new JLabel("User:");
+		baseDadosTextoUser.setFont(new Font("Tahoma", Font.BOLD, 16));
+
+		baseDadosTextoPassword = new JLabel("Password:");
+		baseDadosTextoPassword.setFont(new Font("Tahoma", Font.BOLD, 16));
+
+		baseDadosUser = new JTextField();
+		baseDadosUser.setText("sinf19a38");
+		baseDadosUser.setColumns(10);
+
+		baseDadosPassword = new JTextField();
+		baseDadosPassword.setText("UbwJSLsu");
+		baseDadosPassword.setColumns(10);
+
+		baseDadosUrl = new JTextField();
+		baseDadosUrl.setText("db.fe.up.pt:5432");
+		baseDadosUrl.setColumns(10);
+
+		lblUrl = new JLabel("Url:");
+		lblUrl.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
+		criaBotoesBaseDados();
+		GroupLayout glBaseDadosPanel = putBaseDadosLayout();
 		baseDadosPanel.setLayout(glBaseDadosPanel);
 	}
 
 	/* FUNCIONARIO MENU - SECUNDARIO */
-	private void showFuncionarioMenu() {
-
-		funcionario = new JPanel();
-		frmMenuAdmin.getContentPane().add(funcionario, "name_1832054822092700");
-		funcionario.setLayout(new BorderLayout(0, 0));
-
-		JPanel funcionarioPanel = new JPanel();
-		funcionario.add(funcionarioPanel, BorderLayout.CENTER);
-
-		JLabel funcionarioTexto = new JLabel("Funcion\u00E1rios");
-		funcionarioTexto.setFont(new Font("HP Simplified", Font.BOLD, 34));
-
-		JSeparator funcionarioSeparator = new JSeparator();
-		funcionarioSeparator.setPreferredSize(new Dimension(0, 50));
-		funcionarioSeparator.setMinimumSize(new Dimension(20, 20));
-		funcionarioSeparator.setForeground(Color.BLUE);
-		funcionarioSeparator.setFont(new Font("Dialog", Font.BOLD, 15));
-
-		funcionarioBtnAdicionar = new JButton("Adicionar");
-		funcionarioBtnAdicionar.setIcon(new ImageIcon(AdminDesign.class.getResource(ADD)));
-		funcionarioBtnAdicionar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		funcionarioBtnEditar = new JButton(EDITARSTRING);
-		funcionarioBtnEditar.setIcon(new ImageIcon(AdminDesign.class.getResource(EDIT)));
-		funcionarioBtnEditar.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		funcionarioBtnRemover = new JButton(REMOVERSTRING);
-		funcionarioBtnRemover.setIcon(new ImageIcon(AdminDesign.class.getResource(REMOVE)));
-		funcionarioBtnRemover.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		JScrollPane funcionarioScrollPane = new JScrollPane();
-		funcionarioScrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		funcionarioScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-		funcionarioBtnHome = new JButton("Home");
-
-		funcionarioBtnHome.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
-		funcionarioBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		funcionarioBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		funcionarioBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
-
-		funcionarioBtnRefresh = new JButton(REFRESHSTRING);
-		funcionarioBtnRefresh.setIcon(new ImageIcon(AdminDesign.class.getResource(REFRESH)));
-		funcionarioBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		funcionarioSearch = new JTextField();
-		funcionarioSearch.setToolTipText("Quick Access");
-		funcionarioSearch.setText("Quick Access");
-		funcionarioSearch.setColumns(10);
-
-		GroupLayout glFuncionarioPanel = new GroupLayout(funcionarioPanel);
-		glFuncionarioPanel.setHorizontalGroup(glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(glFuncionarioPanel.createSequentialGroup().addGroup(glFuncionarioPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(glFuncionarioPanel.createSequentialGroup().addGap(20)
-								.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(funcionarioTexto, GroupLayout.PREFERRED_SIZE, 239,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(funcionarioSeparator, GroupLayout.PREFERRED_SIZE, 182,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGroup(glFuncionarioPanel.createSequentialGroup().addGap(44)
-								.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(funcionarioBtnRefresh, GroupLayout.PREFERRED_SIZE, 113,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(funcionarioBtnHome, GroupLayout.PREFERRED_SIZE, 113,
-												GroupLayout.PREFERRED_SIZE))))
-						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING, glFuncionarioPanel.createSequentialGroup()
-										.addComponent(funcionarioBtnAdicionar).addGap(18)
-										.addComponent(funcionarioBtnEditar, GroupLayout.PREFERRED_SIZE, 105,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addComponent(funcionarioBtnRemover, GroupLayout.PREFERRED_SIZE, 113,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, 127,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(funcionarioScrollPane, GroupLayout.PREFERRED_SIZE, 548,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(42)));
-		glFuncionarioPanel.setVerticalGroup(glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(glFuncionarioPanel.createSequentialGroup()
-						.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(glFuncionarioPanel.createSequentialGroup().addContainerGap()
-										.addComponent(funcionarioTexto, GroupLayout.PREFERRED_SIZE, 44,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(funcionarioSeparator, GroupLayout.PREFERRED_SIZE, 15,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(52)
-										.addComponent(funcionarioBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(funcionarioBtnHome, GroupLayout.PREFERRED_SIZE, 59,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(glFuncionarioPanel.createSequentialGroup().addGap(32)
-										.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
-												.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(funcionarioBtnAdicionar,
-																GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(funcionarioBtnEditar, GroupLayout.PREFERRED_SIZE,
-																40, GroupLayout.PREFERRED_SIZE)
-														.addComponent(funcionarioBtnRemover, GroupLayout.PREFERRED_SIZE,
-																40, GroupLayout.PREFERRED_SIZE))
-												.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(funcionarioScrollPane,
-												GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)))
-						.addGap(37)));
-		modelFuncionario = new DefaultTableModel(new Object[][] {}, new String[] { "NIF", "Nome" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class };
-
-			public Class<?> getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		funcionarioTable = new JTable();
-		funcionarioTable.setModel(modelFuncionario);
-		funcionarioTable.getColumnModel().getColumn(0).setResizable(true);
-		funcionarioTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-		funcionarioTable.getColumnModel().getColumn(0).setMaxWidth(150);
-		funcionarioTable.getColumnModel().getColumn(1).setResizable(true);
-		funcionarioScrollPane.setViewportView(funcionarioTable);
-		funcionarioPanel.setLayout(glFuncionarioPanel);
-
-		funcionarioTable.getTableHeader().setReorderingAllowed(false);
-		funcionarioTable.setAutoCreateRowSorter(true);// para ordenar
-		funcionarioTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.nomeNifFuncionario(modelFuncionario, nomeArmazem);
-
+	private void criaFuncionarioSearch() {
 		sorterFuncionario = new TableRowSorter<>(modelFuncionario);
 		funcionarioTable.setRowSorter(sorterFuncionario);
 
@@ -1334,134 +1144,118 @@ public class AdminDesign {
 		});
 
 	}
+	private void criaBotoesFuncionario() {
+		funcionarioBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(funcionarioBtnAdicionar, ADD);
 
-	private DefaultTableModel modelLogs;
-	private TableRowSorter<DefaultTableModel> sorterLogs;
-	private JButton logsBtnRefresh;
-	private JButton logsBtnHome;
-	private JComboBox<String> numeroLinhasCombo;
-	
-	private void showLogsMenu() {
-		logs = new JPanel();
-		frmMenuAdmin.getContentPane().add(logs, "name_317578181588800");
-		logs.setLayout(new BorderLayout(0, 0));
+		funcionarioBtnEditar = new JButton(EDITARSTRING);
+		Interface.styleBotaoSimples(funcionarioBtnEditar, EDIT);
 
-		JPanel logsPanel = new JPanel();
-		logs.add(logsPanel, BorderLayout.CENTER);
-
-		JLabel lblLogs = new JLabel("Logs");
-		lblLogs.setFont(new Font("HP Simplified", Font.BOLD, 34));
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-
-		logsBtnRefresh = new JButton(REFRESHSTRING);
-		logsBtnRefresh.setIcon(null);
-		logsBtnRefresh.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		logsBtnHome = new JButton("Home");
-		logsBtnHome.setIcon(null);
-		logsBtnHome.setVerticalTextPosition(SwingConstants.BOTTOM);
-		logsBtnHome.setHorizontalTextPosition(SwingConstants.CENTER);
-		logsBtnHome.setFont(new Font("Consolas", Font.BOLD, 12));
-
-		logsSearch = new JTextField();
-		logsSearch.setToolTipText("Quick Access");
-		logsSearch.setText("Quick Access");
-		logsSearch.setColumns(10);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setPreferredSize(new Dimension(0, 50));
-		separator_2.setMinimumSize(new Dimension(20, 20));
-		separator_2.setForeground(Color.BLUE);
-		separator_2.setFont(new Font("Dialog", Font.BOLD, 15));
+		funcionarioBtnRemover = new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(funcionarioBtnRemover, REMOVE);
 		
-		numeroLinhasCombo = new JComboBox<String>();
-		
-		numeroLinhasCombo.setToolTipText("Numero de linhas");
-		numeroLinhasCombo.setFont(new Font("Consolas", Font.PLAIN, 14));
-		numeroLinhasCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"25", "50", "100", "200", "400"}));
-		GroupLayout gl_logsPanel = new GroupLayout(logsPanel);
-		gl_logsPanel.setHorizontalGroup(
-			gl_logsPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_logsPanel.createSequentialGroup()
-					.addGap(27)
-					.addGroup(gl_logsPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblLogs, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-						.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-						.addComponent(logsBtnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-						.addComponent(logsBtnHome, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-					.addGap(49)
-					.addGroup(gl_logsPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_logsPanel.createSequentialGroup()
-							.addGap(339)
-							.addComponent(numeroLinhasCombo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+		funcionarioBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(funcionarioBtnHome);
+
+		funcionarioBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(funcionarioBtnRefresh, REFRESH);		
+	}
+	private GroupLayout putFuncionarioLayout() {
+		GroupLayout glFuncionarioPanel = new GroupLayout(funcionarioPanel);
+		glFuncionarioPanel.setHorizontalGroup(
+			glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glFuncionarioPanel.createSequentialGroup()
+					.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(glFuncionarioPanel.createSequentialGroup()
+							.addGap(20)
+							.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(funcionarioTexto, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)
+								.addComponent(funcionarioSeparator, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(glFuncionarioPanel.createSequentialGroup()
+							.addGap(44)
+							.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(funcionarioBtnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+								.addComponent(funcionarioBtnHome, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(glFuncionarioPanel.createSequentialGroup()
+							.addComponent(funcionarioBtnAdicionar)
 							.addGap(18)
-							.addComponent(logsSearch, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 548, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(55, Short.MAX_VALUE))
-		);
-		gl_logsPanel.setVerticalGroup(
-			gl_logsPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_logsPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_logsPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_logsPanel.createSequentialGroup()
-							.addGap(41)
-							.addGroup(gl_logsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(logsSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(numeroLinhasCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_logsPanel.createSequentialGroup()
-							.addComponent(lblLogs, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-							.addGap(11)
-							.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_logsPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_logsPanel.createSequentialGroup()
-							.addGap(35)
-							.addComponent(logsBtnRefresh, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addComponent(funcionarioBtnEditar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(logsBtnHome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(25, Short.MAX_VALUE))
+							.addComponent(funcionarioBtnRemover, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+						.addComponent(funcionarioScrollPane, GroupLayout.PREFERRED_SIZE, 548, GroupLayout.PREFERRED_SIZE))
+					.addGap(42))
 		);
+		glFuncionarioPanel.setVerticalGroup(
+			glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glFuncionarioPanel.createSequentialGroup()
+					.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(glFuncionarioPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(funcionarioTexto, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(funcionarioSeparator, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addGap(52)
+							.addComponent(funcionarioBtnRefresh, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(funcionarioBtnHome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glFuncionarioPanel.createSequentialGroup()
+							.addGap(32)
+							.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(glFuncionarioPanel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(funcionarioBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addComponent(funcionarioBtnRemover, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addComponent(funcionarioBtnEditar, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+								.addComponent(funcionarioSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(funcionarioScrollPane, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)))
+					.addGap(37))
+		);
+		return glFuncionarioPanel;
+	}
+	private void showFuncionarioMenu() {
+
+		funcionario = new JPanel();
+		frmMenuAdmin.getContentPane().add(funcionario, "name_1832054822092700");
+		funcionario.setLayout(new BorderLayout(0, 0));
+
+		funcionarioPanel = new JPanel();
+		funcionario.add(funcionarioPanel, BorderLayout.CENTER);
+
+		funcionarioTexto = new JLabel("Funcion\u00E1rios");
+		Interface.styleLabel(funcionarioTexto);
+
+		funcionarioSeparator = new JSeparator();
+		Interface.styleSeparator(funcionarioSeparator);
+
+		funcionarioScrollPane = new JScrollPane();
+		funcionarioScrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		funcionarioScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		funcionarioSearch = new JTextField();
+		Interface.styleSearch(funcionarioSearch);
+
+		criaBotoesFuncionario();
 		
-		modelLogs = new DefaultTableModel(new Object[][] {}, 
-				new String[] { "Data", "Username", "Admin", "Acao", "Ip" }) {
-			/**
-					 * 
-					 */
-					private static final long serialVersionUID = -7481186986491942822L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class, String.class, String.class };
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		JTable logsTable = new JTable();
-		logsTable.setModel(modelLogs);
-		logsTable.setAutoCreateRowSorter(true);
-		scrollPane.setViewportView(logsTable);
-		logsPanel.setLayout(gl_logsPanel);
+		GroupLayout glFuncionarioPanel = putFuncionarioLayout();
 		
-		/* Para nao mover */
-		logsTable.getTableHeader().setReorderingAllowed(false);
-		logsTable.setAutoCreateRowSorter(true);// para ordenar
-		logsTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.getLogs(modelLogs, numeroLinhasCombo.getSelectedItem().toString());
+		modelFuncionario = funcionarioClass.getModelFuncionario();
+		funcionarioTable = funcionarioClass.getFuncionarioTable();
 		
+		funcionarioScrollPane.setViewportView(funcionarioTable);
+		funcionarioPanel.setLayout(glFuncionarioPanel);
+		
+		db.nomeNifFuncionario(modelFuncionario, nomeArmazem);
+
+		criaFuncionarioSearch();
+
+	}
+
+	/* LOGS MENU - SECUNDARIO */
+	private void criaLogsSearch() {
 		sorterLogs = new TableRowSorter<>(modelLogs);
 		logsTable.setRowSorter(sorterLogs);
 
@@ -1496,225 +1290,167 @@ public class AdminDesign {
 			}
 		});
 		
-	}
-
-	/* BARRA MENU */
-	private void showMenuBar() {
-		JMenuBar menuBar1 = new JMenuBar();
-		menuBar1.setBackground(Color.WHITE);
-		frmMenuAdmin.setJMenuBar(menuBar1);
-
-		JMenu mnFile1 = new JMenu("File");
-		mnFile1.setBackground(Color.LIGHT_GRAY);
-		menuBar1.add(mnFile1);
-
-		mntmMenu = new JMenuItem("Menu");
-		mntmMenu.setIcon(new ImageIcon(AdminDesign.class.getResource(HOMEMIN)));
-		mnFile1.add(mntmMenu);
-
-		mntmExit1 = new JMenuItem("Exit");
-		mntmExit1.setIcon(new ImageIcon(AdminDesign.class.getResource(LOGOUT)));
-		mnFile1.add(mntmExit1);
-
-		JSeparator separator = new JSeparator();
-		separator.setMaximumSize(new Dimension(100, 50));
-		menuBar1.add(separator);
-
-		mnNewMenu = new JMenu("Help");
-		menuBar1.add(mnNewMenu);
-
-		menuWebsite = new JMenuItem("Website");
-
-		menuWebsite.setIcon(new ImageIcon(AdminDesign.class.getResource(WEBSITE)));
-		mnNewMenu.add(menuWebsite);
-
-		JSeparator separator_1 = new JSeparator();
-		mnNewMenu.add(separator_1);
-
-		menuHelpMe = new JMenuItem("Help Me");
-		menuHelpMe.setIcon(new ImageIcon(AdminDesign.class.getResource(HELP)));
-		mnNewMenu.add(menuHelpMe);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		menuBar1.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-
-		JLabel lblBaseDeDados = new JLabel("Base de Dados:");
-		panel.add(lblBaseDeDados);
-
-		lblStatusDb = new JLabel("ON");
-		lblStatusDb.setForeground(Color.GREEN);
-		lblStatusDb.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel.add(lblStatusDb);
-
-		JLabel lblDg = new JLabel("                                                                               ");
-		panel.add(lblDg);
-
-		lblArmazem = new JLabel(nomeArmazem);
-		lblArmazem.setForeground(Color.BLACK);
-		lblArmazem.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
-		lblArmazem.setBackground(Color.BLACK);
-		panel.add(lblArmazem);
-		lblArmazem.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblArmazem.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		menuBarArmazem = new JMenu("");
-		menuBarArmazem.setMaximumSize(new Dimension(50, 50));
-		menuBarArmazem.setMargin(new Insets(0, 0, 0, 0));
-
-		menuBarArmazem.setHorizontalAlignment(SwingConstants.LEFT);
-		menuBarArmazem.setBackground(Color.WHITE);
-		menuBar1.add(menuBarArmazem);
-		menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
-
-		menuMudarNomeArmazem = new JMenuItem("Mudar informação");
-
-		menuMudarNomeArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(CHANGE)));
-		menuBarArmazem.add(menuMudarNomeArmazem);
-
-		JLabel label = new JLabel("       ");
-		menuBar1.add(label);
-		label.setBackground(Color.WHITE);
-
-		backgroundTimer();
-
-		counterTimer.start();
 
 	}
+	private void criaBotoesLogs() {
+		logsBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(logsBtnRefresh, REFRESH);
 
-	private boolean first = true;
-	private JPanel logs;
-	private JTextField logsSearch;
+		logsBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(logsBtnHome);	
+	}
+	private GroupLayout putLogsLayout() {
+		GroupLayout glLogsPanel = new GroupLayout(logsPanel);
+		glLogsPanel.setHorizontalGroup(
+			glLogsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glLogsPanel.createSequentialGroup()
+					.addGap(27)
+					.addGroup(glLogsPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblLogs, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+						.addComponent(logSeparator, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addComponent(logsBtnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+						.addComponent(logsBtnHome, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+					.addGap(49)
+					.addGroup(glLogsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(glLogsPanel.createSequentialGroup()
+							.addGap(339)
+							.addComponent(numeroLinhasCombo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(logsSearch, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 548, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(55, Short.MAX_VALUE))
+		);
+		glLogsPanel.setVerticalGroup(
+			glLogsPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glLogsPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(glLogsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(glLogsPanel.createSequentialGroup()
+							.addGap(41)
+							.addGroup(glLogsPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(logsSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(numeroLinhasCombo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(glLogsPanel.createSequentialGroup()
+							.addComponent(lblLogs, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addGap(11)
+							.addComponent(logSeparator, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(glLogsPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)
+						.addGroup(glLogsPanel.createSequentialGroup()
+							.addGap(35)
+							.addComponent(logsBtnRefresh, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(logsBtnHome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(25, Short.MAX_VALUE))
+		);
+		return glLogsPanel;
+	}
+	private void showLogsMenu() {
+		logs = new JPanel();
+		frmMenuAdmin.getContentPane().add(logs, "name_317578181588800");
+		logs.setLayout(new BorderLayout(0, 0));
+
+		logsPanel = new JPanel();
+		logs.add(logsPanel, BorderLayout.CENTER);
+
+		lblLogs = new JLabel("Logs");
+		lblLogs.setFont(new Font("HP Simplified", Font.BOLD, 34));
+
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+
+		criaBotoesLogs();
+
+		logsSearch = new JTextField();
+		Interface.styleSearch(logsSearch);
+
+		logSeparator = new JSeparator();
+		Interface.styleSeparator(logSeparator);
+		
+		numeroLinhasCombo = new JComboBox<>();
+		numeroLinhasCombo.setToolTipText("Numero de linhas");
+		numeroLinhasCombo.setFont(new Font("Consolas", Font.PLAIN, 14));
+		numeroLinhasCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"25", "50", "100", "200", "400"}));
+		
+		GroupLayout glLogsPanel = putLogsLayout();
+				
+		modelLogs = new DefaultTableModel(new Object[][] {}, 
+				new String[] { "Data", "Username", "Admin", "Acao", "Ip" }) {
+			/**
+					 * 
+					 */
+					private static final long serialVersionUID = -7481186986491942822L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class, String.class, String.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		logsTable = new JTable();
+		logsTable.setModel(modelLogs);
+		logsTable.setAutoCreateRowSorter(true);
+		scrollPane.setViewportView(logsTable);
+		logsPanel.setLayout(glLogsPanel);
+		
+		/* Para nao mover */
+		logsTable.getTableHeader().setReorderingAllowed(false);
+		logsTable.setAutoCreateRowSorter(true);// para ordenar
+		logsTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		db.getLogs(modelLogs, numeroLinhasCombo.getSelectedItem().toString());
+		
+		criaLogsSearch();
+		
+	}
 
 	/* TEMPO COMO BACKGROUND */
-	private void backgroundTimer() {
-		counterTimer = new Timer(2000, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (db.connect()) {
-
-					lblStatusDb.setText("ON");
-					lblStatusDb.setForeground(Color.GREEN);
-					db.disconnect();
-					first = true;
-				} else {
-
-					lblStatusDb.setText("OFF");
-					lblStatusDb.setForeground(Color.RED);
-					if (first) {
-						first = false;
-						int option = popUp.showPopUpDataBaseError();
-						if (option == JOptionPane.NO_OPTION) {
-							cl.show(frmMenuAdmin.getContentPane(), "base_dados");
-						}
-					}
-				}
-
-			}
-
-		});
-
-	}
-
-	private void buttonsMenu() {
-		mntmMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
-
-			}
-		});
-		mntmExit1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				counterTimer.stop();
-				messageLogs.saiuSistema(username, true, nomeArmazem);
-				LoginDesign window2 = new LoginDesign();
-				window2.getFrmLogin().setVisible(true);
-				frmMenuAdmin.dispose();
-
-			}
-		});
-		menuWebsite.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				try {
-					Desktop desktop = java.awt.Desktop.getDesktop();
-					URI oURL = new URI("https://up201504257.github.io/");
-					desktop.browse(oURL);
-				} catch (Exception x) {
-					x.printStackTrace();
-				}
-			}
-		});
-		menuBarArmazem.addMenuListener(new MenuListener() {
-			public void menuDeselected(MenuEvent arg0) {
-				menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
-
-			}
-
-			public void menuSelected(MenuEvent arg0) {
-				menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE1)));
-
-			}
-
-			@Override
-			public void menuCanceled(MenuEvent e) {
-
-			}
-		});
-		menuMudarNomeArmazem.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				String localizacao = db.localizacaoArmazem(nomeArmazem);
-				String[] x = armazemClass.editarArmazem(nomeArmazem, localizacao);
-				if (x[0] != null) {
-					nomeArmazem = x[0];
-					lblArmazem.setText(nomeArmazem);
-				}
-
-			}
-		});
-		menuHelpMe.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				help.selectHelp(frmMenuAdmin, currentPanel);
-			}
-		});
-	}
+	
 	
 	private void buttonsMainMenu() {
 
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "user");
-				currentPanel = "user";
+				menuBar.setCurrentPanel("user");
 			}
 		});
 		btnCategoriaProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "categoria_produto");
-				currentPanel = "categoria_produto";
+				menuBar.setCurrentPanel("categoria_produto");
+
 			}
 		});
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "fornecedores");
-				currentPanel = "fornecedores";
+				menuBar.setCurrentPanel("fornecedores");
 
 			}
 		});
 		btnMaquinas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "maquina");
-				currentPanel = "maquina";
+				menuBar.setCurrentPanel("maquina");
 
 			}
 		});
 		btnDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "base_dados");
-				currentPanel = "base_dados";
+				menuBar.setCurrentPanel("base_dados");
 
 			}
 		});
@@ -1722,14 +1458,14 @@ public class AdminDesign {
 			public void actionPerformed(ActionEvent e) {
 
 				cl.show(frmMenuAdmin.getContentPane(), "funcionario");
-				currentPanel = "funcionario";
+				menuBar.setCurrentPanel("funcionario");
 
 			}
 		});
 		btnLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), "logs");
-				currentPanel = "logs";
+				menuBar.setCurrentPanel("logs");
 
 			}
 		});
@@ -1740,19 +1476,20 @@ public class AdminDesign {
 		usersBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
+
 
 			}
 		});
 		usersBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.adicionarUser(nomeArmazem);
+				usersClass.adicionarUser(menuBar.getNomeArmazem());
 
 			}
 		});
 		usersBtnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.editarUser( nomeArmazem);
+				usersClass.editarUser( menuBar.getNomeArmazem());
 			}
 		});
 		usersBtnRefresh.addActionListener(new ActionListener() {
@@ -1762,7 +1499,7 @@ public class AdminDesign {
 		});
 		usersBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usersClass.removeUser(nomeArmazem);
+				usersClass.removeUser(menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1770,7 +1507,7 @@ public class AdminDesign {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
-					usersClass.removeUser(nomeArmazem);
+					usersClass.removeUser(menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1781,12 +1518,12 @@ public class AdminDesign {
 		categoriaProdutoBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 			}
 		});
 		categoriaProdutoBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				categoriaProdutoClass.adicionarCategoria(modelCategoriaProduto, modelSubCategoriaProduto, nomeArmazem);
+				categoriaProdutoClass.adicionarCategoria(modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
 			}
 		});
 		categoriaProdutoBtnRefresh.addActionListener(new ActionListener() {
@@ -1797,7 +1534,7 @@ public class AdminDesign {
 		categoriaProdutoBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				categoriaProdutoClass.removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
-						modelCategoriaProduto, modelSubCategoriaProduto, nomeArmazem);
+						modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
 			}
 		});
 
@@ -1816,7 +1553,7 @@ public class AdminDesign {
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
 					categoriaProdutoClass.removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
-							modelCategoriaProduto, modelSubCategoriaProduto, nomeArmazem);
+							modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1825,7 +1562,7 @@ public class AdminDesign {
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
 					categoriaProdutoClass.removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
-							modelCategoriaProduto, modelSubCategoriaProduto, nomeArmazem);
+							modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1844,18 +1581,18 @@ public class AdminDesign {
 		fornecedoresBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 
 			}
 		});
 		fornecedoresBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fornecedorClass.adicionarFornecedor(modelFornecedor, nomeArmazem);
+				fornecedorClass.adicionarFornecedor(modelFornecedor, menuBar.getNomeArmazem());
 			}
 		});
 		fornecedoresBtnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fornecedorClass.editarFornecedor(fornecedorTable, modelFornecedor, nomeArmazem);
+				fornecedorClass.editarFornecedor(fornecedorTable, modelFornecedor, menuBar.getNomeArmazem());
 			}
 		});
 		fornecedoresBtnRefresh.addActionListener(new ActionListener() {
@@ -1865,7 +1602,7 @@ public class AdminDesign {
 		});
 		fornecedoresBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fornecedorClass.removeFornecedor(fornecedorTable, modelFornecedor, nomeArmazem);
+				fornecedorClass.removeFornecedor(fornecedorTable, modelFornecedor, menuBar.getNomeArmazem());
 			}
 		});
 
@@ -1873,7 +1610,7 @@ public class AdminDesign {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
-					fornecedorClass.removeFornecedor(fornecedorTable, modelFornecedor, nomeArmazem);
+					fornecedorClass.removeFornecedor(fornecedorTable, modelFornecedor, menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1892,35 +1629,35 @@ public class AdminDesign {
 		maquinaBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 
 			}
 		});
 		maquinaBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				maquinaClass.adicionarMaquina(modelMaquina, nomeArmazem);
+				maquinaClass.adicionarMaquina(modelMaquina, menuBar.getNomeArmazem());
 			}
 		});
 		maquinaBtnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				maquinaClass.editarMaquina(maquinaTable, modelMaquina, nomeArmazem);
+				maquinaClass.editarMaquina(maquinaTable, modelMaquina, menuBar.getNomeArmazem());
 			}
 		});
 		maquinaBtnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				maquinaClass.refresh(modelMaquina, nomeArmazem);
+				maquinaClass.refresh(modelMaquina, menuBar.getNomeArmazem());
 			}
 		});
 		maquinaBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				maquinaClass.removeMaquina(maquinaTable, modelMaquina, nomeArmazem);
+				maquinaClass.removeMaquina(maquinaTable, modelMaquina, menuBar.getNomeArmazem());
 			}
 		});
 		maquinaTable.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
-					maquinaClass.removeMaquina(maquinaTable, modelMaquina, nomeArmazem);
+					maquinaClass.removeMaquina(maquinaTable, modelMaquina, menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1939,13 +1676,13 @@ public class AdminDesign {
 		funcionarioBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 
 			}
 		});
 		funcionarioBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				funcionarioClass.adicionarFuncionario(modelFuncionario, nomeArmazem);
+				funcionarioClass.adicionarFuncionario(modelFuncionario, menuBar.getNomeArmazem());
 			}
 		});
 		funcionarioBtnEditar.addActionListener(new ActionListener() {
@@ -1955,19 +1692,19 @@ public class AdminDesign {
 		});
 		funcionarioBtnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				funcionarioClass.refresh(modelFuncionario, nomeArmazem);
+				funcionarioClass.refresh(modelFuncionario, menuBar.getNomeArmazem());
 			}
 		});
 		funcionarioBtnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				funcionarioClass.removeFuncionario(funcionarioTable, modelFuncionario, nomeArmazem);
+				funcionarioClass.removeFuncionario(funcionarioTable, modelFuncionario, menuBar.getNomeArmazem());
 			}
 		});
 		funcionarioTable.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
-					funcionarioClass.removeFuncionario(funcionarioTable, modelFuncionario, nomeArmazem);
+					funcionarioClass.removeFuncionario(funcionarioTable, modelFuncionario, menuBar.getNomeArmazem());
 
 			}
 		});
@@ -1987,14 +1724,14 @@ public class AdminDesign {
 		baseDadosBtnhome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 
 			}
 		});
 		baseDadosBtnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				baseDadosClass.adicionar(baseDadosUser.getText(), baseDadosPassword.getText(), baseDadosUrl.getText(),
-						nomeArmazem);
+						menuBar.getNomeArmazem());
 			}
 		});
 		baseDadosBtnCriarTabelas.addActionListener(new ActionListener() {
@@ -2017,8 +1754,9 @@ public class AdminDesign {
 		baseDadosBtnTest.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				baseDadosClass.testDataBase(lblStatusDb);
-
+				JLabel aux = new JLabel();
+				baseDadosClass.testDataBase(aux);
+				menuBar.setLblStatusDb(aux.getText());
 			}
 		});
 	}
@@ -2027,7 +1765,7 @@ public class AdminDesign {
 		logsBtnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);
-				currentPanel = MENUADMINSTRING;
+				menuBar.setCurrentPanel(MENUADMINSTRING);
 
 			}
 		});
@@ -2052,7 +1790,6 @@ public class AdminDesign {
 	
 	/* AÇOES DOS BOTOES */
 	private void buttons() {
-		buttonsMenu();
 		buttonsMainMenu();
 		//botoes secundarios
 		buttonsUser();
@@ -2062,7 +1799,6 @@ public class AdminDesign {
 		buttonsFuncionarios();
 		buttonsBaseDados();
 		buttonsLogs();
-		
 	}
 
 	public void initialize() {
@@ -2081,7 +1817,7 @@ public class AdminDesign {
 						"Exit", JOptionPane.YES_NO_OPTION);
 
 				if (confirmed == JOptionPane.YES_OPTION) {
-					messageLogs.saiuSistema(username, true, nomeArmazem);
+					messageLogs.saiuSistema(username, true, menuBar.getNomeArmazem());
 					frmMenuAdmin.dispose();
 				}
 			}
@@ -2111,8 +1847,6 @@ public class AdminDesign {
 		showLogsMenu();
 
 		putPanels();// COLOCAR OS PANELS PARA MANIPULAR
-
-		showMenuBar();// MENU BAR
 
 		buttons();// LISTENERS DOS BOTÕES
 

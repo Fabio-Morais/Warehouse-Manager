@@ -64,11 +64,6 @@ public class PopUp {
 				JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 	}
 	
-	/*private void showPopUpError(String string, String titulo) {
-		JOptionPane.showMessageDialog(null,string, titulo,
-				 JOptionPane.ERROR_MESSAGE);
-	}*/
-	
 	private void showPopUpInformation(String string, String titulo) {
 		JOptionPane.showMessageDialog(null,string, titulo,
 				 JOptionPane.INFORMATION_MESSAGE);

@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import db.DataBase;
+import gui.Interface;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
@@ -25,8 +26,9 @@ public class Fornecedores {
 	private Check check;
 	private DataBase db; 
 	private MessageLogs messageLogs;
+	private JTable fornecedoresTable;
+	private DefaultTableModel modelFornecedor;
 
-	
 	private String loginUsername;
 
 	/* POP UP */
@@ -39,8 +41,39 @@ public class Fornecedores {
 		fornecedorField = new JTextField();
 		messageLogs = MessageLogs.getInstance();
 		this.loginUsername = username;
+		criaTabela();
 	}
 	
+	private void criaTabela() {
+		modelFornecedor = new DefaultTableModel(new Object[][] {}, new String[] { "Nome" }) {
+
+			private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class };
+
+			public Class<?> getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+	
+		fornecedoresTable = new JTable();
+		Interface.styleTabela(fornecedoresTable, modelFornecedor);
+	}
+	
+	
+	public JTable getFornecedoresTable() {
+		return fornecedoresTable;
+	}
+
+	public DefaultTableModel getModelFornecedor() {
+		return modelFornecedor;
+	}
+
 	private void resetBorders() {
 		fornecedorField.setBorder(new JTextField().getBorder());
 	}

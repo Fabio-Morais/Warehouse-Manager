@@ -80,7 +80,8 @@ public class Users {
 				return columnEditables[column];
 			}
 		};
-		usersTable = Interface.criaTabela(modelUser);
+		usersTable = new JTable(); 
+		Interface.styleTabela(usersTable,modelUser);
 	}
 	
 	public DefaultTableModel getModelUser() {

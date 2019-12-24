@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import db.DataBase;
+import gui.Interface;
 import gui.PopUp;
 import logic.Check;
 import logic.MessageLogs;
@@ -25,7 +26,8 @@ public class Maquina {
 	private Check check;
 	private DataBase db;
 	private MessageLogs messageLogs;
-
+	private DefaultTableModel modelMaquina;
+	private JTable maquinaTable;
 	
 	private String loginUsername;
 
@@ -42,7 +44,43 @@ public class Maquina {
 		numeroField = new JTextField();
 		this.loginUsername = username;
 		messageLogs = MessageLogs.getInstance();
+		criaTabela();
 
+	}
+
+	private void criaTabela() {
+		modelMaquina = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Numero Serie" }) {
+
+			private static final long serialVersionUID = 1880689174093893276L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			boolean[] columnEditables = new boolean[] { false, false };
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		};
+
+	
+		maquinaTable = new JTable();
+		Interface.styleTabela(maquinaTable, modelMaquina);
+	}
+	
+	
+	public DefaultTableModel getModelMaquina() {
+		return modelMaquina;
+	}
+
+	public JTable getMaquinaTable() {
+		return maquinaTable;
 	}
 
 	private void resetBorders() {

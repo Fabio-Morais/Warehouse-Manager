@@ -21,9 +21,15 @@ import javax.swing.table.DefaultTableModel;
 import guiadmin.AdminDesign;
 
 public class Interface {
+	private static final String HOME = "/home.png";
+	private Interface() {
+		
+	}
 	public static void styleBotaoSimples(JButton button, String icon) {
 		button.setFont(new Font("Consolas", Font.PLAIN, 12));
 		button.setIcon(new ImageIcon(AdminDesign.class.getResource(icon)));
+		button.setBackground(Color.LIGHT_GRAY);
+
 	}
 	
 
@@ -40,12 +46,14 @@ public class Interface {
 		button.setFont(new Font("Consolas", Font.BOLD, 12));
 	}
 	
-	public static void styleBotaoHome(JButton button, String icon) {
+	public static void styleBotaoHome(JButton button) {
 		button.setFont(new Font("Consolas", Font.BOLD, 12));
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(AdminDesign.class.getResource(icon)));
+		button.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
+		button.setBackground(Color.LIGHT_GRAY);
+
 	}
 	
 	public static void styleLabel(JLabel label) {
@@ -64,8 +72,7 @@ public class Interface {
 		search.setColumns(10);
 	}
 	
-	public static JTable criaTabela(DefaultTableModel model) {
-		JTable table = new JTable();
+	public static void styleTabela(JTable table, DefaultTableModel model) {
 		table.setSelectionForeground(Color.BLACK);
 		table.setModel(model);
 
@@ -73,7 +80,6 @@ public class Interface {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setAutoCreateRowSorter(true);// para ordenar
 		table.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		return table;
 	}
 	
 	public static void styleSeparator(JSeparator separator) {
