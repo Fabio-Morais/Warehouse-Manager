@@ -52,6 +52,7 @@ public class Maquina {
 		modelMaquina = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "Numero Serie" }) {
 
 			private static final long serialVersionUID = 1880689174093893276L;
+			boolean[] columnEditables = new boolean[] { false, false };
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class };
 
@@ -60,8 +61,6 @@ public class Maquina {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-
-			boolean[] columnEditables = new boolean[] { false, false };
 
 			@Override
 			public boolean isCellEditable(int row, int column) {

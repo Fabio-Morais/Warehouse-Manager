@@ -52,7 +52,6 @@ public class MenuBar {
 	private JMenuItem menuHelpMe;
 	private JMenuItem menuMudarNomeArmazem;
 	private JLabel lblArmazem;
-	private JMenu mnNewMenu;
 	private JLabel lblStatusDb;
 	private JFrame frame;
 	private String nomeArmazem;
@@ -132,7 +131,7 @@ public class MenuBar {
 		separator.setMaximumSize(new Dimension(100, 50));
 		menuBar1.add(separator);
 
-		mnNewMenu = new JMenu("Help");
+		JMenu mnNewMenu = new JMenu("Help");
 		menuBar1.add(mnNewMenu);
 
 		menuWebsite = new JMenuItem("Website");
@@ -250,7 +249,7 @@ public class MenuBar {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				try {
-					Desktop desktop = java.awt.Desktop.getDesktop();
+					Desktop desktop = Desktop.getDesktop();
 					URI oURL = new URI("https://paginas.fe.up.pt/~up201504257/lpro/user/");
 					desktop.browse(oURL);
 				} catch (Exception x) {
@@ -270,8 +269,8 @@ public class MenuBar {
 			}
 
 			@Override
-			public void menuCanceled(MenuEvent e) {
-
+			public void menuCanceled(MenuEvent arg0) {
+				// Empty method
 			}
 		});
 		menuMudarNomeArmazem.addMouseListener(new MouseAdapter() {
