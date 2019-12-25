@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -169,7 +170,26 @@ public class DataBase {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Executa a query pretendida
+	 * @param sql - string a executar via sql
+	 * @return boolean - true se executar corretamente / false caso contrario
+	 * */
+	protected boolean executeQuery(String sql) {
+		connect();
+		try {
+			Statement stmt = getC().createStatement();
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			disconnect();
+			e.printStackTrace();
+			return false;
+		}
+		disconnect();
+		return true;
+	}
+	
 	/**
 	 * Funçao usada para saber Data e hora atual 
 	 * 
@@ -375,16 +395,11 @@ public class DataBase {
 	
 	/**
 	 * Insere um novo Funcionario
-	 * @param nif Nif do funcionario
-	 * @param nome Nome do funcionario
-	 * @param idade Idade do funcionario
-	 * @param funcao Função do funcionario
-	 * @param salario Salario do funiconario
-	 * @param armazem Armazem onde trabalha 
+	 * @param dados - contem o nif, nome, idade, funçao, salario e armazem onde trabalha
 	 * @return Boolean True se inseriu corretamente/False caso contrario
 	 */
-	public boolean addFuncionario(String nif, String nome, int idade, String funcao, double salario, String armazem ){
-		return funcionario.insertAll(this, nif, nome, idade, funcao, salario, armazem);
+	public boolean addFuncionario(String dadosFunc){
+		return funcionario.insertAll(this, dadosFunc);
 	}
 	
 	/**
@@ -443,27 +458,24 @@ public class DataBase {
 	
 	/**
 	 * Insere User na base de dados
-	 * @param nif - Nif do utilizador
-	 * @param user - Nome de Utilizador
-	 * @param email - Email de Utilizador
+	 * @param dadosUser -  contem o nif, nome e email do utilizador
 	 * @param password - Password do Utilizador
 	 * @param admin - Se é admin True caso contrario Falso
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
-	public boolean addUserLogin(String nif, String user, String email, String password, boolean admin) {
-		return login.insertAll(this, nif, user, email, password, admin);
+	public boolean addUserLogin(String dadosUser, String password, boolean admin) {
+		return login.insertAll(this, dadosUser, password, admin);
 	}
 	
 	/**
 	 * Upadate nos dados do User
-	 * @param olduser Nome de utilizador antigo
-	 * @param user Novo Nome do user 
+	 * @param dadosUser - contem o nome de utilizador antigo e o nome de utilizador novo
 	 * @param pass PassWord do utilizador
 	 * @param admin True se é admin | False caso contrario
 	 * @return Boolean True se atualizou corretamente/ False no caso contrario
 	 */
-	public boolean updateUserLogin(String olduser, String user, String pass, boolean admin) {
-		return login.update(this, olduser, user, pass, admin);
+	public boolean updateUserLogin(String dadosUser, String pass, boolean admin) {
+		return login.update(this, dadosUser, pass, admin);
 	}
 	
 	/**
@@ -686,16 +698,14 @@ public class DataBase {
 	
 	/**
 	 * Insere log do que o user fez
-	 * @param username - user que fez a ação~
-	 * @param admin - se user é admin ou user normal
+	 * @param dadosLog - contem o username, se é admin e ip de quem fez a açao e o armazem correspondente
 	 * @param acao - ação que o user fez
 	 * @param acaoCompleta - ação que o user fez de modo detalhada
-	 * @param ip - ip do user que fez a ação
 	 * @param armazem - armazem a que pertence
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
-	public boolean addLog(String username, boolean admin, String acao, String acaoCompleta, String ip, String armazem) {
-		return logs.insertAll(this, username, admin, acao, acaoCompleta, ip, armazem);
+	public boolean addLog(String dadosLog, String acao, String acaoCompleta) {
+		return logs.insertAll(this, dadosLog, acao, acaoCompleta);
 	}
 	
 	/**

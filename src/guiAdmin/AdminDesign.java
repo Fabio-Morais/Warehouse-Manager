@@ -1817,7 +1817,7 @@ public class AdminDesign {
 						"Exit", JOptionPane.YES_NO_OPTION);
 
 				if (confirmed == JOptionPane.YES_OPTION) {
-					messageLogs.saiuSistema(username, true, menuBar.getNomeArmazem());
+					messageLogs.saiuSistema(username+";"+true+";"+menuBar.getNomeArmazem());
 					frmMenuAdmin.dispose();
 				}
 			}

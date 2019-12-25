@@ -156,7 +156,7 @@ public class EnviarProduto {
 			String sku=comboBox.getSelectedItem().toString();
 			String destino = destinoField.getText();
 			db.enviarProduto(sku, data,destino);
-			messageLogs.enviaProduto(loginUsername,false,sku, data, nomeArmazem);
+			messageLogs.enviaProduto(loginUsername+";"+false+";"+nomeArmazem,sku, data);
 		}
 
 	}

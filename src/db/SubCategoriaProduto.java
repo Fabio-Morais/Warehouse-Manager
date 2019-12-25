@@ -53,20 +53,9 @@ public class SubCategoriaProduto {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String subCategoria, String categoria) {
-		db.connect();
 		String sql = "INSERT INTO sub_categoria (sub_categoria, categoria)"
 				   + "VALUES ('"+subCategoria+"','"+categoria+"')";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -77,19 +66,8 @@ public class SubCategoriaProduto {
 	 * @return Boolean True se eliminou corretamente/ False no caso contrario
 	 */
 	public boolean remove(DataBase db, String subCategoria, String categoria) {
-		db.connect();
 		String sql = "DELETE FROM  sub_categoria WHERE sub_categoria='"+subCategoria+"' AND categoria='"+categoria+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	

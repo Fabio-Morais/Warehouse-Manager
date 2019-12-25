@@ -154,7 +154,7 @@ public class Fornecedores {
 
 		if(isFinished) {
 			db.addFornecedor(fornecedorField.getText() , armazem);
-			messageLogs.adicionaFornecedor(loginUsername, true, fornecedorField.getText(), armazem);
+			messageLogs.adicionaFornecedor(loginUsername+";"+true+";"+armazem, fornecedorField.getText());
 			modelFornecedor.addRow(new Object[] {fornecedorField.getText()});
 		}
 	}
@@ -182,7 +182,7 @@ public class Fornecedores {
 		if(isFinished) {
 			String nome = modelFornecedor.getValueAt(indexOfRow[0], 0).toString();
 			db.updateFornecedor(nome, fornecedorField.getText());
-			messageLogs.editaFornecedor(loginUsername, true,nome, fornecedorField.getText(), armazem);
+			messageLogs.editaFornecedor(loginUsername+";"+true+";"+armazem,nome, fornecedorField.getText());
 			modelFornecedor.setValueAt(fornecedorField.getText(),indexOfRow[0], 0);
 		}
 	}
@@ -201,7 +201,7 @@ public class Fornecedores {
 			for(int i=selectedRows.length-1; i>=0 ; i--) {
 				String nome = modelFornecedor.getValueAt(fornecedorTable.convertRowIndexToModel(selectedRows[i]), 0).toString();
 				db.removeFornecedor(nome);
-				messageLogs.removeFornecedor(loginUsername, true, nome, armazem);
+				messageLogs.removeFornecedor(loginUsername+";"+true+";"+armazem, nome);
 				modelFornecedor.removeRow(fornecedorTable.convertRowIndexToModel(selectedRows[i]));
 			}
 		}

@@ -256,7 +256,7 @@ public class Users {
 			for (int i = selectedRows.length - 1; i >= 0; i--) {
 				String user = modelUser.getValueAt(usersTable.convertRowIndexToModel(selectedRows[i]), 1).toString();
 				if (db.removeUserLogin(user)) {
-					messageLogs.removeUser(loginUsername, true, user, nomeArmazem);
+					messageLogs.removeUser(loginUsername+";"+true+";"+nomeArmazem, user);
 					modelUser.removeRow(usersTable.convertRowIndexToModel(selectedRows[i]));
 				} else {
 					popUp.showPopUpErroEliminar();
@@ -307,9 +307,9 @@ public class Users {
 			String passEncript = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
 			String oldUser = modelUser.getValueAt(indexOfRow[0], 1).toString();
 			String user = userField.getText();
-			if (db.updateUserLogin(oldUser, user, passEncript,
+			if (db.updateUserLogin(oldUser+";"+user, passEncript,
 					chckbxAdmin.isSelected())) {
-				messageLogs.editaUser(loginUsername, true, oldUser, user, nomeArmazem);
+				messageLogs.editaUser(loginUsername+";"+true+";"+nomeArmazem, oldUser, user);
 				popUp.showPopUpEditarSucesso();
 				modelUser.setValueAt(userField.getText(), indexOfRow[0], 1);
 				modelUser.setValueAt(chckbxAdmin.isSelected(), indexOfRow[0], 2);
@@ -341,9 +341,9 @@ public class Users {
 		}
 		if (itsFinished) {
 			String passEncript = BCrypt.hashpw(String.valueOf(passwordField.getPassword()), BCrypt.gensalt());
-			if (db.addUserLogin(comboBox.getSelectedItem().toString(), userField.getText(),  emailField.getText(), passEncript,
+			if (db.addUserLogin(comboBox.getSelectedItem().toString()+";"+userField.getText()+";"+ emailField.getText(), passEncript,
 					chckbxAdmin.isSelected())) {
-				messageLogs.adicionaUser(loginUsername, true, comboBox.getSelectedItem().toString(), userField.getText(), nomeArmazem);
+				messageLogs.adicionaUser(loginUsername+";"+true+";"+nomeArmazem, comboBox.getSelectedItem().toString(), userField.getText());
 				popUp.showPopUpAdicionadoSucesso();
 				modelUser.addRow(
 						new Object[] { comboBox.getSelectedItem(), userField.getText(), chckbxAdmin.isSelected() });

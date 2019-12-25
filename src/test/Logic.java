@@ -218,30 +218,30 @@ class Logic {
 	public void testMessageLogs() {
 		MessageLogs message = MessageLogs.getInstance();
 
-		assertEquals(true, message.entrouSistema("usernameTeste", true, armazem));
-		assertEquals(true, message.saiuSistema("usernameTeste", true, armazem));
-		assertEquals(true, message.adicionaUser("usernameTeste", true, "nifTeste","nomeTeste",armazem));
-		assertEquals(true, message.removeUser("usernameTeste", true,"nomeTeste",armazem));
-		assertEquals(true, message.editaUser("usernameTeste", true,"nomeTeste", "novoNomeTeste",armazem));
-		assertEquals(true, message.adicionaMaquina("usernameTeste", true,"nomeTeste", "numeroTeste",armazem));
-		assertEquals(true, message.removeMaquina("usernameTeste", true,"nomeTeste", "numeroTeste",armazem));
-		assertEquals(true, message.editaMaquina("usernameTeste", true,"nomeTeste", "numeroTeste", "novoNomeTeste", "novoNumeroTeste",armazem));
-		assertEquals(true, message.adicionaFuncionario("usernameTeste", true,"nomeTeste", "nifTeste",armazem));
-		assertEquals(true, message.removeFuncionario("usernameTeste", true,"nomeTeste", "nifTeste",armazem));
-		assertEquals(true, message.editaFuncionario("usernameTeste", true,"nomeTeste", "numeroTeste", "novoNomeTeste", "novoNumeroTeste",armazem));
-		assertEquals(true, message.adicionaFornecedor("usernameTeste", true,"nomeTeste",armazem));
-		assertEquals(true, message.removeFornecedor("usernameTeste", true,"nomeTeste",armazem));
-		assertEquals(true, message.editaFornecedor("usernameTeste", true,"nomeTeste","novoNomeTeste",armazem));
-		assertEquals(true, message.adicionaCategoria("usernameTeste", true,"categoriaTeste", "subCategoriaTeste",armazem));
-		assertEquals(true, message.removeCategoria("usernameTeste", true,"categoriaTeste", "subCategoriaTeste",armazem));
-		assertEquals(true, message.editaBaseDados("usernameTeste", true,"userTeste;urlTeste;passTeste", "userTesteNova;urlTesteNova;passTesteNova",armazem));
-		assertEquals(true, message.reportaAvaria("usernameTeste", true,"nomeTeste","idTeste", "random",armazem));
-		assertEquals(true, message.corrigeAvaria("usernameTeste", true,"nomeTeste", "idTeste",armazem));
-		assertEquals(true, message.reportaDefeito("usernameTeste", true,"skuTeste",armazem));
-		assertEquals(true, message.enviaProduto("usernameTeste", true,"skuTeste", "24/12/2019",armazem));
-		assertEquals(true, message.receberProduto("usernameTeste", true,"teste;teste;teste;teste;teste",armazem));
-		assertEquals(false, message.mudarArmazem("usernameTeste", true,"teste;teste;teste;teste"));
-		assertEquals(true, message.mudarArmazem("usernameTeste", true,"teste;teste;warehouse1;teste"));
+		assertEquals(true, message.entrouSistema("usernameTeste"+";"+true+";"+ armazem));
+		assertEquals(true, message.saiuSistema("usernameTeste"+";"+true+";"+ armazem));
+		assertEquals(true, message.adicionaUser("usernameTeste"+";"+ true+";"+armazem ,"nifTeste","nomeTeste"));
+		assertEquals(true, message.removeUser("usernameTeste"+";"+ true+";"+armazem ,"nomeTeste"));
+		assertEquals(true, message.editaUser("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "novoNomeTeste"));
+		assertEquals(true, message.adicionaMaquina("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "numeroTeste"));
+		assertEquals(true, message.removeMaquina("usernameTeste"+";"+true+";"+armazem,"nomeTeste", "numeroTeste"));
+		assertEquals(true, message.editaMaquina("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "numeroTeste", "novoNomeTeste", "novoNumeroTeste"));
+		assertEquals(true, message.adicionaFuncionario("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "nifTeste"));
+		assertEquals(true, message.removeFuncionario("usernameTeste"+";"+true+";"+armazem,"nomeTeste", "nifTeste"));
+		assertEquals(true, message.editaFuncionario("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "numeroTeste", "novoNomeTeste", "novoNumeroTeste"));
+		assertEquals(true, message.adicionaFornecedor("usernameTeste"+";"+ true+";"+armazem,"nomeTeste"));
+		assertEquals(true, message.removeFornecedor("usernameTeste"+";"+ true+";"+armazem,"nomeTeste"));
+		assertEquals(true, message.editaFornecedor("usernameTeste"+";"+ true+";"+armazem,"nomeTeste","novoNomeTeste"));
+		assertEquals(true, message.adicionaCategoria("usernameTeste"+";"+ true+";"+armazem,"categoriaTeste", "subCategoriaTeste"));
+		assertEquals(true, message.removeCategoria("usernameTeste"+";"+ true+";"+armazem,"categoriaTeste", "subCategoriaTeste"));
+		assertEquals(true, message.editaBaseDados("usernameTeste"+";"+ true+";"+armazem,"userTeste;urlTeste;passTeste", "userTesteNova;urlTesteNova;passTesteNova"));
+		assertEquals(true, message.reportaAvaria("usernameTeste"+";"+ true+";"+armazem,"nomeTeste","idTeste", "random"));
+		assertEquals(true, message.corrigeAvaria("usernameTeste"+";"+ true+";"+armazem,"nomeTeste", "idTeste"));
+		assertEquals(true, message.reportaDefeito("usernameTeste"+";"+ true+";"+armazem,"skuTeste"));
+		assertEquals(true, message.enviaProduto("usernameTeste"+";"+ true+";"+armazem,"skuTeste", "24/12/2019"));
+		assertEquals(true, message.receberProduto("usernameTeste"+";"+ true+";"+armazem,"teste;teste;teste;teste;teste"));
+		assertEquals(false, message.mudarArmazem("usernameTeste"+";"+ true+";"+armazem,"teste;teste;teste;teste"));
+		assertEquals(true, message.mudarArmazem("usernameTeste"+";"+ true+";"+"teste","teste;teste;warehouse1;teste"));
 
 
 	}

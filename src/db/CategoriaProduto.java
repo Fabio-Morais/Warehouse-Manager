@@ -51,19 +51,9 @@ public class CategoriaProduto {
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String nome, String armazem) {
-		db.connect();
 		String sql = "INSERT INTO categoria_produto (nome, id_armazem) "
 				+ "VALUES ('"+nome+"',"+"(SELECT id FROM armazem WHERE nome ="+"'"+armazem+"')"+")";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -73,18 +63,8 @@ public class CategoriaProduto {
 	 * @return boolean True se removeu corretamente / False no caso contrario
 	 */
 	public boolean remove(DataBase db, String nome) {
-		db.connect();
 		String sql = "DELETE FROM categoria_produto WHERE nome="+"'"+nome+"'";		 
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**

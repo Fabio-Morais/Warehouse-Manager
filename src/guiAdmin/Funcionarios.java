@@ -237,14 +237,13 @@ public class Funcionarios {
 				funcao = funcaoField.getText();
 				salario = (double) this.salario.getValue();
 			} else if (result == JOptionPane.NO_OPTION || result == JOptionPane.CLOSED_OPTION) {
-				System.out.println("cancelou");
 				break;
 			}
 		}
 
 		if (isFinished) {
-			db.addFuncionario(nif, nome, idade, funcao, salario, armazem);
-			messageLogs.adicionaFuncionario(loginUsername, true, nome, nif, armazem);
+			db.addFuncionario(nif+";"+nome+";"+idade+";"+funcao+";"+salario+";"+armazem);
+			messageLogs.adicionaFuncionario(loginUsername+";"+true+";"+armazem, nome, nif);
 			modelFuncionario.addRow(new Object[] { nifField.getText(), nomeField.getText() });
 		}
 
@@ -296,7 +295,7 @@ public class Funcionarios {
 				String nif= modelFuncionario.getValueAt(funcionarioTable.convertRowIndexToModel(selectedRows[i]), 0).toString();
 				String nome = modelFuncionario.getValueAt(funcionarioTable.convertRowIndexToModel(selectedRows[i]), 1).toString();
 				db.removeFuncionarioByNif(nif);
-				messageLogs.removeFuncionario(loginUsername, true, nome, nif, armazem);
+				messageLogs.removeFuncionario(loginUsername+";"+true+";"+armazem, nome, nif);
 				modelFuncionario.removeRow(funcionarioTable.convertRowIndexToModel(selectedRows[i]));
 			}
 		}

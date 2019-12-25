@@ -148,9 +148,9 @@ class DataBaseTest {
 		DataBase db = DataBase.getInstance();
 		db.removeFuncionarioByNif("123456789123");
 		/*Adiciona*/
-		assertEquals(true, db.addFuncionario("123456789123","nome",22,"engenheiro",500.5, armazem));
-		assertEquals(false, db.addFuncionario("123456789123","nomediferente",42,"funcionario",500.5, armazem));
-		assertEquals(false, db.addFuncionario("123456789123","nomediferente",42,"funcionario",500.5, "nome de armazem invalido"));
+		assertEquals(true, db.addFuncionario("123456789123"+";"+"nome"+";"+22+";"+"engenheiro"+";"+500.5+";"+armazem));
+		assertEquals(false, db.addFuncionario("123456789123"+";"+"nomediferente"+";"+42+";"+"funcionario"+";"+500.5+";"+ armazem));
+		assertEquals(false, db.addFuncionario("123456789123"+";"+"nomediferente"+";"+42+";"+"funcionario"+";"+500.5+";"+ "nome de armazem invalido"));
 
 		String[] dados= {"nome","22","engenheiro","500.5", "1"};//1-> id do armazem em questão
 		assertTrue(Arrays.equals(dados, db.getFuncinarioByNif("123456789123")));
@@ -184,16 +184,16 @@ class DataBaseTest {
 	public void testLogin() {
 		DataBase db = DataBase.getInstance();
 		
-		db.addFuncionario("123456789","nome",22,"engenheiro",500.5, armazem);//adiciona funcionario
+		db.addFuncionario("123456789"+";"+"nome"+";"+22+";"+"engenheiro"+";"+500.5+";"+armazem);//adiciona funcionario
 		db.removeUserLogin("username");
 		db.removeUserLogin("username123");
 
 		/*Adiciona*/
 		String pass_encri = BCrypt.hashpw(String.valueOf("pass"), BCrypt.gensalt());
 
-		assertEquals(true, db.addUserLogin("123456789","username","fabio@hotmail.com",pass_encri, true));
-		assertEquals(true, db.addUserLogin("123456789","username123","fabio2@hotmail.com", pass_encri, false));
-		assertEquals(false, db.addUserLogin("123456789","username123","fabio@hotmail.com", pass_encri, false));
+		assertEquals(true, db.addUserLogin("123456789"+";"+"username"+";"+"fabio@hotmail.com",pass_encri, true));
+		assertEquals(true, db.addUserLogin("123456789"+";"+"username123"+";"+"fabio2@hotmail.com", pass_encri, false));
+		assertEquals(false, db.addUserLogin("123456789"+";"+"username123"+";"+"fabio@hotmail.com", pass_encri, false));
 
 		/*Check logig*/
 		assertEquals(0, db.checkUserLogin("username", "pass"));
@@ -218,7 +218,7 @@ class DataBaseTest {
 		assertEquals(armazem, db.getUserarmazemLogin("username"));
 		
 		/*Update*/
-		assertEquals(true, db.updateUserLogin("username","username1","passnova",true));
+		assertEquals(true, db.updateUserLogin("username"+";"+"username1","passnova",true));
 		modelUser.setRowCount(0);
 		assertEquals(true, db.nifusernameadminLogin(modelUser));
 		assertEquals("123456789", modelUser.getValueAt(modelUser.getRowCount()-1, 0));
@@ -436,8 +436,8 @@ class DataBaseTest {
 	@Test
 	public void testLogs() {
 		DataBase db = DataBase.getInstance();
-		assertEquals(true, db.addLog("admin", true, "testes automaticos", "foi feito testes automaticos", "IP-teste", armazem));
-		assertEquals(false, db.addLog("admin", true, "testes automaticos", "foi feito testes automaticos", "IP-teste", "invalido"));
+		assertEquals(true, db.addLog("admin"+";"+ true+";"+armazem+";"+"IP-teste", "testes automaticos", "foi feito testes automaticos" ));
+		assertEquals(false, db.addLog("admin"+";"+ true+";"+"invalido"+";"+ "IP-teste", "testes automaticos", "foi feito testes automaticos"));
 
 		DefaultTableModel modelLogs = new DefaultTableModel(new Object[][] {},
 				new String[] { "data","userna","admin","acao","ip"});

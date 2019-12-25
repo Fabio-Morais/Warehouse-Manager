@@ -63,7 +63,6 @@ public class Login {
 			while (rs.next()) {
 				String nif = rs.getString("nif");
 				x.add(nif);
-				// System.out.println("nif: "+x[i]);
 			}
 		} catch (Exception e) {
 			db.disconnect();
@@ -135,57 +134,36 @@ public class Login {
 	/**
 	 * Insere User na base de dados
 	 * @param db Base de dados referente
-	 * @param nif Nif do utilizador
-	 * @param user Nome de Utilizador
-	 * @param email - Email de Utilizador
+	 * @param dadosUser -  contem o nif, nome e email do utilizador
 	 * @param password Password do Utilizador
 	 * @param admin Se é admin True caso contrario Falso
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
-	 * 
 	 */
-	public boolean insertAll(DataBase db, String nif, String user, String email, String password, boolean admin) {
-		db.connect();
-
-		String sql = "INSERT INTO login " + "VALUES ('" + user + "', '" + password + "'," + "'" + db.localDate() + "'" + ", " + admin
-				+ ", '" + nif + "', '"+email+"')";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
+	public boolean insertAll(DataBase db, String dadosUser, String password, boolean admin) {
+		String[] dados = dadosUser.split(";");
+		if(dados.length != 3)
 			return false;
-		}
-		db.disconnect();
-
-		return true;
+		String sql = "INSERT INTO login " + "VALUES ('" + dados[1] + "', '" + password + "'," + "'" + db.localDate() + "'" + ", " + admin
+				+ ", '" + dados[0] + "', '"+dados[2]+"')";
+		return db.executeQuery(sql);
 	}
 
 	/**
 	 * Upadate nos dados do User
 	 * @param db Base de Dados referente
-	 * @param olduser Nome de utilizador antigo
-	 * @param user Novo Nome do user 
+	 * @param dadosUser - contem o nome de utilizador antigo e o nome de utilizador novo
 	 * @param pass PassWord do utilizador
 	 * @param admin True se é admin | False caso contrario
 	 * @return Boolean True se atualizou corretamente/ False no caso contrario
 	 */
-	public boolean update(DataBase db, String olduser, String user, String pass, boolean admin) {
-		db.connect();
-		String sql = "UPDATE login " + 
-					 "SET username='"+user+"' ,password='"+pass+"' ,admin="+admin+
-					 " WHERE username='"+olduser+"'";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
+	public boolean update(DataBase db, String dadosUser, String pass, boolean admin) {
+		String[] dados = dadosUser.split(";");
+		if(dados.length != 2)
 			return false;
-		}
-		db.disconnect();		
-		return true;
+		String sql = "UPDATE login " + 
+					 "SET username='"+dados[1]+"' ,password='"+pass+"' ,admin="+admin+
+					 " WHERE username='"+dados[0]+"'";
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -196,19 +174,9 @@ public class Login {
 	 * @return Boolean True se atualizou corretamente/ False no caso contrario
 	 */
 	public boolean updatePassword(DataBase db, String user, String pass) {
-		db.connect();
 		String sql = "UPDATE login " + 
 					 "SET password='"+pass+"' WHERE username='"+user+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();		
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/**
@@ -218,20 +186,8 @@ public class Login {
 	 * @return Boolean True se removeu corretamente/ False no caso contrario
 	 */
 	public boolean remove(DataBase db, String username) {
-		db.connect();
 		String sql = "DELETE FROM login WHERE username="+"'"+username+"'";
-		 System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/**
@@ -251,10 +207,10 @@ public class Login {
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String user = rs.getString("username");
-				String pass_encr = rs.getString("password");
+				String passEncr = rs.getString("password");
 				boolean admin = rs.getBoolean("admin");
 				
-				if(username.equals(user) && BCrypt.checkpw(password,pass_encr)) {
+				if(username.equals(user) && BCrypt.checkpw(password,passEncr)) {
 					if(admin) {
 						rs.close();
 						stmt.close();

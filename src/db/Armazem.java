@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 import javax.swing.table.DefaultTableModel;
 
-public class Armazem extends ExecuteQuery {
+public class Armazem {
 	
 	
 	/**
@@ -85,7 +85,7 @@ public class Armazem extends ExecuteQuery {
 	public boolean insertAll(DataBase db, String nome, String localizacao) {
 		String sql = "INSERT INTO armazem (nome, localizacao)"
 				   + "VALUES ('"+nome+"', '"+localizacao+"');";
-		return executeQuery(db, sql);
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -97,21 +97,11 @@ public class Armazem extends ExecuteQuery {
 	 * @return boolean True se deu update corretamente / False no caso contrario
 	 */
 	public boolean updateArmazem(DataBase db, String nomeAntigo, String nome, String localizacao) {
-		db.connect();
 		String sql = "UPDATE armazem "
 				   + "SET nome = '"+nome+"', localizacao = '"+localizacao+"' "
 				   + "WHERE nome = '"+nomeAntigo+"';";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
+		return db.executeQuery(sql);
 
-		db.disconnect();
-		return true;
 	}
 	
 	/**
@@ -121,18 +111,8 @@ public class Armazem extends ExecuteQuery {
 	 * @return boolean True se removeu corretamente / False no caso contrario
 	 */
 	public boolean remove(DataBase db, String nome) {
-		db.connect();
 		String sql = "DELETE FROM armazem WHERE nome="+"'"+nome+"'";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
+
 	}
 }

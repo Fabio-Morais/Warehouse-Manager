@@ -9,29 +9,19 @@ public class Logs {
 	/**
 	 * Insere log do que o user fez
 	 * @param db - Base de Dados referente
-	 * @param username - user que fez a ação~
-	 * @param admin - se user é admin ou user normal
+	 * @param dadosLog - contem o username, se é admin,o armazem correspondente e ip de quem fez a açao
 	 * @param acao - ação que o user fez
 	 * @param acaoCompleta - ação que o user fez de modo detalhada
-	 * @param ip - ip do user que fez a ação
 	 * @param armazem - armazem a que pertence
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
-	public boolean insertAll(DataBase db, String username, boolean admin, String acao, String acaoCompleta, String ip, String armazem) {
-		db.connect();
-		String sql = "INSERT INTO logs (data,username, admin, acao_min, acao_compl, ip, id_armazem) "
-				   + "VALUES ('"+db.localDate() +"', "+"'"+username+"', "+" '"+admin+"', '"+acao+"', '"+acaoCompleta+"', '"+ip+"', "+"(SELECT id from armazem where nome='"+armazem+"'))";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
+	public boolean insertAll(DataBase db, String dadosLog, String acao, String acaoCompleta) {
+		String[] dados = dadosLog.split(";");
+		if(dados.length != 4)
 			return false;
-		}
-		db.disconnect();
-
-		return true;
+		String sql = "INSERT INTO logs (data,username, admin, acao_min, acao_compl, ip, id_armazem) "
+				   + "VALUES ('"+db.localDate() +"', "+"'"+dados[0]+"', "+" '"+dados[1]+"', '"+acao+"', '"+acaoCompleta+"', '"+dados[3]+"', "+"(SELECT id from armazem where nome='"+dados[2]+"'))";
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -54,8 +44,6 @@ public class Logs {
 				boolean admin = rs.getBoolean("admin");
 				String acao = rs.getString("acao_min");
 				String ip = rs.getString("ip");
-				//String format = "%-25s%-25s%s%n";
-				//System.out.printf(format,"id: "+id,"nome: "+nome,"id_armazem: "+id_armazem);
 				modelFornecedor.addRow(new Object[] { data, username, admin, acao, ip });
 			}
 		} catch (Exception e) {

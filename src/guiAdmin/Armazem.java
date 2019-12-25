@@ -102,7 +102,7 @@ public class Armazem {
 			result[1]= localizacaoField.getText();
 			String dados = armazem + ";" + localizacao + ";" + result[0] + ";" + result[1];
 			db.updateArmazem(armazem, armazemField.getText(), localizacaoField.getText());
-			messageLogs.mudarArmazem(loginUsername, true, dados);
+			messageLogs.mudarArmazem(loginUsername+";"+true+";"+armazem, dados);
 		}
 		return result;
 

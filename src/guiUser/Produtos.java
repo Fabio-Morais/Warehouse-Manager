@@ -22,7 +22,7 @@ public class Produtos {
 		for (int i = selectedRows.length - 1; i >= 0; i--) {
 			String sku = modelProdutos.getValueAt(tableProdutos.convertRowIndexToModel(selectedRows[i]), 0).toString();
 			db.marcarDefeitoProduto(sku);
-			messageLogs.reportaDefeito(loginUsername, false, sku, nomeArmazem);
+			messageLogs.reportaDefeito(loginUsername+";"+false+";"+nomeArmazem, sku);
 		}
 		refreshProdutos(modelProdutos);
 	}

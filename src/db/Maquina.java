@@ -110,29 +110,17 @@ public class Maquina {
 	
 	/**
 	 * Declara que a maquina esta avariada e adiciona uma descrição do problema
-	 * @param DB Base de Dados Referente
+	 * @param db Base de Dados Referente
 	 * @param armazem Nome do Armazem a qual a maquina pertence
 	 * @param Id Id da maquina
 	 * @param descricao descrição do problema
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
-	public boolean updateAvariadoMaquina(DataBase DB,String armazem,String Id,String descricao) {
+	public boolean updateAvariadoMaquina(DataBase db,String armazem,String Id,String descricao) {
 			String sql = "UPDATE maquina "
 					   + "SET avariada = true, descricao_avaria = '"+descricao+"'"
 					   + "WHERE numero_serie='"+Id+"'";
-			
-			Statement stmt = null;
-			try {
-				DB.connect();
-				stmt = DB.getC().createStatement();
-				stmt.executeUpdate(sql);
-			} catch (Exception e) {
-				e.printStackTrace();
-		        System.err.println(e.getClass().getName()+": "+e.getMessage());
-		        return false;
-			}
-			DB.disconnect();
-			return true;
+			return db.executeQuery(sql);
 		}
 	
 	/**
@@ -144,20 +132,10 @@ public class Maquina {
 	 * @return Boolean True se atualizou corretamente/ False no caso contrario
 	 */
 	public boolean update(DataBase db, String numeroSerieAntigo, String numeroSerie, String nome) {
-		db.connect();
 		String sql = "UPDATE maquina " + 
 					 "SET nome='"+nome+"' ,numero_serie='"+numeroSerie+"'"+
 					 "WHERE numero_serie='"+numeroSerieAntigo+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();		
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/**
@@ -169,19 +147,9 @@ public class Maquina {
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String numero_serie, String nome ,String armazem) {
-		db.connect();
 		String sql = "INSERT INTO maquina (numero_serie, nome, avariada, id_armazem)"
 				   + "VALUES ('"+numero_serie+"', '"+nome+"', "+false+", "+"(SELECT id from armazem where nome='"+armazem+"')"+")";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -191,18 +159,8 @@ public class Maquina {
 	 * @return Boolean True se removeu corretamente/ False no caso contrario
 	 */
 	public boolean remove(DataBase db, String numeroSerie) {
-		db.connect();
 		String sql = "DELETE FROM maquina WHERE numero_serie='"+numeroSerie+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/**
@@ -212,18 +170,8 @@ public class Maquina {
 	 * @return Boolean True se corrigiu corretamente/ False no caso contrario
 	 */
 	public boolean corrigeAvariaMaquina(DataBase db, String numeroSerie) {
-		db.connect();
 		String sql = "UPDATE maquina SET avariada='false', descricao_avaria="+null+ " WHERE numero_serie='"+numeroSerie+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 
 }

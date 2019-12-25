@@ -229,7 +229,7 @@ public class ReceberProduto {
 			String sku=SKUField.getText();
 			sendtoBD(numeroLote+";"+origem+";"+data+";"+subCategoria+";"+nomeProduto,quantidade,sku);
 			String dados = nomeProduto+";"+quantidade+";"+origem+";"+data+";"+numeroLote;
-			messageLogs.receberProduto(loginUsername, false, dados, nomeArmazem);
+			messageLogs.receberProduto(loginUsername+";"+false+";"+nomeArmazem, dados);
 		}
 	}
 	

@@ -234,7 +234,7 @@ public class MenuBar {
 		mntmExit1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				counterTimer.stop();
-				messageLogs.saiuSistema(username, true, nomeArmazem);
+				messageLogs.saiuSistema(username+";"+true+";"+nomeArmazem);
 				LoginDesign window2 = new LoginDesign();
 				window2.getFrmLogin().setVisible(true);
 				frame.dispose();

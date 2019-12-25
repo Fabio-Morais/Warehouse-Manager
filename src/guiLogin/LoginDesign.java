@@ -92,14 +92,14 @@ public class LoginDesign {
 					if (option == 0) {
 
 						counterTimer.stop();
-						messageLogs.entrouSistema(loginUsername, true, nomeArmazem);
+						messageLogs.entrouSistema(loginUsername+";"+true+";"+nomeArmazem);
 						AdminDesign window2 = new AdminDesign(nomeArmazem, loginUsername);
 						window2.getFrmMenuAdmin().setVisible(true);
 						frame.dispose();
 					} else if (option == 1) {
 
 						counterTimer.stop();
-						messageLogs.entrouSistema(loginUsername, false, nomeArmazem);
+						messageLogs.entrouSistema(loginUsername+";"+false+";"+nomeArmazem);
 						userDesign window2 = new userDesign(nomeArmazem, loginUsername);
 						window2.getFrmUserDesign().setVisible(true);
 						frame.dispose();

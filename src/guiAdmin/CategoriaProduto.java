@@ -264,12 +264,12 @@ public class CategoriaProduto {
 		if (isFinished) {
 			if (comboBox.getSelectedItem().toString().equals("Categoria")) {
 				db.addCategoriaProduto(name, armazem);
-				messageLogs.adicionaCategoria(loginUsername, true, name, null, armazem);
+				messageLogs.adicionaCategoria(loginUsername+";"+true+";"+armazem, name, null);
 				modelCategoria.addRow(new Object[] { name });
 
 			} else {
 				db.addSubCategoria(name, comboBoxCategoria.getSelectedItem().toString());// sub categoria, categoria
-				messageLogs.adicionaCategoria(loginUsername, true, comboBoxCategoria.getSelectedItem().toString(), name, armazem);
+				messageLogs.adicionaCategoria(loginUsername+";"+true+";"+armazem, comboBoxCategoria.getSelectedItem().toString(), name);
 				modelSubCategoria.addRow(new Object[] { name });
 			}
 		}
@@ -282,7 +282,7 @@ public class CategoriaProduto {
 			int index= subCategoriaTable.convertRowIndexToModel(selectedRows2[i]);
 			String subCategoria = (String)modelSubCategoria.getValueAt(index,0);
 			if (db.removeSubCategoria(subCategoria, categoria)) {
-				messageLogs.removeCategoria(loginUsername, true, categoria, subCategoria, armazem);
+				messageLogs.removeCategoria(loginUsername+";"+true+";"+armazem, categoria, subCategoria);
 				modelSubCategoria.removeRow(index);
 			}else{
 				popUp.showPopUpErroEliminar();
@@ -295,7 +295,7 @@ public class CategoriaProduto {
 		for (int i = selectedRows.length - 1; i >= 0; i--) {
 			String categoria= (String)modelCategoria.getValueAt(categoriaTable.convertRowIndexToModel(selectedRows[i]),0);
 			if (db.removeCategoriaProduto(categoria)) {
-				messageLogs.removeCategoria(loginUsername, true,categoria, null, armazem);
+				messageLogs.removeCategoria(loginUsername+";"+true+";"+armazem,categoria, null);
 				modelCategoria.removeRow(categoriaTable.convertRowIndexToModel(selectedRows[i]));
 			}else{
 				popUp.showPopUpErroEliminar();

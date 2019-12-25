@@ -123,21 +123,9 @@ public class Produto {
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String sku, String numLote) {
-		db.connect();
 		String sql = "INSERT INTO produto(sku, data_saida, com_defeito, num_lote,vendido)" + "VALUES ('" + sku + "'"
 				+ ", " + null + ", 'false', '" + numLote + "', 'false')";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/*
@@ -150,19 +138,8 @@ public class Produto {
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
 	public boolean marcarDefeitoProduto(DataBase db, String sku) {
-		db.connect();
 		String sql = "UPDATE produto SET com_defeito = 'true' WHERE sku='" + sku + "'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 
 
@@ -174,17 +151,8 @@ public class Produto {
 	 * @return Boolean True se operou corretamente/ False no caso contrario
 	 */
 	public boolean produtoEnviado(DataBase db, String sku, String Data,String destino) {
-		db.connect();
 		String sql = "UPDATE produto SET data_saida = '" + Data + "'" + ", vendido='true', destino='"+destino+"' WHERE sku='" + sku + "'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
+
 	}
 }

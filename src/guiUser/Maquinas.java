@@ -87,7 +87,7 @@ public class Maquinas {
 			String id=maquinaTable.getValueAt(indexOfRow[0], 1).toString();
 			String descricao = descmaqField.getText();
 			db.updateavariadoMaquina(nomeArmazem, id, descricao);
-			messageLogs.reportaAvaria(loginUsername, false, nomeMaquina, id, descricao, nomeArmazem);
+			messageLogs.reportaAvaria(loginUsername+";"+false+";"+nomeArmazem, nomeMaquina, id, descricao);
 			refreshMaquinas(modelMaquina,tglbtnFiltrarAvariadasisSelected, nomeArmazem);
 		}
 	}
@@ -99,7 +99,7 @@ public class Maquinas {
 			String id = maquinaTable.getValueAt(indexOfRow[i], 1).toString();
 			
 			db.corrigeAvariaMaquina(id);
-			messageLogs.corrigeAvaria(loginUsername, false, nomeMaquina, id, nomeArmazem);
+			messageLogs.corrigeAvaria(loginUsername+";"+false+";"+nomeArmazem, nomeMaquina, id);
 			modelMaquina.setValueAt(false, indexOfRow[i], 2);
 		}
 	}

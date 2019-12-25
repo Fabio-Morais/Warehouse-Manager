@@ -179,7 +179,7 @@ public class Maquina {
 
 		if (isFinished) {
 			if (db.addMaquina(numeroField.getText(), maquinaField.getText(), armazem)) {
-				messageLogs.adicionaMaquina(loginUsername, true, maquinaField.getText(), numeroField.getText(), armazem);
+				messageLogs.adicionaMaquina(loginUsername+";"+true+";"+armazem, maquinaField.getText(), numeroField.getText());
 				popUp.showPopUpAdicionadoSucesso();
 				modelMaquina.addRow(new Object[] { maquinaField.getText(), numeroField.getText() });
 			} else {
@@ -215,7 +215,7 @@ public class Maquina {
 			String nome = modelMaquina.getValueAt(indexOfRow[0], 0).toString();
 			if (db.updateMaquina(numero, numeroField.getText(),
 					maquinaField.getText())) {
-				messageLogs.editaMaquina(loginUsername, true, nome, numero, maquinaField.getText(), numeroField.getText(), nomeArmazem);
+				messageLogs.editaMaquina(loginUsername+";"+true+";"+nomeArmazem, nome, numero, maquinaField.getText(), numeroField.getText());
 				popUp.showPopUpEditarSucesso();
 				modelMaquina.setValueAt(maquinaField.getText(), indexOfRow[0], 0);
 				modelMaquina.setValueAt(numeroField.getText(), indexOfRow[0], 1);
@@ -242,7 +242,7 @@ public class Maquina {
 				String numero = modelMaquina.getValueAt(maquinaTable.convertRowIndexToModel(selectedRows[i]), 1).toString();
 				String nome = modelMaquina.getValueAt(maquinaTable.convertRowIndexToModel(selectedRows[i]), 0).toString();
 				if (db.removeMaquina(numero)) {
-					messageLogs.removeMaquina(loginUsername, true, nome, numero, armazem);
+					messageLogs.removeMaquina(loginUsername+";"+true+";"+armazem, nome, numero);
 					modelMaquina.removeRow(maquinaTable.convertRowIndexToModel(selectedRows[i]));
 				} else {
 					popUp.showPopUpErroEliminar();

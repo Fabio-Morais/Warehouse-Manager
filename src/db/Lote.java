@@ -15,21 +15,9 @@ public class Lote {
 	 */
 	public boolean insertAll(DataBase db, String dadosLote) {
 		String[] aux= dadosLote.split(";");
-		db.connect();
 		String sql = "INSERT INTO lote "
 				   + "VALUES ('"+aux[0]+"', "+"'"+aux[1]+"', "+" '"+aux[2]+"', '"+aux[3]+"', '"+aux[4]+"')";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -68,19 +56,8 @@ public class Lote {
 	 * @return Boolean True se removeu corretamente/ False no caso contrario
 	 */
 	public boolean remove(DataBase db,String numeroLote) {
-		db.connect();
 		String sql = "DELETE FROM lote WHERE numero_lote="+"'"+numeroLote+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	

@@ -239,7 +239,6 @@ public class userDesign {
 		separator3 = new JSeparator();
 		Interface.styleSeparator(separator3);
 	}
-
 	private void criaBotoesMenu() {
 		btnProdutos = new JButton("<html>Produtos<html>");
 		Interface.styleButton(btnProdutos, PRODUTO, new Insets(2, 14, 10, 14));
@@ -259,7 +258,6 @@ public class userDesign {
 		Interface.styleButton(btnGraficos, GRAFICO, new Insets(2, 14, 10, 14));
 
 	}
-
 	private GroupLayout putMenuLayout() {
 		GroupLayout glMainMenuHome = new GroupLayout(mainMenuHome);
 		glMainMenuHome.setHorizontalGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING).addGroup(glMainMenuHome
@@ -368,7 +366,6 @@ public class userDesign {
 				.addContainerGap(39, Short.MAX_VALUE)));
 		return glMainMenuHome;
 	}
-
 	private void showMainMenu() {
 
 		userDesign = new JPanel();
@@ -1256,7 +1253,7 @@ public class userDesign {
 						"Exit", JOptionPane.YES_NO_OPTION);
 
 				if (confirmed == JOptionPane.YES_OPTION) {
-					messageLogs.saiuSistema(username, false, nomeArmazem);
+					messageLogs.saiuSistema(username+";"+false+";"+nomeArmazem);
 					frmUserDesign.dispose();
 				}
 			}

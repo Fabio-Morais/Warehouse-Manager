@@ -61,14 +61,14 @@ public class BaseDados {
 		String dados= userAntigo+";"+urlAntigo+";"+passAntigo;
 		String dadosNovos = user+";"+password+";"+url;
 		if(db.checkConnection())
-			messageLogs.editaBaseDados(loginUsername, true, dados, dadosNovos, nomeArmazem);
+			messageLogs.editaBaseDados(loginUsername+";"+ true+";"+ nomeArmazem,dados, dadosNovos);
 		
 		db.setUser(user);
 		db.setPassword(password);
 		db.setUrl(url);
 		
 		if(db.checkConnection())
-			messageLogs.editaBaseDados(loginUsername, true, dados, dadosNovos, nomeArmazem);
+			messageLogs.editaBaseDados(loginUsername+";"+true+";"+nomeArmazem, dados, dadosNovos);
 		
 	}
 

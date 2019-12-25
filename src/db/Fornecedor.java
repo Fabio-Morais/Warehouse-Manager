@@ -52,19 +52,9 @@ public class Fornecedor {
 	 * @return Boolean True se inseriu corretamente/ False no caso contrario
 	 */
 	public boolean insertAll(DataBase db, String nome, String nomeArmazem) {
-		db.connect();
 		String sql = "INSERT INTO fornecedor (nome, id_armazem)"
 				   + "VALUES ('"+nome+"',"+"(SELECT id FROM armazem WHERE nome="+"'"+nomeArmazem+"')"+")";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -75,21 +65,10 @@ public class Fornecedor {
 	 * @return Boolean True se atualizou corretamente/ False no caso contrario
 	 */
 	public boolean update(DataBase db, String nomeAntigo,String nome) {
-		db.connect();
 		String sql = "UPDATE fornecedor " + 
 				"SET nome="+"'"+nome+"'"+
 				"WHERE nome="+"'"+nomeAntigo+"'";
-		System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**
@@ -99,20 +78,8 @@ public class Fornecedor {
 	 * @return Boolean True se removeu corretamente/ False no caso contrario
 	 */
 	public boolean remove(DataBase db, String nome) {
-		db.connect();
 		String sql = "DELETE FROM fornecedor WHERE nome="+"'"+nome+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} 
-		catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-
-		return true;
+		return db.executeQuery(sql);
 	}
 	
 	/**

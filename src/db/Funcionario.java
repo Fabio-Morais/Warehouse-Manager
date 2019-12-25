@@ -16,19 +16,19 @@ public class Funcionario {
 	
 	/**
 	 * Insere no TableModel o nif, nome, idade e função do funcionario
-	 * @param DB Base de dados referente 
+	 * @param db Base de dados referente 
 	 * @param armazem Armazem onde o funcionario trabalha
 	 * @param modelFuncionario Tabela onde se insere os dados
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
-	public boolean selectNifIdadeNomeFuncao(DataBase DB,String armazem, DefaultTableModel modelFuncionario) {
+	public boolean selectNifIdadeNomeFuncao(DataBase db,String armazem, DefaultTableModel modelFuncionario) {
 			String sql = "SELECT * "
 					   + "FROM funcionario "
 					   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
 			Statement stmt = null;
 			try {
-				DB.connect();
-				stmt = DB.getC().createStatement();
+				db.connect();
+				stmt = db.getC().createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()) {
 					String nif =rs.getString("nif");
@@ -42,7 +42,7 @@ public class Funcionario {
 		        System.err.println(e.getClass().getName()+": "+e.getMessage());
 		        return false;
 			}
-			DB.disconnect();
+			db.disconnect();
 			return true;
 		}
 	
@@ -65,8 +65,6 @@ public class Funcionario {
 			while(rs.next()) {
 				String nome = rs.getString("nome");
 				String nif = rs.getString("nif");
-				//String format = "%-25s%s%n";
-				//System.out.printf(format,"nome: "+nome,"nif: "+nif);
 				modelFuncionario.addRow(new Object[] { nif, nome });
 			}
 		} catch (Exception e) {
@@ -108,8 +106,6 @@ public class Funcionario {
 				x[2]=função;
 				x[3]=String.valueOf(salário);
 				x[4]=String.valueOf(id_aramzem);
-				//String format = "%-25s%-25s%-25s%-25s%s%n";
-				//System.out.printf(format,"nome: "+x[0],"idade: "+x[1],"função: "+x[2],"salário: "+x[3],"id_aramzem: "+x[4]);
 			}
 		} catch (Exception e) {
 			db.disconnect();
@@ -123,55 +119,33 @@ public class Funcionario {
 	/**
 	 * Insere um novo Funcionario
 	 * @param db Base de dados referente
-	 * @param nif Nif do funcionario
-	 * @param nome Nome do funcionario
-	 * @param idade Idade do funcionario
-	 * @param funcao Função do funcionario
-	 * @param salario Salario do funiconario
-	 * @param armazem Armazem onde trabalha 
+	 * @param dados - contem o nif, nome, idade, funçao, salario e armazem onde trabalha
 	 * @return Boolean True se inseriu corretamente/False caso contrario
 	 */
-	public boolean insertAll(DataBase db, String nif, String nome, int idade, String funcao, double salario, String armazem ) {
-		db.connect();
-		String sql = "INSERT INTO funcionario(nif, nome, idade, funcao, salario, id_armazem)"
-				   + "VALUES ("+"'"+nif+"'"+", '"+nome+"', "+idade+", '"+funcao+"',"+salario+", "+"(SELECT id from armazem where nome='"+armazem+"') "+")";
-		//System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
+	public boolean insertAll(DataBase db, String dadosFunc) {
+		String[] dados= dadosFunc.split(";");
+		if(dados.length != 6)
 			return false;
-		}
-		db.disconnect();
-		return true;
+		String sql = "INSERT INTO funcionario(nif, nome, idade, funcao, salario, id_armazem)"
+				   + "VALUES ("+"'"+dados[0]+"'"+", '"+dados[1]+"', "+dados[2]+", '"+dados[3]+"',"+dados[4]+", "+"(SELECT id from armazem where nome='"+dados[5]+"') "+")";
+		return db.executeQuery(sql);
 	}
 	
 	/**
 	 * Update no utilizador
 	 * @param db Base de Dados referente 
 	 * @param nifAntigo Nif antigo 
-	 * @param novosDados dados do novo funcionario separado por ";", contem o nif, nome, idaide, funcao e salario do funcionario
+	 * @param novosDados dados do novo funcionario separado por ";", contem o nif, nome, idade, funcao e salario do funcionario
 	 * @return Boolean True se inseriu corretamente/False caso contrario
 	 */
 	public boolean updateFuncionario(DataBase db, String nifAntigo, String novosDados) {
 		String[] dados= novosDados.split(";");
-		db.connect();
+		if(dados.length != 5)
+			return false;
 		String sql ="UPDATE funcionario "
 				  + "SET nif = '"+dados[0]+"' ,nome= '"+dados[1]+"' ,idade= '"+dados[2]+"' ,funcao= '"+dados[3]+"' ,salario=' "+dados[4]+"'"
 				  + " WHERE nif = '"+nifAntigo+"'";
-		//System.out.println(sql);
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
 	}
 
 	/**
@@ -181,17 +155,8 @@ public class Funcionario {
 	 * @return Boolean True se removeu corretamente/False caso contrario
 	 */
 	public boolean remove(DataBase db, String nif) {
-		db.connect();
 		String sql = "DELETE FROM funcionario WHERE nif="+"'"+nif+"'";
-		try {
-			Statement stmt = db.getC().createStatement();
-			stmt.executeUpdate(sql);
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			return false;
-		}
-		db.disconnect();
-		return true;
+		return db.executeQuery(sql);
+
 	}
 }
