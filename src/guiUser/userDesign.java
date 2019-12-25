@@ -64,6 +64,8 @@ public class userDesign {
 	private static final String VENDAS = "/vendas.png";
 	private static final String PRODUTO = "/box.png";
 	private static final String GRAFICO = "/grafico.png";
+	private static final String REFRESH = "/refresh.png";
+
 	// Classes
 	private Maquinas maquinaClass;
 	private Funcionario funcionarioClasse;
@@ -103,12 +105,21 @@ public class userDesign {
 	private JButton btnGerarRelatorioStock;
 
 	// Menu Vendas
+	private JTable tableVendas;
+	private JSeparator separatorVendas;
+	private JLabel lblVendas;
+	private JPanel vendasMenu;
+	private JScrollPane scrollPane;
 	private JButton btnRefreshVendas;
 	private JButton btnHomeVendas;
 	private DefaultTableModel modelVendas;
 	private TableRowSorter<DefaultTableModel> sorterVendas;
 
 	// Menu Maquinas
+	private JSeparator separator_6;
+	private JLabel lblMaquinas;
+	private JScrollPane scrollPane_2;
+	private JPanel maquinasMenu;
 	private JPanel funcionariosMenu;
 	private JScrollPane scrollPaneFuncionario;
 	private JLabel lblFuncionarios;
@@ -130,7 +141,10 @@ public class userDesign {
 	private TableRowSorter<DefaultTableModel> sorterFuncionario;
 
 	// Menu Produtos
-
+	private JPanel produtosMenu;
+	private JLabel lblProdutos;
+	private JScrollPane scrollPaneProdutos;
+	private JSeparator separatorProdutos;
 	private JButton btnRefreshProdutos;
 	private JButton btnHomeProdutos;
 	private DefaultTableModel modelProdutos;
@@ -147,9 +161,6 @@ public class userDesign {
 	 */
 	private CardLayout cl;
 	private CardLayout clGrafico;
-
-
-	private MenuBar menuBar;
 
 	private MessageLogs messageLogs;
 
@@ -195,7 +206,7 @@ public class userDesign {
 		db = DataBase.getInstance();
 		this.messageLogs = MessageLogs.getInstance();
 		initialize();
-		menuBar = new MenuBar(frmUserDesign, cl, username);
+		MenuBar menuBar = new MenuBar(frmUserDesign, cl, username);
 		menuBar.setNomeArmazem(nomeArmazem);
 		menuBar.showMenuBar(1);
 	}
@@ -375,110 +386,8 @@ public class userDesign {
 	/**
 	 * Menu Vendas
 	 */
-	private void showVendasMenu() {
-		Vendas = new JPanel();
-		frmUserDesign.getContentPane().add(Vendas, "name_148919274819900");
-		Vendas.setLayout(new BorderLayout(0, 0));
-
-		JPanel vendasMenu = new JPanel();
-		Vendas.add(vendasMenu, BorderLayout.CENTER);
-
-		JLabel lblVendas = new JLabel("Vendas");
-		lblVendas.setFont(new Font("Dialog", Font.BOLD, 32));
-
-		btnRefreshVendas = new JButton("Refresh");
-		btnRefreshVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		btnRefreshVendas.setIcon(new ImageIcon(userDesign.class.getResource("/refresh.png")));
-		btnRefreshVendas.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnRefreshVendas.setBackground(Color.LIGHT_GRAY);
-
-		btnHomeVendas = new JButton("Home");
-		btnHomeVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnHomeVendas.setHorizontalAlignment(SwingConstants.LEFT);
-		btnHomeVendas.setVerticalAlignment(SwingConstants.TOP);
-
-		btnHomeVendas.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnHomeVendas.setBackground(Color.LIGHT_GRAY);
-		btnHomeVendas.setIcon(new ImageIcon(userDesign.class.getResource("/home.png")));
-
-		JScrollPane scrollPane = new JScrollPane();
-
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setBackground(Color.BLUE);
-
-		vendasSearch = new JTextField();
-		vendasSearch.setText("Quick Access");
-		vendasSearch.setToolTipText("Quick Access");
-		vendasSearch.setColumns(10);
-		GroupLayout glVendasMenu = new GroupLayout(vendasMenu);
-		glVendasMenu.setHorizontalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
-				.createSequentialGroup().addGap(48)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING, false).addGroup(glVendasMenu
-						.createSequentialGroup()
-						.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
-								.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnHomeVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnRefreshVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-						.addGap(134)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE))
-						.addGroup(glVendasMenu.createSequentialGroup().addComponent(lblVendas)
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(vendasSearch, GroupLayout.PREFERRED_SIZE, 118,
-										GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(60, Short.MAX_VALUE)));
-		glVendasMenu.setVerticalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
-				.createSequentialGroup().addGap(42)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING).addComponent(lblVendas).addComponent(
-						vendasSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-						.addGroup(glVendasMenu.createSequentialGroup()
-								.addComponent(separator_4, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addGap(39)
-								.addComponent(btnRefreshVendas, GroupLayout.PREFERRED_SIZE, 33,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeVendas)))
-				.addContainerGap()));
-
-		modelVendas = new DefaultTableModel(new Object[][] {},
-				new String[] { "data Saida", "SKU", "Produto", "destino" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		JTable tableVendas = new JTable();
-		tableVendas.setModel(modelVendas);
-		tableVendas.getColumnModel().getColumn(0).setResizable(true);
-		tableVendas.getColumnModel().getColumn(0).setMinWidth(140);
-		tableVendas.getColumnModel().getColumn(0).setMaxWidth(150);
-		tableVendas.getColumnModel().getColumn(1).setResizable(true);
-		tableVendas.getColumnModel().getColumn(1).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(1).setMaxWidth(120);
-		tableVendas.getColumnModel().getColumn(2).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(2).setMaxWidth(120);
-		tableVendas.getColumnModel().getColumn(3).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(3).setMaxWidth(120);
-		scrollPane.setViewportView(tableVendas);
-		vendasMenu.setLayout(glVendasMenu);
-
-		tableVendas.getTableHeader().setReorderingAllowed(false);
-		tableVendas.setAutoCreateRowSorter(true);// para ordenar
-		tableVendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.produtoVendido(modelVendas);
-
-		sorterVendas = new TableRowSorter<>(modelVendas);
+	private void criaVendasSearch() {
+	sorterVendas = new TableRowSorter<>(modelVendas);
 		tableVendas.setRowSorter(sorterVendas);
 
 		vendasSearch.addMouseListener(new MouseAdapter() {
@@ -513,132 +422,113 @@ public class userDesign {
 		});
 
 	}
+	private void criaBotoesVendas() {
+		btnRefreshVendas = new JButton("Refresh");
+		Interface.styleBotaoSimples(btnRefreshVendas, REFRESH);
 
-	/**
-	 * Menu Maquinas
-	 */
-	private void showMaquinasMenu() {
-		Maquinas = new JPanel();
-		frmUserDesign.getContentPane().add(Maquinas, "name_111064051438100");
-		Maquinas.setLayout(new BorderLayout(0, 0));
+		btnHomeVendas = new JButton("Home");
+		Interface.styleBotaoHome(btnHomeVendas);
 
-		JPanel maquinasMenu = new JPanel();
-		Maquinas.add(maquinasMenu, BorderLayout.CENTER);
-
-		JLabel lblMaquinas = new JLabel("Maquinas");
-		lblMaquinas.setFont(new Font("Dialog", Font.BOLD, 29));
-
-		btnRefreshMaquinas = new JButton("Refresh");
-		btnRefreshMaquinas.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnRefreshMaquinas.setBackground(Color.LIGHT_GRAY);
-		btnRefreshMaquinas.setIcon(new ImageIcon(userDesign.class.getResource("/refresh.png")));
-
-		btnHomeMaquinas = new JButton("Home");
-		btnHomeMaquinas.setVerticalAlignment(SwingConstants.TOP);
-		btnHomeMaquinas.setHorizontalAlignment(SwingConstants.LEFT);
-		btnHomeMaquinas.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnHomeMaquinas.setBackground(Color.LIGHT_GRAY);
-		btnHomeMaquinas.setIcon(new ImageIcon(userDesign.class.getResource("/home.png")));
-
-		JScrollPane scrollPane_2 = new JScrollPane();
-
-		tglbtnFiltrarAvariadas = new JToggleButton("Filtrar Avariadas");
-
-		tglbtnFiltrarAvariadas.setBackground(Color.LIGHT_GRAY);
-		UIManager.put("ToggleButton.select", Color.GREEN);
-		SwingUtilities.updateComponentTreeUI(tglbtnFiltrarAvariadas);
-
-		btnReportarAvaria = new JButton("Reportar Avaria");
-		btnReportarAvaria.setBackground(Color.LIGHT_GRAY);
-
-		JSeparator separator_6 = new JSeparator();
-		separator_6.setBackground(Color.BLUE);
-
-		btnCorrigirAvaria = new JButton("Corrigir Avaria");
-
-		btnCorrigirAvaria.setMargin(new Insets(2, 2, 2, 2));
-		btnCorrigirAvaria.setBackground(Color.LIGHT_GRAY);
-
-		maquinaSearch = new JTextField();
-		maquinaSearch.setText("Quick Access");
-		maquinaSearch.setToolTipText("Quick Access");
-		maquinaSearch.setColumns(10);
-		GroupLayout gl_MaquinasMenu = new GroupLayout(maquinasMenu);
-		gl_MaquinasMenu.setHorizontalGroup(gl_MaquinasMenu
-				.createParallelGroup(Alignment.LEADING).addGroup(gl_MaquinasMenu.createSequentialGroup().addGap(39)
-						.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.LEADING).addComponent(lblMaquinas)
-								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnHomeMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+	}
+	private GroupLayout putVendasLayout() {
+		GroupLayout glVendasMenu = new GroupLayout(vendasMenu);
+		glVendasMenu.setHorizontalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
+				.createSequentialGroup().addGap(48)
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING, false).addGroup(glVendasMenu
+						.createSequentialGroup()
+						.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
+								.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(btnHomeVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnRefreshMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-						.addGap(115)
-						.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_MaquinasMenu.createSequentialGroup().addComponent(tglbtnFiltrarAvariadas)
-										.addGap(18).addComponent(btnReportarAvaria).addGap(18)
-										.addComponent(btnCorrigirAvaria, GroupLayout.PREFERRED_SIZE, 109,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE, 108,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
-						.addGap(55)));
-		gl_MaquinasMenu.setVerticalGroup(gl_MaquinasMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_MaquinasMenu
-				.createSequentialGroup()
-				.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_MaquinasMenu.createSequentialGroup().addGap(49)
-								.addComponent(lblMaquinas, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-								.addGap(50)
-								.addComponent(btnRefreshMaquinas, GroupLayout.PREFERRED_SIZE, 33,
+										.addComponent(btnRefreshVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+						.addGap(134)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glVendasMenu.createSequentialGroup().addComponent(lblVendas)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(vendasSearch, GroupLayout.PREFERRED_SIZE, 118,
+										GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(60, Short.MAX_VALUE)));
+		glVendasMenu.setVerticalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
+				.createSequentialGroup().addGap(42)
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING).addComponent(lblVendas).addComponent(
+						vendasSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+						.addGroup(glVendasMenu.createSequentialGroup()
+								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addGap(39)
+								.addComponent(btnRefreshVendas, GroupLayout.PREFERRED_SIZE, 33,
 										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeMaquinas, GroupLayout.PREFERRED_SIZE, 41,
-										GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_MaquinasMenu.createSequentialGroup().addGap(85)
-								.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_MaquinasMenu.createParallelGroup(Alignment.BASELINE)
-												.addComponent(tglbtnFiltrarAvariadas).addComponent(btnReportarAvaria)
-												.addComponent(btnCorrigirAvaria))
-										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+								.addGap(18).addComponent(btnHomeVendas)))
 				.addContainerGap()));
 
-		model_Maquinas = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "ID", "Avariado" }) {
+		return glVendasMenu;
+	}
+	private void showVendasMenu() {
+		Vendas = new JPanel();
+		frmUserDesign.getContentPane().add(Vendas, "name_148919274819900");
+		Vendas.setLayout(new BorderLayout(0, 0));
+
+		vendasMenu = new JPanel();
+		Vendas.add(vendasMenu, BorderLayout.CENTER);
+
+		lblVendas = new JLabel("Vendas");
+		lblVendas.setFont(new Font("Dialog", Font.BOLD, 32));
+
+		criaBotoesVendas();
+	
+		scrollPane = new JScrollPane();
+
+		separatorVendas = new JSeparator();
+		separatorVendas.setBackground(Color.BLUE);
+
+		vendasSearch = new JTextField();
+		Interface.styleSearch(vendasSearch);
+		
+		GroupLayout glVendasMenu = putVendasLayout();
+
+		modelVendas = new DefaultTableModel(new Object[][] {},
+				new String[] { "data Saida", "SKU", "Produto", "destino" }) {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = -96636141310423198L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
-
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
+			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 
-		table_Maquinas = new JTable();
-		table_Maquinas.setModel(model_Maquinas);
-		table_Maquinas.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table_Maquinas.getColumnModel().getColumn(0).setMaxWidth(150);
+		tableVendas = new JTable();
+		tableVendas.setModel(modelVendas);
+		tableVendas.getColumnModel().getColumn(0).setResizable(true);
+		tableVendas.getColumnModel().getColumn(0).setMinWidth(140);
+		tableVendas.getColumnModel().getColumn(0).setMaxWidth(150);
+		tableVendas.getColumnModel().getColumn(1).setResizable(true);
+		tableVendas.getColumnModel().getColumn(1).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(1).setMaxWidth(120);
+		tableVendas.getColumnModel().getColumn(2).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(2).setMaxWidth(120);
+		tableVendas.getColumnModel().getColumn(3).setMinWidth(90);
+		tableVendas.getColumnModel().getColumn(3).setMaxWidth(120);
+		scrollPane.setViewportView(tableVendas);
+		vendasMenu.setLayout(glVendasMenu);
 
-		scrollPane_2.setViewportView(table_Maquinas);
-		maquinasMenu.setLayout(gl_MaquinasMenu);
+		tableVendas.getTableHeader().setReorderingAllowed(false);
+		tableVendas.setAutoCreateRowSorter(true);// para ordenar
+		tableVendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		table_Maquinas.getTableHeader().setReorderingAllowed(false);
-		table_Maquinas.setAutoCreateRowSorter(true);// para ordenar
-		table_Maquinas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		db.produtoVendido(modelVendas);
+		criaVendasSearch();
+	}
 
-		db.nomenumeroestadoMaquina("warehouse1", model_Maquinas);
-
+	/**
+	 * Menu Maquinas
+	 */
+	private void criaMaquinasSearch() {
 		sorterMaquinas = new TableRowSorter<>(model_Maquinas);
 		table_Maquinas.setRowSorter(sorterMaquinas);
 
@@ -674,8 +564,135 @@ public class userDesign {
 		});
 
 	}
+	private void criaBotoesMaquinas() {
+		btnRefreshMaquinas = new JButton("Refresh");
+		Interface.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
 
-	private void criaFuncionariosrSearch() {
+		btnHomeMaquinas = new JButton("Home");
+		Interface.styleBotaoHome(btnHomeMaquinas);
+
+		btnCorrigirAvaria = new JButton("Corrigir Avaria");
+		btnCorrigirAvaria.setMargin(new Insets(2, 2, 2, 2));
+		btnCorrigirAvaria.setBackground(Color.LIGHT_GRAY);
+
+		btnReportarAvaria = new JButton("Reportar Avaria");
+		btnReportarAvaria.setBackground(Color.LIGHT_GRAY);
+
+	}
+	private GroupLayout putMaquinasLayout() {
+		GroupLayout glMaquinasMenu = new GroupLayout(maquinasMenu);
+		glMaquinasMenu.setHorizontalGroup(glMaquinasMenu
+				.createParallelGroup(Alignment.LEADING).addGroup(glMaquinasMenu.createSequentialGroup().addGap(39)
+						.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING).addComponent(lblMaquinas)
+								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+								.addGroup(glMaquinasMenu.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(btnHomeMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnRefreshMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGap(115)
+						.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING)
+								.addGroup(glMaquinasMenu.createSequentialGroup().addComponent(tglbtnFiltrarAvariadas)
+										.addGap(18).addComponent(btnReportarAvaria).addGap(18)
+										.addComponent(btnCorrigirAvaria, GroupLayout.PREFERRED_SIZE, 109,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE, 108,
+												GroupLayout.PREFERRED_SIZE))
+								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
+						.addGap(55)));
+		glMaquinasMenu.setVerticalGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING).addGroup(glMaquinasMenu
+				.createSequentialGroup()
+				.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING)
+						.addGroup(glMaquinasMenu.createSequentialGroup().addGap(49)
+								.addComponent(lblMaquinas, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
+								.addGap(50)
+								.addComponent(btnRefreshMaquinas, GroupLayout.PREFERRED_SIZE, 33,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18).addComponent(btnHomeMaquinas, GroupLayout.PREFERRED_SIZE, 41,
+										GroupLayout.PREFERRED_SIZE))
+						.addGroup(glMaquinasMenu.createSequentialGroup().addGap(85)
+								.addGroup(glMaquinasMenu.createParallelGroup(Alignment.TRAILING)
+										.addGroup(glMaquinasMenu.createParallelGroup(Alignment.BASELINE)
+												.addComponent(tglbtnFiltrarAvariadas).addComponent(btnReportarAvaria)
+												.addComponent(btnCorrigirAvaria))
+										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+				.addContainerGap()));
+
+		return glMaquinasMenu;
+	}
+	private void showMaquinasMenu() {
+		Maquinas = new JPanel();
+		frmUserDesign.getContentPane().add(Maquinas, "name_111064051438100");
+		Maquinas.setLayout(new BorderLayout(0, 0));
+
+		maquinasMenu = new JPanel();
+		Maquinas.add(maquinasMenu, BorderLayout.CENTER);
+
+		lblMaquinas = new JLabel("Maquinas");
+		lblMaquinas.setFont(new Font("Dialog", Font.BOLD, 29));
+
+		
+		scrollPane_2 = new JScrollPane();
+
+		tglbtnFiltrarAvariadas = new JToggleButton("Filtrar Avariadas");
+
+		tglbtnFiltrarAvariadas.setBackground(Color.LIGHT_GRAY);
+		UIManager.put("ToggleButton.select", Color.GREEN);
+		SwingUtilities.updateComponentTreeUI(tglbtnFiltrarAvariadas);
+
+		separator_6 = new JSeparator();
+		separator_6.setBackground(Color.BLUE);
+
+		
+		maquinaSearch = new JTextField();
+		Interface.styleSearch(maquinaSearch);
+		
+		criaBotoesMaquinas();
+		
+		GroupLayout glMaquinasMenu = putMaquinasLayout();
+		
+		model_Maquinas = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "ID", "Avariado" }) {
+		
+			private static final long serialVersionUID = -96636141310423198L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
+
+			@Override
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		table_Maquinas = new JTable();
+		table_Maquinas.setModel(model_Maquinas);
+		table_Maquinas.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table_Maquinas.getColumnModel().getColumn(0).setMaxWidth(150);
+
+		scrollPane_2.setViewportView(table_Maquinas);
+		maquinasMenu.setLayout(glMaquinasMenu);
+
+		table_Maquinas.getTableHeader().setReorderingAllowed(false);
+		table_Maquinas.setAutoCreateRowSorter(true);// para ordenar
+		table_Maquinas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		db.nomenumeroestadoMaquina("warehouse1", model_Maquinas);
+
+		criaMaquinasSearch();
+	}
+
+	private void criaFuncionariosSearch() {
 		sorterFuncionario = new TableRowSorter<>(modelFuncionarios);
 		tabela_Funcionarios.setRowSorter(sorterFuncionario);
 
@@ -713,7 +730,7 @@ public class userDesign {
 	}
 	private void criaBotoesFuncionarios() {
 		btnRefreshFuncionarios = new JButton("Refresh");
-		Interface.styleBotaoSimples(btnRefreshFuncionarios, "/refresh.png");
+		Interface.styleBotaoSimples(btnRefreshFuncionarios, REFRESH);
 
 		btnHomeFuncionarios = new JButton("Home");
 		Interface.styleBotaoHome(btnHomeFuncionarios);
@@ -819,131 +836,11 @@ public class userDesign {
 
 		db.nifIdadeNomeFuncaoFuncionario(nomeArmazem, modelFuncionarios);
 
-		criaFuncionariosrSearch();
+		criaFuncionariosSearch();
 
 	}
 
-	private void showProdutos() {
-		Produtos = new JPanel();
-		frmUserDesign.getContentPane().add(Produtos, "name_127783532138000");
-		Produtos.setLayout(new BorderLayout(0, 0));
-
-		JPanel ProdutosMenu = new JPanel();
-		Produtos.add(ProdutosMenu, BorderLayout.CENTER);
-
-		JLabel lblProdutos = new JLabel("Produtos");
-		lblProdutos.setFont(new Font("Dialog", Font.BOLD, 30));
-
-		JScrollPane scrollPane_3 = new JScrollPane();
-
-		btnRefreshProdutos = new JButton("Refresh");
-		btnRefreshProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnRefreshProdutos.setBackground(Color.LIGHT_GRAY);
-		btnRefreshProdutos.setIcon(new ImageIcon(userDesign.class.getResource("/refresh.png")));
-
-		btnHomeProdutos = new JButton("Home");
-		btnHomeProdutos.setVerticalAlignment(SwingConstants.TOP);
-		btnHomeProdutos.setHorizontalAlignment(SwingConstants.LEFT);
-		btnHomeProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
-		btnHomeProdutos.setBackground(Color.LIGHT_GRAY);
-		btnHomeProdutos.setIcon(new ImageIcon(userDesign.class.getResource("/home.png")));
-
-		JSeparator separator_7 = new JSeparator();
-		separator_7.setBackground(Color.BLUE);
-
-		btnMarcarDefeitoProdutos = new JButton("Marcar Defeito");
-
-		btnMarcarDefeitoProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
-
-		produtosSearch = new JTextField();
-		produtosSearch.setText("Quick Access");
-		produtosSearch.setToolTipText("Quick Access");
-		produtosSearch.setColumns(10);
-		GroupLayout gl_ProdutosMenu = new GroupLayout(ProdutosMenu);
-		gl_ProdutosMenu.setHorizontalGroup(gl_ProdutosMenu.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ProdutosMenu.createSequentialGroup().addGap(40).addGroup(gl_ProdutosMenu
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_ProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_ProdutosMenu
-								.createSequentialGroup()
-								.addGroup(gl_ProdutosMenu.createParallelGroup(Alignment.TRAILING)
-										.addComponent(btnHomeProdutos, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-										.addComponent(btnRefreshProdutos, Alignment.LEADING))
-								.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-								.addGroup(gl_ProdutosMenu.createParallelGroup(Alignment.LEADING, false).addGroup(
-										Alignment.TRAILING,
-										gl_ProdutosMenu.createSequentialGroup().addComponent(btnMarcarDefeitoProdutos)
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addComponent(produtosSearch, GroupLayout.PREFERRED_SIZE, 120,
-														GroupLayout.PREFERRED_SIZE))
-										.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 572,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(38))
-								.addGroup(gl_ProdutosMenu.createSequentialGroup()
-										.addComponent(separator_7, GroupLayout.PREFERRED_SIZE, 132,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(677, Short.MAX_VALUE)))
-						.addGroup(gl_ProdutosMenu.createSequentialGroup().addComponent(lblProdutos).addContainerGap(678,
-								Short.MAX_VALUE)))));
-		gl_ProdutosMenu.setVerticalGroup(gl_ProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_ProdutosMenu
-				.createSequentialGroup().addGap(41)
-				.addComponent(lblProdutos, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(gl_ProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(gl_ProdutosMenu
-						.createSequentialGroup()
-						.addGroup(gl_ProdutosMenu.createParallelGroup(Alignment.BASELINE)
-								.addComponent(produtosSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnMarcarDefeitoProdutos))
-						.addGap(6)
-						.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_ProdutosMenu.createSequentialGroup()
-								.addComponent(separator_7, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
-								.addGap(40)
-								.addComponent(btnRefreshProdutos, GroupLayout.PREFERRED_SIZE, 33,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeProdutos, GroupLayout.PREFERRED_SIZE, 41,
-										GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(6, Short.MAX_VALUE)));
-
-		modelProdutos = new DefaultTableModel(new Object[][] {},
-				new String[] { "SKU", "Produto", "Origem", "Com Defeito" }) {
-
-			private static final long serialVersionUID = 60845133227382893L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, String.class, Boolean.class };
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		table_Produtos = new JTable();
-
-		table_Produtos.setModel(modelProdutos);
-		table_Produtos.getColumnModel().getColumn(0).setMinWidth(120);
-		table_Produtos.getColumnModel().getColumn(0).setMaxWidth(150);
-
-		table_Produtos.getColumnModel().getColumn(1).setMinWidth(120);
-
-		table_Produtos.getColumnModel().getColumn(2).setMinWidth(90);
-		table_Produtos.getColumnModel().getColumn(3).setMinWidth(90);
-		table_Produtos.getColumnModel().getColumn(3).setMaxWidth(90);
-
-		table_Produtos.getTableHeader().setReorderingAllowed(false);
-		table_Produtos.setAutoCreateRowSorter(true);// para ordenar
-		table_Produtos.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.produtoNaoVendido(modelProdutos);
-		scrollPane_3.setViewportView(table_Produtos);
-		ProdutosMenu.setLayout(gl_ProdutosMenu);
+	private void criaProdutosSearch() {
 
 		sorterProdutos = new TableRowSorter<>(modelProdutos);
 		table_Produtos.setRowSorter(sorterProdutos);
@@ -979,6 +876,125 @@ public class userDesign {
 			}
 		});
 
+	}
+	private void criaBotoesProdutos() {
+		btnRefreshProdutos = new JButton("Refresh");
+		Interface.styleBotaoSimples(btnRefreshProdutos, REFRESH);
+
+		btnHomeProdutos = new JButton("Home");
+		Interface.styleBotaoHome(btnHomeProdutos);
+		
+		btnMarcarDefeitoProdutos = new JButton("Marcar Defeito");
+		btnMarcarDefeitoProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
+	}
+	private GroupLayout putProdutosLayout() {
+		GroupLayout glProdutosMenu = new GroupLayout(produtosMenu);
+		glProdutosMenu.setHorizontalGroup(glProdutosMenu.createParallelGroup(Alignment.LEADING)
+				.addGroup(glProdutosMenu.createSequentialGroup().addGap(40).addGroup(glProdutosMenu
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(glProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(glProdutosMenu
+								.createSequentialGroup()
+								.addGroup(glProdutosMenu.createParallelGroup(Alignment.TRAILING)
+										.addComponent(btnHomeProdutos, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+										.addComponent(btnRefreshProdutos, Alignment.LEADING))
+								.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+								.addGroup(glProdutosMenu.createParallelGroup(Alignment.LEADING, false).addGroup(
+										Alignment.TRAILING,
+										glProdutosMenu.createSequentialGroup().addComponent(btnMarcarDefeitoProdutos)
+												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE)
+												.addComponent(produtosSearch, GroupLayout.PREFERRED_SIZE, 120,
+														GroupLayout.PREFERRED_SIZE))
+										.addComponent(scrollPaneProdutos, GroupLayout.PREFERRED_SIZE, 572,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(38))
+								.addGroup(glProdutosMenu.createSequentialGroup()
+										.addComponent(separatorProdutos, GroupLayout.PREFERRED_SIZE, 132,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(677, Short.MAX_VALUE)))
+						.addGroup(glProdutosMenu.createSequentialGroup().addComponent(lblProdutos).addContainerGap(678,
+								Short.MAX_VALUE)))));
+		glProdutosMenu.setVerticalGroup(glProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(glProdutosMenu
+				.createSequentialGroup().addGap(41)
+				.addComponent(lblProdutos, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(glProdutosMenu.createParallelGroup(Alignment.LEADING).addGroup(glProdutosMenu
+						.createSequentialGroup()
+						.addGroup(glProdutosMenu.createParallelGroup(Alignment.BASELINE)
+								.addComponent(produtosSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnMarcarDefeitoProdutos))
+						.addGap(6)
+						.addComponent(scrollPaneProdutos, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glProdutosMenu.createSequentialGroup()
+								.addComponent(separatorProdutos, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
+								.addGap(40)
+								.addComponent(btnRefreshProdutos, GroupLayout.PREFERRED_SIZE, 33,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18).addComponent(btnHomeProdutos, GroupLayout.PREFERRED_SIZE, 41,
+										GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(6, Short.MAX_VALUE)));
+		return glProdutosMenu;
+	}
+	private void showProdutos() {
+		Produtos = new JPanel();
+		frmUserDesign.getContentPane().add(Produtos, "name_127783532138000");
+		Produtos.setLayout(new BorderLayout(0, 0));
+
+		produtosMenu = new JPanel();
+		Produtos.add(produtosMenu, BorderLayout.CENTER);
+
+		lblProdutos = new JLabel("Produtos");
+		lblProdutos.setFont(new Font("Dialog", Font.BOLD, 30));
+
+		scrollPaneProdutos = new JScrollPane();
+
+		separatorProdutos = new JSeparator();
+		separatorProdutos.setBackground(Color.BLUE);
+		produtosSearch = new JTextField();
+		Interface.styleSearch(produtosSearch);
+		criaBotoesProdutos();
+		GroupLayout glProdutosMenu =putProdutosLayout();
+
+		modelProdutos = new DefaultTableModel(new Object[][] {},
+				new String[] { "SKU", "Produto", "Origem", "Com Defeito" }) {
+
+			private static final long serialVersionUID = 60845133227382893L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, String.class, Boolean.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		table_Produtos = new JTable();
+
+		table_Produtos.setModel(modelProdutos);
+		table_Produtos.getColumnModel().getColumn(0).setMinWidth(120);
+		table_Produtos.getColumnModel().getColumn(0).setMaxWidth(150);
+
+		table_Produtos.getColumnModel().getColumn(1).setMinWidth(120);
+
+		table_Produtos.getColumnModel().getColumn(2).setMinWidth(90);
+		table_Produtos.getColumnModel().getColumn(3).setMinWidth(90);
+		table_Produtos.getColumnModel().getColumn(3).setMaxWidth(90);
+
+		table_Produtos.getTableHeader().setReorderingAllowed(false);
+		table_Produtos.setAutoCreateRowSorter(true);// para ordenar
+		table_Produtos.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		scrollPaneProdutos.setViewportView(table_Produtos);
+		produtosMenu.setLayout(glProdutosMenu);
+		
+		db.produtoNaoVendido(modelProdutos);
+		criaProdutosSearch();
 	}
 
 	private void putPanelsGrafico() {
