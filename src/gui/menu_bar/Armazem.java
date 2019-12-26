@@ -1,4 +1,4 @@
-package gui.gui_admin;
+package gui.menu_bar;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import db.DataBase;
 import gui.PopUp;
+import gui.gui_admin.AdminDesign;
 import logic.Check;
 import logic.MessageLogs;
 

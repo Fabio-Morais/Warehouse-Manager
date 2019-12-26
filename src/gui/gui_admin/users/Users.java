@@ -18,7 +18,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,9 +41,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.Interface;
-import gui.MenuBar;
 import gui.PopUp;
 import gui.gui_admin.AdminDesign;
+import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
 

@@ -35,9 +35,9 @@ import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
 import gui.Interface;
-import gui.MenuBar;
 import gui.PopUp;
 import gui.gui_admin.AdminDesign;
+import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
 
@@ -373,7 +373,7 @@ public class Fornecedores {
 		 }
 
 	
-	public void adicionarFornecedor(DefaultTableModel modelFornecedor, String armazem) {
+	private void adicionarFornecedor(DefaultTableModel modelFornecedor, String armazem) {
 
 		boolean isFinished= false;
 
@@ -397,7 +397,7 @@ public class Fornecedores {
 	}
 
 	
-	public void editarFornecedor(JTable fornecedorTable, DefaultTableModel modelFornecedor, String armazem) {
+	private void editarFornecedor(JTable fornecedorTable, DefaultTableModel modelFornecedor, String armazem) {
 		boolean isFinished=false;
 		int[] indexOfRow = fornecedorTable.getSelectedRows();
 		
@@ -425,7 +425,7 @@ public class Fornecedores {
 	}
 	
 
-	public void removeFornecedor(JTable fornecedorTable,  DefaultTableModel modelFornecedor, String armazem) {
+	private void removeFornecedor(JTable fornecedorTable,  DefaultTableModel modelFornecedor, String armazem) {
 
 		int[] selectedRows= fornecedorTable.getSelectedRows();
 		if(selectedRows.length==0) {
@@ -446,7 +446,7 @@ public class Fornecedores {
 	}
 
 	
-	public void refresh(DefaultTableModel modelFornecedor) {
+	private void refresh(DefaultTableModel modelFornecedor) {
 		int rowCount = modelFornecedor.getRowCount();
 		for (int i = rowCount - 1; i >= 0; i--) {
 			modelFornecedor.removeRow(i);

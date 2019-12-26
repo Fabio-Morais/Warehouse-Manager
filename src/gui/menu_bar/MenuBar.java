@@ -1,4 +1,4 @@
-package gui;
+package gui.menu_bar;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,8 +28,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import gui.gui_admin.Armazem;
 import db.DataBase;
+import gui.Help;
+import gui.PopUp;
 import gui.gui_admin.AdminDesign;
 import gui.gui_login.LoginDesign;
 import logic.MessageLogs;

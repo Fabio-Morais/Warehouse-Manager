@@ -1,28 +1,56 @@
-package gui.gui_admin;
+package gui.gui_admin.categoria_produto;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
 import gui.AutoCompletion;
+import gui.Interface;
 import gui.PopUp;
+import gui.gui_admin.AdminDesign;
+import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
 
 public class CategoriaProduto {
+	private static final String MENUADMINSTRING = "menu_admin";
+	private static final String ADD = "/add.png";
+	private static final String REMOVE = "/remove.png";
+	private static final String REFRESH = "/refresh.png";
+	private static final String REFRESHSTRING = "Refresh";
+	private static final String REMOVERSTRING = "Remover";
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
 	private static final String CATEGORIA = "/list.png";
@@ -33,19 +61,33 @@ public class CategoriaProduto {
 	private JTable subCategoriaProdutoTable;
 	private JTable categoriaProdutoTable;
 	private String loginUsername;
+	private JPanel categoriaProduto;
 
+	private JLabel categoriaProdutoTexto;
+	private JSeparator categoriaProdutoSeparator;
+	private JScrollPane categoriaProdutoScrollPane;
+	private JScrollPane categoriaProdutoScrollPane2;
+	private JPanel categoriaProdutoPanel;
+	private JButton categoriaProdutoBtnAdicionar;
+	private JButton categoriaProdutoBtnRemover;
+	private JButton categoriaProdutoBtnRefresh;
+	private JButton categoriaProdutoBtnHome;
+	private CardLayout cl;
+	private MenuBar menuBar;
+	
 	/* POP UP */
 	private JTextField nomeField;
 	private JComboBox<String> comboBoxCategoria;
 	private JComboBox<String> comboBox;
 
-	public CategoriaProduto(String username) {
+	public CategoriaProduto(String username, MenuBar menuBar) {
 		this.popUp = new PopUp();
 		this.check = new Check();
 		nomeField = new JTextField();
 		db = DataBase.getInstance();
 		messageLogs = MessageLogs.getInstance();
 		this.loginUsername = username;
+		this.menuBar = menuBar;
 		criaTabela();
 
 	}
@@ -106,24 +148,171 @@ public class CategoriaProduto {
 		categoriaProdutoTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 	}
+	private void criaBotoesCategoria() {
+		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
+
+		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
+		
+		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
+
+		categoriaProdutoBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(categoriaProdutoBtnHome);
+	}
+	private GroupLayout putCategoriaLayout() {
+		GroupLayout glCategoriaProdutoPanel = new GroupLayout(categoriaProdutoPanel);
+		glCategoriaProdutoPanel.setHorizontalGroup(
+				glCategoriaProdutoPanel.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+						glCategoriaProdutoPanel.createSequentialGroup().addGap(37).addGroup(glCategoriaProdutoPanel
+								.createParallelGroup(Alignment.LEADING).addComponent(categoriaProdutoTexto)
+								.addGroup(glCategoriaProdutoPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(categoriaProdutoSeparator, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(glCategoriaProdutoPanel.createSequentialGroup().addGap(15)
+												.addGroup(glCategoriaProdutoPanel.createParallelGroup(Alignment.LEADING)
+														.addComponent(categoriaProdutoBtnRefresh,
+																GroupLayout.PREFERRED_SIZE, 113,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(categoriaProdutoBtnHome,
+																GroupLayout.PREFERRED_SIZE, 113,
+																GroupLayout.PREFERRED_SIZE)))))
+								.addGap(99)
+								.addGroup(glCategoriaProdutoPanel.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(glCategoriaProdutoPanel.createSequentialGroup()
+												.addComponent(categoriaProdutoBtnAdicionar)
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(categoriaProdutoBtnRemover, GroupLayout.PREFERRED_SIZE,
+														113, GroupLayout.PREFERRED_SIZE))
+										.addComponent(categoriaProdutoScrollPane, GroupLayout.DEFAULT_SIZE, 414,
+												Short.MAX_VALUE)
+										.addComponent(categoriaProdutoScrollPane2, 0, 0, Short.MAX_VALUE))
+								.addContainerGap(91, Short.MAX_VALUE)));
+		glCategoriaProdutoPanel.setVerticalGroup(glCategoriaProdutoPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glCategoriaProdutoPanel.createSequentialGroup().addGroup(glCategoriaProdutoPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(glCategoriaProdutoPanel.createSequentialGroup().addContainerGap()
+								.addComponent(categoriaProdutoTexto).addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(categoriaProdutoSeparator, GroupLayout.PREFERRED_SIZE, 15,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(54)
+								.addComponent(categoriaProdutoBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18).addComponent(categoriaProdutoBtnHome, GroupLayout.PREFERRED_SIZE, 59,
+										GroupLayout.PREFERRED_SIZE))
+						.addGroup(glCategoriaProdutoPanel.createSequentialGroup().addGap(26)
+								.addGroup(glCategoriaProdutoPanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(categoriaProdutoBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(categoriaProdutoBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
+												GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(categoriaProdutoScrollPane, GroupLayout.PREFERRED_SIZE, 117,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18).addComponent(categoriaProdutoScrollPane2, GroupLayout.PREFERRED_SIZE, 117,
+										GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(34, Short.MAX_VALUE)));
+		return glCategoriaProdutoPanel;
+	}
+	public void showCategoriaProduto(JFrame frame, CardLayout cl) {
+		this.cl = cl;
+		categoriaProduto = new JPanel();
+		frame.getContentPane().add(categoriaProduto, "name_1323741143870400");
+		categoriaProduto.setLayout(new BorderLayout(0, 0));
+		categoriaProdutoPanel = new JPanel();
+		categoriaProduto.add(categoriaProdutoPanel, BorderLayout.CENTER);
+
+		categoriaProdutoTexto = new JLabel("<html>Categoria<br>Produto</html>");
+		Interface.styleLabel28(categoriaProdutoTexto);
+		
+		categoriaProdutoSeparator = new JSeparator();
+		Interface.styleSeparator(categoriaProdutoSeparator);
+		
+		categoriaProdutoScrollPane = new JScrollPane();
+		categoriaProdutoScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		categoriaProdutoScrollPane2 = new JScrollPane();
+		categoriaProdutoScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		criaBotoesCategoria();
+		
+		GroupLayout glCategoriaProdutoPanel = putCategoriaLayout();
+		
+		categoriaProdutoScrollPane2.setViewportView(subCategoriaProdutoTable);
+		categoriaProdutoScrollPane.setViewportView(categoriaProdutoTable);
+		categoriaProdutoPanel.setLayout(glCategoriaProdutoPanel);
+
+		db.categoriaProduto(modelCategoriaProduto);
+		buttonsCategoria(frame);
+	}
+	private void buttonsCategoria(JFrame frame) {
+		categoriaProdutoBtnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frame.getContentPane(), MENUADMINSTRING);
+				menuBar.setCurrentPanel(MENUADMINSTRING);
+			}
+		});
+		categoriaProdutoBtnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarCategoria(modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
+			}
+		});
+		categoriaProdutoBtnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh(modelCategoriaProduto, modelSubCategoriaProduto);
+			}
+		});
+		categoriaProdutoBtnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
+						modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
+			}
+		});
+
+		/* listener de quando o selection muda */
+		categoriaProdutoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				showSubCategoria(categoriaProdutoTable, modelCategoriaProduto,
+						modelSubCategoriaProduto);
+
+			}
+		});
+		/* listener das teclas */
+		categoriaProdutoTable.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
+					removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
+							modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
+
+			}
+		});
+		subCategoriaProdutoTable.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
+					removeCategoria(categoriaProdutoTable, subCategoriaProdutoTable,
+							modelCategoriaProduto, modelSubCategoriaProduto, menuBar.getNomeArmazem());
+
+			}
+		});
+
+		categoriaProdutoPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				categoriaProdutoTable.clearSelection();
+				subCategoriaProdutoTable.clearSelection();
+
+			}
+		});
+	}
 	
-	
-	public DefaultTableModel getModelCategoriaProduto() {
-		return modelCategoriaProduto;
-	}
 
-	public DefaultTableModel getModelSubCategoriaProduto() {
-		return modelSubCategoriaProduto;
+	public JPanel getCategoriaProduto() {
+		return categoriaProduto;
 	}
-
-	public JTable getSubCategoriaProdutoTable() {
-		return subCategoriaProdutoTable;
-	}
-
-	public JTable getCategoriaProdutoTable() {
-		return categoriaProdutoTable;
-	}
-
 	private boolean confirmData() {
 		nomeField.setBorder(new JTextField().getBorder());
 
@@ -137,7 +326,7 @@ public class CategoriaProduto {
 
 	}
 
-	public void showSubCategoria(JTable categoriaTable, DefaultTableModel modelCategoria,
+	private void showSubCategoria(JTable categoriaTable, DefaultTableModel modelCategoria,
 			DefaultTableModel modelSubCategoria) {
 		int rowCount2 = modelSubCategoria.getRowCount();
 
@@ -208,47 +397,9 @@ public class CategoriaProduto {
 				JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
 	}
 
-	/* User POP UP Editar */
-	private int showFornecedorPopUpEditar(String nome, int choice,
-			String categoria) {
+	
 
-		Object[] options1 = { "Ok", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(CATEGORIA));
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2, 2, 10, 10));
-
-		comboBox = new JComboBox<>();
-		DefaultComboBoxModel<String> modelCombo = new DefaultComboBoxModel<>(
-				new String[] { "Categoria", "Sub-Categoria" });
-		modelCombo.setSelectedItem(modelCombo.getElementAt(choice));
-		comboBox.setModel(modelCombo);
-		comboBox.setEnabled(false);
-		panel.add(comboBox);
-
-		comboBoxCategoria = new JComboBox<>();
-		DefaultComboBoxModel<String> modelComboSub = new DefaultComboBoxModel<>(new String[] {});
-		comboBoxCategoria.setModel(modelComboSub);
-		comboBoxCategoria.setEnabled(false);
-		panel.add(comboBoxCategoria);
-		if (choice == 1) {
-			modelComboSub.addElement(categoria);
-			comboBoxCategoria.setSelectedItem(categoria);// colocar da base de dados o correspondente
-		}
-		JLabel lbl = new JLabel("Nome da " + comboBox.getSelectedItem());
-		lbl.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel.add(lbl);
-
-		panel.add(nomeField);
-		nomeField.setColumns(15);
-		nomeField.setToolTipText("Nome " + comboBox.getSelectedItem());
-		nomeField.setText(nome);
-
-		return JOptionPane.showOptionDialog(null, panel, "Editar " + nome, JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
-	}
-
-	public void adicionarCategoria(DefaultTableModel modelCategoria, DefaultTableModel modelSubCategoria,
+	private void adicionarCategoria(DefaultTableModel modelCategoria, DefaultTableModel modelSubCategoria,
 			String armazem) {
 		boolean isFinished = false;
 		String name = null;
@@ -304,7 +455,7 @@ public class CategoriaProduto {
 		}
 	}
 
-	public void removeCategoria(JTable categoriaTable, JTable subCategoriaTable, DefaultTableModel modelCategoria,
+	private void removeCategoria(JTable categoriaTable, JTable subCategoriaTable, DefaultTableModel modelCategoria,
 			DefaultTableModel modelSubCategoria, String armazem) {
 		int option = 0;
 		int[] selectedRows = categoriaTable.getSelectedRows();
@@ -344,48 +495,7 @@ public class CategoriaProduto {
 
 	}
 
-	public void editarCategoria(JTable categoriaProdutoTable, JTable subCategoriaProdutoTable,
-			DefaultTableModel modelCategoriaProduto) {
-		boolean isFinished = false;
-		String nome = null;
-		int[] indexOfCategoria = categoriaProdutoTable.getSelectedRows();
-		int[] indexOfSubCategoria = subCategoriaProdutoTable.getSelectedRows();
-
-		if (indexOfCategoria.length > 1 || indexOfSubCategoria.length > 1) {
-			popUp.showPopUp("Selecione apenas 1 linha", "Erro ao selecionar");
-			return;
-		}
-
-		while (!isFinished) {
-			int option = 0;
-			if (indexOfCategoria.length > 0 && indexOfSubCategoria.length == 0) {
-				option = showFornecedorPopUpEditar((String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0), 0, null);
-			} else if (indexOfSubCategoria.length > 0) {
-				option = showFornecedorPopUpEditar(
-						(String) subCategoriaProdutoTable.getValueAt(indexOfSubCategoria[0], 0), 1
-						, (String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0));
-			}
-			if (option == JOptionPane.YES_OPTION) {
-				isFinished = confirmData();
-				nome = nomeField.getText();
-			} else {
-				break;
-			}
-		}
-		/* inserir as coisas, tudo validado */
-		if (isFinished) {
-			if (indexOfCategoria.length > 0 && indexOfCategoria[0] >= 0) {
-				categoriaProdutoTable.setValueAt(nome, indexOfCategoria[0], 0);
-			} else if (indexOfSubCategoria.length > 0 && indexOfSubCategoria[0] >= 0) {
-				subCategoriaProdutoTable.setValueAt(nome, indexOfSubCategoria[0], 0);
-
-			}
-
-		}
-
-	}
-
-	public void refresh(DefaultTableModel modelCategoriaProduto, DefaultTableModel modelSubCategoria) {
+	private void refresh(DefaultTableModel modelCategoriaProduto, DefaultTableModel modelSubCategoria) {
 		int rowCount = modelCategoriaProduto.getRowCount();
 		for (int i = rowCount - 1; i >= 0; i--) {
 			modelCategoriaProduto.removeRow(i);
