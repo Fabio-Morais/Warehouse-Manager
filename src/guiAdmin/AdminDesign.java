@@ -28,7 +28,6 @@ import java.awt.ComponentOrientation;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
@@ -38,9 +37,9 @@ import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.Interface;
 import gui.MenuBar;
-import gui_admin_fornecedores.Fornecedores;
-import gui_admin_maquina.Maquina;
-import gui_admin_users.Users;
+import guiadmin.fornecedores.Fornecedores;
+import guiadmin.maquina.Maquina;
+import guiadmin.users.Users;
 import logic.MessageLogs;
 
 import javax.swing.ImageIcon;
@@ -995,7 +994,6 @@ public class AdminDesign {
 		});
 		
 	}
-	
 	
 
 	private void buttonsCategoria() {

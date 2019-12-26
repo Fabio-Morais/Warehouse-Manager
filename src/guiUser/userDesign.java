@@ -34,6 +34,7 @@ import org.jfree.chart.ChartPanel;
 import db.DataBase;
 import gui.Interface;
 import gui.MenuBar;
+import guiuser.vendas.Vendas;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
@@ -74,13 +75,12 @@ public class userDesign {
 	private EnviarProduto enviarprodutoClass;
 	private ReceberProduto receberprodutoClass;
 	private CriarCsv criarCsvClasse;
-	private Graficos Chart;
+	private Graficos chart;
 	// Panels
 	private JPanel userDesign;
-	private JPanel Vendas;
-	private JPanel Maquinas;
-	private JPanel Funcionarios;
-	private JPanel Produtos;
+	private JPanel maquinas;
+	private JPanel funcionarios;
+	private JPanel produtos;
 
 	private DataBase db;
 
@@ -105,15 +105,7 @@ public class userDesign {
 	private JButton btnGerarRelatorioStock;
 
 	// Menu Vendas
-	private JTable tableVendas;
-	private JSeparator separatorVendas;
-	private JLabel lblVendas;
-	private JPanel vendasMenu;
-	private JScrollPane scrollPane;
-	private JButton btnRefreshVendas;
-	private JButton btnHomeVendas;
-	private DefaultTableModel modelVendas;
-	private TableRowSorter<DefaultTableModel> sorterVendas;
+
 
 	// Menu Maquinas
 	private JSeparator separator_6;
@@ -148,7 +140,7 @@ public class userDesign {
 	private JButton btnRefreshProdutos;
 	private JButton btnHomeProdutos;
 	private DefaultTableModel modelProdutos;
-	private JTable table_Produtos;
+	private JTable tableProdutos;
 	private TableRowSorter<DefaultTableModel> sorterProdutos;
 	private JButton btnMarcarDefeitoProdutos;
 
@@ -167,7 +159,6 @@ public class userDesign {
 	private JTextField funcionarioSearch;
 	private JTextField produtosSearch;
 	private JTextField maquinaSearch;
-	private JTextField vendasSearch;
 	private JPanel grafico;
 	private JPanel graficoMenu;
 	private JPanel grafico1;
@@ -181,10 +172,10 @@ public class userDesign {
 	 */
 	private void putPanels() {
 		frmUserDesign.getContentPane().add(userDesign, "userDesign");
-		frmUserDesign.getContentPane().add(Vendas, "Vendas");
-		frmUserDesign.getContentPane().add(Maquinas, "Maquinas");
-		frmUserDesign.getContentPane().add(Funcionarios, "Funcionarios");
-		frmUserDesign.getContentPane().add(Produtos, "Produtos");
+		frmUserDesign.getContentPane().add(vendasClass.getVendas(), "Vendas");
+		frmUserDesign.getContentPane().add(maquinas, "Maquinas");
+		frmUserDesign.getContentPane().add(funcionarios, "Funcionarios");
+		frmUserDesign.getContentPane().add(produtos, "Produtos");
 		frmUserDesign.getContentPane().add(grafico, "Grafico");
 		cl.show(frmUserDesign.getContentPane(), "userDesign");// mostrar o main menu
 	}
@@ -196,13 +187,12 @@ public class userDesign {
 		this.nomeArmazem = armazem;
 		this.maquinaClass = new Maquinas(username);
 		this.funcionarioClasse = new Funcionario();
-		this.vendasClass = new Vendas();
 		this.produtoClass = new Produtos(username);
 		this.enviarprodutoClass = new EnviarProduto(username);
 		this.receberprodutoClass = new ReceberProduto(username);
 		this.username = username;
 		this.criarCsvClasse = new CriarCsv();
-		this.Chart = new Graficos();
+		this.chart = new Graficos();
 		db = DataBase.getInstance();
 		this.messageLogs = MessageLogs.getInstance();
 		initialize();
@@ -383,144 +373,6 @@ public class userDesign {
 	/**
 	 * Menu Vendas
 	 */
-	private void criaVendasSearch() {
-	sorterVendas = new TableRowSorter<>(modelVendas);
-		tableVendas.setRowSorter(sorterVendas);
-
-		vendasSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				vendasSearch.setText("");
-			}
-		});
-		vendasSearch.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				search(vendasSearch.getText());
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				search(vendasSearch.getText());
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				search(vendasSearch.getText());
-			}
-
-			public void search(String str) {
-				if (str.length() == 0) {
-					sorterVendas.setRowFilter(null);
-				} else {
-					sorterVendas.setRowFilter(RowFilter.regexFilter("(?i)" + str));
-				}
-			}
-		});
-
-	}
-	private void criaBotoesVendas() {
-		btnRefreshVendas = new JButton("Refresh");
-		Interface.styleBotaoSimples(btnRefreshVendas, REFRESH);
-
-		btnHomeVendas = new JButton("Home");
-		Interface.styleBotaoHome(btnHomeVendas);
-
-	}
-	private GroupLayout putVendasLayout() {
-		GroupLayout glVendasMenu = new GroupLayout(vendasMenu);
-		glVendasMenu.setHorizontalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
-				.createSequentialGroup().addGap(48)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING, false).addGroup(glVendasMenu
-						.createSequentialGroup()
-						.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
-								.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnHomeVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnRefreshVendas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-						.addGap(134)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE))
-						.addGroup(glVendasMenu.createSequentialGroup().addComponent(lblVendas)
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(vendasSearch, GroupLayout.PREFERRED_SIZE, 118,
-										GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(60, Short.MAX_VALUE)));
-		glVendasMenu.setVerticalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
-				.createSequentialGroup().addGap(42)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.TRAILING).addComponent(lblVendas).addComponent(
-						vendasSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-						.addGroup(glVendasMenu.createSequentialGroup()
-								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addGap(39)
-								.addComponent(btnRefreshVendas, GroupLayout.PREFERRED_SIZE, 33,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeVendas)))
-				.addContainerGap()));
-
-		return glVendasMenu;
-	}
-	private void showVendasMenu() {
-		Vendas = new JPanel();
-		frmUserDesign.getContentPane().add(Vendas, "name_148919274819900");
-		Vendas.setLayout(new BorderLayout(0, 0));
-
-		vendasMenu = new JPanel();
-		Vendas.add(vendasMenu, BorderLayout.CENTER);
-
-		lblVendas = new JLabel("Vendas");
-		lblVendas.setFont(new Font("Dialog", Font.BOLD, 32));
-
-		criaBotoesVendas();
-	
-		scrollPane = new JScrollPane();
-
-		separatorVendas = new JSeparator();
-		separatorVendas.setBackground(Color.BLUE);
-
-		vendasSearch = new JTextField();
-		Interface.styleSearch(vendasSearch);
-		
-		GroupLayout glVendasMenu = putVendasLayout();
-
-		modelVendas = new DefaultTableModel(new Object[][] {},
-				new String[] { "data Saida", "SKU", "Produto", "destino" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		tableVendas = new JTable();
-		tableVendas.setModel(modelVendas);
-		tableVendas.getColumnModel().getColumn(0).setResizable(true);
-		tableVendas.getColumnModel().getColumn(0).setMinWidth(140);
-		tableVendas.getColumnModel().getColumn(0).setMaxWidth(150);
-		tableVendas.getColumnModel().getColumn(1).setResizable(true);
-		tableVendas.getColumnModel().getColumn(1).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(1).setMaxWidth(120);
-		tableVendas.getColumnModel().getColumn(2).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(2).setMaxWidth(120);
-		tableVendas.getColumnModel().getColumn(3).setMinWidth(90);
-		tableVendas.getColumnModel().getColumn(3).setMaxWidth(120);
-		scrollPane.setViewportView(tableVendas);
-		vendasMenu.setLayout(glVendasMenu);
-
-		tableVendas.getTableHeader().setReorderingAllowed(false);
-		tableVendas.setAutoCreateRowSorter(true);// para ordenar
-		tableVendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.produtoVendido(modelVendas);
-		criaVendasSearch();
-	}
 
 	/**
 	 * Menu Maquinas
@@ -624,12 +476,12 @@ public class userDesign {
 		return glMaquinasMenu;
 	}
 	private void showMaquinasMenu() {
-		Maquinas = new JPanel();
-		frmUserDesign.getContentPane().add(Maquinas, "name_111064051438100");
-		Maquinas.setLayout(new BorderLayout(0, 0));
+		maquinas = new JPanel();
+		frmUserDesign.getContentPane().add(maquinas, "name_111064051438100");
+		maquinas.setLayout(new BorderLayout(0, 0));
 
 		maquinasMenu = new JPanel();
-		Maquinas.add(maquinasMenu, BorderLayout.CENTER);
+		maquinas.add(maquinasMenu, BorderLayout.CENTER);
 
 		lblMaquinas = new JLabel("Maquinas");
 		lblMaquinas.setFont(new Font("Dialog", Font.BOLD, 29));
@@ -773,12 +625,12 @@ public class userDesign {
 		return glFuncionariosMenu;
 	}
 	private void showFuncionariosMenu() {
-		Funcionarios = new JPanel();
-		frmUserDesign.getContentPane().add(Funcionarios, "name_126627817283200");
-		Funcionarios.setLayout(new BorderLayout(0, 0));
+		funcionarios = new JPanel();
+		frmUserDesign.getContentPane().add(funcionarios, "name_126627817283200");
+		funcionarios.setLayout(new BorderLayout(0, 0));
 
 		funcionariosMenu = new JPanel();
-		Funcionarios.add(funcionariosMenu, BorderLayout.CENTER);
+		funcionarios.add(funcionariosMenu, BorderLayout.CENTER);
 
 		scrollPaneFuncionario = new JScrollPane();
 
@@ -840,7 +692,7 @@ public class userDesign {
 	private void criaProdutosSearch() {
 
 		sorterProdutos = new TableRowSorter<>(modelProdutos);
-		table_Produtos.setRowSorter(sorterProdutos);
+		tableProdutos.setRowSorter(sorterProdutos);
 
 		produtosSearch.addMouseListener(new MouseAdapter() {
 			@Override
@@ -934,12 +786,12 @@ public class userDesign {
 		return glProdutosMenu;
 	}
 	private void showProdutos() {
-		Produtos = new JPanel();
-		frmUserDesign.getContentPane().add(Produtos, "name_127783532138000");
-		Produtos.setLayout(new BorderLayout(0, 0));
+		produtos = new JPanel();
+		frmUserDesign.getContentPane().add(produtos, "name_127783532138000");
+		produtos.setLayout(new BorderLayout(0, 0));
 
 		produtosMenu = new JPanel();
-		Produtos.add(produtosMenu, BorderLayout.CENTER);
+		produtos.add(produtosMenu, BorderLayout.CENTER);
 
 		lblProdutos = new JLabel("Produtos");
 		lblProdutos.setFont(new Font("Dialog", Font.BOLD, 30));
@@ -972,22 +824,22 @@ public class userDesign {
 			}
 		};
 
-		table_Produtos = new JTable();
+		tableProdutos = new JTable();
 
-		table_Produtos.setModel(modelProdutos);
-		table_Produtos.getColumnModel().getColumn(0).setMinWidth(120);
-		table_Produtos.getColumnModel().getColumn(0).setMaxWidth(150);
+		tableProdutos.setModel(modelProdutos);
+		tableProdutos.getColumnModel().getColumn(0).setMinWidth(120);
+		tableProdutos.getColumnModel().getColumn(0).setMaxWidth(150);
 
-		table_Produtos.getColumnModel().getColumn(1).setMinWidth(120);
+		tableProdutos.getColumnModel().getColumn(1).setMinWidth(120);
 
-		table_Produtos.getColumnModel().getColumn(2).setMinWidth(90);
-		table_Produtos.getColumnModel().getColumn(3).setMinWidth(90);
-		table_Produtos.getColumnModel().getColumn(3).setMaxWidth(90);
+		tableProdutos.getColumnModel().getColumn(2).setMinWidth(90);
+		tableProdutos.getColumnModel().getColumn(3).setMinWidth(90);
+		tableProdutos.getColumnModel().getColumn(3).setMaxWidth(90);
 
-		table_Produtos.getTableHeader().setReorderingAllowed(false);
-		table_Produtos.setAutoCreateRowSorter(true);// para ordenar
-		table_Produtos.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		scrollPaneProdutos.setViewportView(table_Produtos);
+		tableProdutos.getTableHeader().setReorderingAllowed(false);
+		tableProdutos.setAutoCreateRowSorter(true);// para ordenar
+		tableProdutos.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		scrollPaneProdutos.setViewportView(tableProdutos);
 		produtosMenu.setLayout(glProdutosMenu);
 		
 		db.produtoNaoVendido(modelProdutos);
@@ -1021,31 +873,31 @@ public class userDesign {
 		grafico1 = new JPanel();
 		grafico1.setLayout(new BorderLayout(0, 0));
 
-		chartPanel1 = Chart.origemLotes();
+		chartPanel1 = chart.origemLotes();
 		grafico1.add(chartPanel1);
 
 		grafico2 = new JPanel();
 		grafico2.setLayout(new BorderLayout(0, 0));
 
-		chartPanel2 = Chart.VendasSubCategoria();
+		chartPanel2 = chart.VendasSubCategoria();
 		grafico2.add(chartPanel2);
 
 		grafico3 = new JPanel();
 		grafico3.setLayout(new BorderLayout(0, 0));
 
-		chartPanel3 = Chart.mediaSalariosIdade();
+		chartPanel3 = chart.mediaSalariosIdade();
 		grafico3.add(chartPanel3);
 
 		grafico4 = new JPanel();
 		grafico4.setLayout(new BorderLayout(0, 0));
 
-		chartPanel4 = Chart.VendasPorDia();
+		chartPanel4 = chart.VendasPorDia();
 		grafico4.add(chartPanel4);
 
 		grafico5 = new JPanel();
 		grafico5.setLayout(new BorderLayout(0, 0));
 
-		chartPanel5 = Chart.AtividadeUser();
+		chartPanel5 = chart.AtividadeUser();
 		grafico5.add(chartPanel5);
 
 		JPanel panel = new JPanel();
@@ -1066,27 +918,7 @@ public class userDesign {
 		panel.setLayout(gl_panel);
 	}
 
-	private void botoesVendas() {
-		btnVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmUserDesign.getContentPane(), "Vendas");
-			}
-		});
-
-		// Menu Vendas
-		btnHomeVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmUserDesign.getContentPane(), "userDesign");
-			}
-		});
-		btnRefreshVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vendasClass.refreshVendas(modelVendas);
-			}
-		});
-
-	}
-
+	
 	private void botoesFuncionarios() {
 		btnFuncionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1127,7 +959,7 @@ public class userDesign {
 
 		btnMarcarDefeitoProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				produtoClass.marcarDefeito(table_Produtos, modelProdutos, nomeArmazem);
+				produtoClass.marcarDefeito(tableProdutos, modelProdutos, nomeArmazem);
 			}
 		});
 		btnHomeProdutos.addActionListener(new ActionListener() {
@@ -1220,7 +1052,12 @@ public class userDesign {
 	
 	private void botoes() {
 		
-		botoesVendas();
+		btnVendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frmUserDesign.getContentPane(), "Vendas");
+			}
+		});
+		
 		botoesFuncionarios();
 		botoesProdutos();
 		botoesMaquinas();
@@ -1269,11 +1106,13 @@ public class userDesign {
 		cl = new CardLayout(0, 0);
 		frmUserDesign.getContentPane().setLayout(cl);
 		showMainMenu();
-		showVendasMenu();
 		showMaquinasMenu();
 		showFuncionariosMenu();
 		showProdutos();
 		showGraficos();
+		
+		this.vendasClass = new Vendas();
+		vendasClass.showVendasMenu(frmUserDesign,cl);
 		putPanels();
 		putPanelsGrafico();
 

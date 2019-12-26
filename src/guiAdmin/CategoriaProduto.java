@@ -209,7 +209,7 @@ public class CategoriaProduto {
 	}
 
 	/* User POP UP Editar */
-	private int showFornecedorPopUpEditar(String nome, int choice, DefaultTableModel modelCategoriaProduto,
+	private int showFornecedorPopUpEditar(String nome, int choice,
 			String categoria) {
 
 		Object[] options1 = { "Ok", "Sair" };
@@ -359,12 +359,11 @@ public class CategoriaProduto {
 		while (!isFinished) {
 			int option = 0;
 			if (indexOfCategoria.length > 0 && indexOfSubCategoria.length == 0) {
-				option = showFornecedorPopUpEditar((String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0), 0,
-						modelCategoriaProduto, null);
+				option = showFornecedorPopUpEditar((String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0), 0, null);
 			} else if (indexOfSubCategoria.length > 0) {
 				option = showFornecedorPopUpEditar(
-						(String) subCategoriaProdutoTable.getValueAt(indexOfSubCategoria[0], 0), 1,
-						modelCategoriaProduto, (String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0));
+						(String) subCategoriaProdutoTable.getValueAt(indexOfSubCategoria[0], 0), 1
+						, (String) categoriaProdutoTable.getValueAt(indexOfCategoria[0], 0));
 			}
 			if (option == JOptionPane.YES_OPTION) {
 				isFinished = confirmData();

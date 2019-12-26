@@ -1,4 +1,4 @@
-package gui_admin_maquina;
+package guiadmin.maquina;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
