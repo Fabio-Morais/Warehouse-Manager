@@ -59,7 +59,6 @@ public class LoginDesign {
 	private JLabel label_1;
 	private String loginUsername;
 	private Timer counterTimer;
-	//private boolean isConnected;
 	private boolean first = false;
 	private JLabel lblConectado;
 	private JLabel label_2;
