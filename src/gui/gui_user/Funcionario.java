@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 
 import javax.swing.ImageIcon;
 
@@ -20,7 +20,7 @@ public class Funcionario {
 	
 	public int showAllInfoFuncionar(String nif) {
 		Object[] options1 = { "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(USER));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(USER));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2, 0, 0));

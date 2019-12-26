@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import db.DataBase;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import logic.Check;
 import logic.MessageLogs;
 
@@ -60,7 +60,7 @@ public class Armazem {
 	/* User POP UP Editar */
 	private int showArmazemPopUpEditar(String nome, String localization) {
 		Object[] options1 = { "Ok", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(WAREHOUSE));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(WAREHOUSE));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 2, 0, 0));

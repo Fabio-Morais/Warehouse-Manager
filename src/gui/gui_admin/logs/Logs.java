@@ -3,7 +3,6 @@ package gui.gui_admin.logs;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.ComponentOrientation;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +10,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -62,6 +60,38 @@ public class Logs {
 		this.menuBar = menuBar;
 	}
 	
+	private void criaComboBox() {
+		numeroLinhasCombo = new JComboBox<>();
+		numeroLinhasCombo.setToolTipText("Numero de linhas");
+		numeroLinhasCombo.setFont(new Font("Consolas", Font.PLAIN, 14));
+		numeroLinhasCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"25", "50", "100", "200", "400"}));
+	
+	}
+	private void criaTabela() {
+		modelLogs = new DefaultTableModel(new Object[][] {}, 
+				new String[] { "Data", "Username", "Admin", "Acao", "Ip" }) {
+			/**
+					 * 
+					 */
+					private static final long serialVersionUID = -7481186986491942822L;
+			@SuppressWarnings("rawtypes")
+			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class, String.class, String.class };
+
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@Override
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		logsTable = new JTable();
+		Interface.styleTabela(logsTable, modelLogs);
+	}
 	private void criaLogsSearch() {
 		sorterLogs = new TableRowSorter<>(modelLogs);
 		logsTable.setRowSorter(sorterLogs);
@@ -177,46 +207,13 @@ public class Logs {
 		logSeparator = new JSeparator();
 		Interface.styleSeparator(logSeparator);
 		
-		numeroLinhasCombo = new JComboBox<>();
-		numeroLinhasCombo.setToolTipText("Numero de linhas");
-		numeroLinhasCombo.setFont(new Font("Consolas", Font.PLAIN, 14));
-		numeroLinhasCombo.setModel(new DefaultComboBoxModel<String>(new String[] {"25", "50", "100", "200", "400"}));
-		
+		criaComboBox();
 		GroupLayout glLogsPanel = putLogsLayout();
-				
-		modelLogs = new DefaultTableModel(new Object[][] {}, 
-				new String[] { "Data", "Username", "Admin", "Acao", "Ip" }) {
-			/**
-					 * 
-					 */
-					private static final long serialVersionUID = -7481186986491942822L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class, String.class, String.class };
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		logsTable = new JTable();
-		logsTable.setModel(modelLogs);
-		logsTable.setAutoCreateRowSorter(true);
+	
+		criaTabela();
 		scrollPane.setViewportView(logsTable);
 		logsPanel.setLayout(glLogsPanel);
 		
-		/* Para nao mover */
-		logsTable.getTableHeader().setReorderingAllowed(false);
-		logsTable.setAutoCreateRowSorter(true);// para ordenar
-		logsTable.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 		db.getLogs(modelLogs, numeroLinhasCombo.getSelectedItem().toString());
 		
 		criaLogsSearch();

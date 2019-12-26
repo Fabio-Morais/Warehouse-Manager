@@ -36,7 +36,7 @@ import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.Interface;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
@@ -342,7 +342,7 @@ public class Maquina {
 	/* User POP UP Adicionar */
 	private int showMaquinaPopUpAdicionar() {
 		Object[] options1 = { "Adicionar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(MAQUINA));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(MAQUINA));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2, -10, 10));
@@ -370,7 +370,7 @@ public class Maquina {
 	/* User POP UP Editar */
 	private int showMaquinaPopUpEditar(String nome, String numero) {
 		Object[] options1 = { "Ok", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(MAQUINA));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(MAQUINA));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 2, 0, 0));

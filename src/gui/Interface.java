@@ -5,6 +5,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 
 public class Interface {
 	private static final String HOME = "/home.png";
@@ -27,7 +30,7 @@ public class Interface {
 	}
 	public static void styleBotaoSimples(JButton button, String icon) {
 		button.setFont(new Font("Consolas", Font.PLAIN, 12));
-		button.setIcon(new ImageIcon(AdminDesign.class.getResource(icon)));
+		button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
 		button.setBackground(Color.LIGHT_GRAY);
 
 	}
@@ -38,7 +41,7 @@ public class Interface {
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setVerticalAlignment(SwingConstants.BOTTOM);
 		button.setVerticalTextPosition(SwingConstants.TOP);
-		button.setIcon(new ImageIcon(AdminDesign.class.getResource(icon)));
+		button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
 		button.setBorder(UIManager.getBorder("Button.border"));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setForeground(new Color(25, 0, 75));
@@ -51,11 +54,26 @@ public class Interface {
 		button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setIcon(new ImageIcon(AdminDesign.class.getResource(HOME)));
+		button.setIcon(new ImageIcon(Admin.class.getResource(HOME)));
 		button.setBackground(Color.LIGHT_GRAY);
 
 	}
-	
+	public static void styleBotaoLogin(JToggleButton btnLogin) {
+		btnLogin.setMaximumSize(new Dimension(36, 23));
+		btnLogin.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnLogin.setBackground(new Color(0x2dce98));
+		btnLogin.setForeground(Color.white);
+		
+		btnLogin.setUI(new StyledButtonUI());
+	}
+	public static void styleBotaoRecuPass(JButton btnRecuperarPasswod) {
+		btnRecuperarPasswod.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRecuperarPasswod.setForeground(new Color(12, 51, 243));
+		btnRecuperarPasswod.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRecuperarPasswod.setOpaque(false);
+		btnRecuperarPasswod.setContentAreaFilled(false);
+		btnRecuperarPasswod.setBorderPainted(false);
+	}
 	public static void styleLabel(JLabel label) {
 		label.setFont(new Font("HP Simplified", Font.BOLD, 38));
 	}

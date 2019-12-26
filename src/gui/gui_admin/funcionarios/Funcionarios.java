@@ -39,7 +39,7 @@ import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.Interface;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
@@ -303,17 +303,8 @@ public class Funcionarios {
 
 			}
 		});
-		/* Double click num elemento */
-		funcionarioTable.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent mouseEvent) {
-				JTable table = (JTable) mouseEvent.getSource();
-				if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-				}
-			}
-		});
 
 	}
-	
 	
 	public JPanel getFuncionario() {
 		return funcionario;
@@ -355,7 +346,7 @@ public class Funcionarios {
 	/* User POP UP Adicionar */
 	private int showFuncionarioPopUpAdicionar(String nif, String nome, int idade, String funcao, double salario) {
 		Object[] options1 = { "Adicionar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(WAREHOUSE));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(WAREHOUSE));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2, -10, 10));
@@ -409,7 +400,7 @@ public class Funcionarios {
 	/* User POP UP Editar */
 	private int showFuncionarioPopUpEditar(String nif, String nome, int idade, String funcao, float salario) {
 		Object[] options1 = { "Ok", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(WAREHOUSE));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(WAREHOUSE));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2, 0, 0));

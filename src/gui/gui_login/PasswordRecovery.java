@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import logic.Check;
 import logic.Mail;
 
@@ -96,7 +96,7 @@ public class PasswordRecovery {
 
 	private int showPopUpEnviarMail() {
 		Object[] options1 = { "Enviar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(EMAIL));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(EMAIL));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 2, -100, 0));
@@ -114,14 +114,14 @@ public class PasswordRecovery {
 
 	private int showPopUpPasswordRecovery() {
 		Object[] options1 = { "Adicionar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(PASS));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(PASS));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 2, 0, 0));
 
 		loadingText = new JLabel("");
 		loading = new JLabel("A enviar...");
-		loading.setIcon(new ImageIcon(AdminDesign.class.getResource("/loadingEmail.gif")));
+		loading.setIcon(new ImageIcon(Admin.class.getResource("/loadingEmail.gif")));
 		loading.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		panel.add(loadingText);
@@ -168,7 +168,7 @@ public class PasswordRecovery {
 					aux=get();
 					if(aux) {
 						loading.setText("Enviado!   ");
-						loading.setIcon(new ImageIcon(AdminDesign.class.getResource("/emailEnviado.png")));
+						loading.setIcon(new ImageIcon(Admin.class.getResource("/emailEnviado.png")));
 						loadingText.setText("");
 					}
 				} catch (InterruptedException e) {

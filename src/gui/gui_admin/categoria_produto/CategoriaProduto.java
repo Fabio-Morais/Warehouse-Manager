@@ -39,7 +39,7 @@ import db.DataBase;
 import gui.AutoCompletion;
 import gui.Interface;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
@@ -344,7 +344,7 @@ public class CategoriaProduto {
 	/* User POP UP Adicionar */
 	private int showCategoriaPopUpAdicionar(DefaultTableModel modelCategoria, String name) {
 		Object[] options1 = { "Adicionar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(CATEGORIA));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(CATEGORIA));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2, 10, 10));

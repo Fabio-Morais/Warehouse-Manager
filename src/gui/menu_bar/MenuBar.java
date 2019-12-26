@@ -31,7 +31,7 @@ import javax.swing.event.MenuListener;
 import db.DataBase;
 import gui.Help;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import gui.gui_login.LoginDesign;
 import logic.MessageLogs;
 
@@ -117,11 +117,11 @@ public class MenuBar {
 		menuBar1.add(mnFile1);
 
 		mntmMenu = new JMenuItem("Menu");
-		mntmMenu.setIcon(new ImageIcon(AdminDesign.class.getResource(HOMEMIN)));
+		mntmMenu.setIcon(new ImageIcon(Admin.class.getResource(HOMEMIN)));
 		mnFile1.add(mntmMenu);
 
 		mntmExit1 = new JMenuItem("Exit");
-		mntmExit1.setIcon(new ImageIcon(AdminDesign.class.getResource(LOGOUT)));
+		mntmExit1.setIcon(new ImageIcon(Admin.class.getResource(LOGOUT)));
 		mnFile1.add(mntmExit1);
 
 		JSeparator separator = new JSeparator();
@@ -133,14 +133,14 @@ public class MenuBar {
 
 		menuWebsite = new JMenuItem("Website");
 
-		menuWebsite.setIcon(new ImageIcon(AdminDesign.class.getResource(WEBSITE)));
+		menuWebsite.setIcon(new ImageIcon(Admin.class.getResource(WEBSITE)));
 		mnNewMenu.add(menuWebsite);
 
 		JSeparator separator_1 = new JSeparator();
 		mnNewMenu.add(separator_1);
 
 		menuHelpMe = new JMenuItem("Help Me");
-		menuHelpMe.setIcon(new ImageIcon(AdminDesign.class.getResource(HELP)));
+		menuHelpMe.setIcon(new ImageIcon(Admin.class.getResource(HELP)));
 		mnNewMenu.add(menuHelpMe);
 
 		JPanel panel = new JPanel();
@@ -174,11 +174,11 @@ public class MenuBar {
 			menuBarArmazem.setHorizontalAlignment(SwingConstants.LEFT);
 			menuBarArmazem.setBackground(Color.WHITE);
 			menuBar1.add(menuBarArmazem);
-			menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
+			menuBarArmazem.setIcon(new ImageIcon(Admin.class.getResource(MORE)));
 
 			menuMudarNomeArmazem = new JMenuItem("Mudar informação");
 
-			menuMudarNomeArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(CHANGE)));
+			menuMudarNomeArmazem.setIcon(new ImageIcon(Admin.class.getResource(CHANGE)));
 			menuBarArmazem.add(menuMudarNomeArmazem);
 		}
 		JLabel label = new JLabel("       ");
@@ -257,12 +257,12 @@ public class MenuBar {
 		if (choice == 0) {
 			menuBarArmazem.addMenuListener(new MenuListener() {
 				public void menuDeselected(MenuEvent arg0) {
-					menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE)));
+					menuBarArmazem.setIcon(new ImageIcon(Admin.class.getResource(MORE)));
 
 				}
 
 				public void menuSelected(MenuEvent arg0) {
-					menuBarArmazem.setIcon(new ImageIcon(AdminDesign.class.getResource(MORE1)));
+					menuBarArmazem.setIcon(new ImageIcon(Admin.class.getResource(MORE1)));
 
 				}
 

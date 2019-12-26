@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 
 public class PopUp {
 	
 	public int showPopUpDataBaseError() {
 		Object[] options1 = { "Ok", "Definições" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource("/help.png"));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource("/help.png"));
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 1, 0, 0));
 
@@ -27,7 +27,7 @@ public class PopUp {
 	
 	public int showPopUpDataBaseError2() {
 		Object[] options1 = { "Ok" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource("/db.png"));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource("/db.png"));
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 1, 0, 0));
 
@@ -40,7 +40,7 @@ public class PopUp {
 	
 	public void showPopUpDataBaseSucess() {
 		Object[] options1 = { "Ok" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource("/db.png"));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource("/db.png"));
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 1, 0, 0));
 

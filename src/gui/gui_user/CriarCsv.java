@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import db.DataBase;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 
 
 public class CriarCsv {
@@ -30,7 +30,7 @@ public class CriarCsv {
 		
 	public void showPopUpCriarCSV(){
 		Object[] options = { "Exportar", "Cancelar" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(RELATORIO));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(RELATORIO));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 2, 0, 0));

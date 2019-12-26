@@ -42,7 +42,7 @@ import db.DataBase;
 import gui.AutoCompletion;
 import gui.Interface;
 import gui.PopUp;
-import gui.gui_admin.AdminDesign;
+import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
 import logic.Check;
 import logic.MessageLogs;
@@ -363,7 +363,7 @@ public class Users {
 	/* User POP UP Adicionar */
 	private int showUserPopUpAdicionar(Object nif, String userName, String email) {
 		Object[] options1 = { "Adicionar", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(USER));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(USER));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 2, 0, 0));
@@ -422,7 +422,7 @@ public class Users {
 	/* User POP UP Editar */
 	private int showUserPopUpEditar(Object nome, String userName, boolean admin) {
 		Object[] options1 = { "Ok", "Sair" };
-		ImageIcon icon = new ImageIcon(AdminDesign.class.getResource(USER));
+		ImageIcon icon = new ImageIcon(Admin.class.getResource(USER));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(4, 2, 0, 0));
