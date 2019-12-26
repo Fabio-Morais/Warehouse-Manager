@@ -72,62 +72,7 @@ public class MainMenu {
 		textoAdmin = new JEditorPane();
 		Interface.styleTituloMenu(textoAdmin,"Admin");
 	}
-	private GroupLayout putMenuLayout() {
-		GroupLayout glMenuAdminPanel = new GroupLayout(menuAdminPanel);
-		
-		glMenuAdminPanel.setHorizontalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(glMenuAdminPanel.createSequentialGroup().addGroup(glMenuAdminPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(glMenuAdminPanel.createSequentialGroup().addContainerGap().addComponent(textoAdmin,
-								GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
-						.addGroup(glMenuAdminPanel.createSequentialGroup().addGap(57).addGroup(glMenuAdminPanel
-								.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblSegurana, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(separator1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnUsers, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100,
-												Short.MAX_VALUE)))
-								.addGap(54)
-								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(lblControlo, GroupLayout.PREFERRED_SIZE, 129,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(separator, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addGroup(glMenuAdminPanel.createSequentialGroup()
-														.addGroup(glMenuAdminPanel
-																.createParallelGroup(Alignment.TRAILING)
-																.addComponent(btnFornecedores,
-																		GroupLayout.PREFERRED_SIZE, 100,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(btnMaquinas, GroupLayout.PREFERRED_SIZE,
-																		100, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.UNRELATED).addGroup(
-																glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
-																		.addComponent(btnFuncionario,
-																				GroupLayout.PREFERRED_SIZE, 100,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addComponent(btnCategoriaProduto,
-																				GroupLayout.PREFERRED_SIZE, 100,
-																				GroupLayout.PREFERRED_SIZE)))))
-								.addGap(61)
-								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnDB, GroupLayout.PREFERRED_SIZE, 100,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(separator2, GroupLayout.PREFERRED_SIZE, 99,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 129,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(37)
-								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblAtividade, GroupLayout.PREFERRED_SIZE, 129,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 99,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnLog, GroupLayout.PREFERRED_SIZE, 100,
-												GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(72, Short.MAX_VALUE)));
+	private void putMenuLayoutVertical(GroupLayout glMenuAdminPanel) {
 		glMenuAdminPanel.setVerticalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(glMenuAdminPanel.createSequentialGroup().addGroup(glMenuAdminPanel
 						.createParallelGroup(Alignment.LEADING)
@@ -187,6 +132,64 @@ public class MainMenu {
 												.addComponent(btnUsers, GroupLayout.PREFERRED_SIZE, 75,
 														GroupLayout.PREFERRED_SIZE))))
 						.addContainerGap(64, Short.MAX_VALUE)));
+	}
+ 	private GroupLayout putMenuLayout() {
+		GroupLayout glMenuAdminPanel = new GroupLayout(menuAdminPanel);
+		
+		glMenuAdminPanel.setHorizontalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glMenuAdminPanel.createSequentialGroup().addGroup(glMenuAdminPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(glMenuAdminPanel.createSequentialGroup().addContainerGap().addComponent(textoAdmin,
+								GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glMenuAdminPanel.createSequentialGroup().addGap(57).addGroup(glMenuAdminPanel
+								.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblSegurana, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(separator1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnUsers, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 100,
+												Short.MAX_VALUE)))
+								.addGap(54)
+								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblControlo, GroupLayout.PREFERRED_SIZE, 129,
+												GroupLayout.PREFERRED_SIZE)
+										.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(separator, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addGroup(glMenuAdminPanel.createSequentialGroup()
+														.addGroup(glMenuAdminPanel
+																.createParallelGroup(Alignment.TRAILING)
+																.addComponent(btnFornecedores,
+																		GroupLayout.PREFERRED_SIZE, 100,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(btnMaquinas, GroupLayout.PREFERRED_SIZE,
+																		100, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.UNRELATED).addGroup(
+																glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
+																		.addComponent(btnFuncionario,
+																				GroupLayout.PREFERRED_SIZE, 100,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addComponent(btnCategoriaProduto,
+																				GroupLayout.PREFERRED_SIZE, 100,
+																				GroupLayout.PREFERRED_SIZE)))))
+								.addGap(61)
+								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnDB, GroupLayout.PREFERRED_SIZE, 100,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(separator2, GroupLayout.PREFERRED_SIZE, 99,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 129,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(37)
+								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblAtividade, GroupLayout.PREFERRED_SIZE, 129,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 99,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnLog, GroupLayout.PREFERRED_SIZE, 100,
+												GroupLayout.PREFERRED_SIZE))))
+						.addContainerGap(72, Short.MAX_VALUE)));
+		putMenuLayoutVertical(glMenuAdminPanel);
 		menuAdminPanel.setLayout(glMenuAdminPanel);
 		return glMenuAdminPanel;
 	}
