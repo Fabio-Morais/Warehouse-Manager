@@ -27,10 +27,7 @@ public class AutoCompletion extends PlainDocument {
 
 	private KeyListener editorKeyListener;
 	private FocusListener editorFocusListener;
-
-	public AutoCompletion(final JComboBox<String> comboBox) {
-		this.comboBox = comboBox;
-		model = comboBox.getModel();
+	private void putComboBox() {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!selecting)
@@ -46,6 +43,8 @@ public class AutoCompletion extends PlainDocument {
 					model = (ComboBoxModel<String>) e.getNewValue();
 			}
 		});
+	}
+	private void putEditor() {
 		editorKeyListener = new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (comboBox.isDisplayable())
@@ -68,6 +67,12 @@ public class AutoCompletion extends PlainDocument {
 				}
 			}
 		};
+	}
+	public AutoCompletion(final JComboBox<String> comboBox) {
+		this.comboBox = comboBox;
+		model = comboBox.getModel();
+		putComboBox();
+		putEditor();
 		// Bug 5100422 on Java 1.5: Editable JComboBox won't hide popup when tabbing out
 		hidePopupOnFocusLoss = System.getProperty("java.version").startsWith("1.5");
 		// Highlight whole text when gaining focus
