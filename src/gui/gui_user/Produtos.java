@@ -1,4 +1,4 @@
-package guiuser;
+package gui.gui_user;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;

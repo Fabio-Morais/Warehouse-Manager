@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
-import guiadmin.AdminDesign;
+import gui.gui_admin.AdminDesign;
 
 public class Interface {
 	private static final String HOME = "/home.png";

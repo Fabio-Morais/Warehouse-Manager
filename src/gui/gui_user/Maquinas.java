@@ -1,4 +1,4 @@
-package guiuser;
+package gui.gui_user;
 import logic.Check;
 import logic.MessageLogs;
 import javax.swing.JLabel;

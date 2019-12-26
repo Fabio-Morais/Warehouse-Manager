@@ -1,4 +1,4 @@
-package guiadmin.fornecedores;
+package gui.gui_admin.fornecedores;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -37,7 +37,7 @@ import db.DataBase;
 import gui.Interface;
 import gui.MenuBar;
 import gui.PopUp;
-import guiadmin.AdminDesign;
+import gui.gui_admin.AdminDesign;
 import logic.Check;
 import logic.MessageLogs;
 

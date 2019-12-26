@@ -1,4 +1,4 @@
-package guilogin;
+package gui.gui_login;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,8 +28,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 
 import db.DataBase;
-import guiadmin.AdminDesign;
-import guiuser.userDesign;
+import gui.gui_admin.AdminDesign;
+import gui.gui_user.userDesign;
 import logic.MessageLogs;
 
 import java.awt.event.KeyAdapter;

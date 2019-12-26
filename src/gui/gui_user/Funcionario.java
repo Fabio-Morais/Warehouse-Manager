@@ -1,11 +1,11 @@
-package guiuser;
+package gui.gui_user;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
-import guiadmin.AdminDesign;
+import gui.gui_admin.AdminDesign;
 
 import javax.swing.ImageIcon;
 

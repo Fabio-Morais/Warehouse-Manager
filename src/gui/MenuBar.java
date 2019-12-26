@@ -28,10 +28,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import guiadmin.Armazem;
+import gui.gui_admin.Armazem;
 import db.DataBase;
-import guiadmin.AdminDesign;
-import guilogin.LoginDesign;
+import gui.gui_admin.AdminDesign;
+import gui.gui_login.LoginDesign;
 import logic.MessageLogs;
 
 public class MenuBar {

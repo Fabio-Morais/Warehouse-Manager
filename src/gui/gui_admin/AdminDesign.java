@@ -1,4 +1,4 @@
-package guiadmin;
+package gui.gui_admin;
 
 import javax.swing.JFrame;
 import java.awt.CardLayout;
@@ -37,9 +37,9 @@ import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.Interface;
 import gui.MenuBar;
-import guiadmin.fornecedores.Fornecedores;
-import guiadmin.maquina.Maquina;
-import guiadmin.users.Users;
+import gui.gui_admin.fornecedores.Fornecedores;
+import gui.gui_admin.maquina.Maquina;
+import gui.gui_admin.users.Users;
 import logic.MessageLogs;
 
 import javax.swing.ImageIcon;

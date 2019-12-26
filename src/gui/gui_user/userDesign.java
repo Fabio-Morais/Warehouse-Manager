@@ -1,4 +1,4 @@
-package guiuser;
+package gui.gui_user;
 
 import javax.swing.JFrame;
 import java.awt.CardLayout;
@@ -34,7 +34,7 @@ import org.jfree.chart.ChartPanel;
 import db.DataBase;
 import gui.Interface;
 import gui.MenuBar;
-import guiuser.vendas.Vendas;
+import gui.gui_user.vendas.Vendas;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
