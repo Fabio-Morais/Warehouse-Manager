@@ -118,30 +118,32 @@ public class AutoCompletion extends PlainDocument {
 
 	public void remove(int offs, int len) throws BadLocationException {
 		// return immediately when selecting an item
+		int x = offs;
 		if (selecting)
 			return;
 		if (hitBackspace) {
 			// user hit backspace => move the selection backwards
 			// old item keeps being selected
-			if (offs > 0) {
+			if (x > 0) {
 				if (hitBackspaceOnSelection)
-					offs--;
+					x--;
 			} else {
 				// User hit backspace with the cursor positioned on the start => beep
 				comboBox.getToolkit().beep(); // when available use:
 			}
-			highlightCompletedText(offs);
+			highlightCompletedText(x);
 		} else {
-			super.remove(offs, len);
+			super.remove(x, len);
 		}
 	}
-
+	
 	public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 		// return immediately when selecting an item
 		if (selecting)
 			return;
 		// insert the string into the document
-		super.insertString(offs, str, a);
+		int x= offs;
+		super.insertString(x, str, a);
 		// lookup and select a matching item
 		Object item = lookupItem(getText(0, getLength()));
 		if (item != null) {
@@ -151,7 +153,7 @@ public class AutoCompletion extends PlainDocument {
 			item = comboBox.getSelectedItem();
 			// imitate no insert (later on offs will be incremented by str.length():
 			// selection won't move forward)
-			offs = offs - str.length();
+			x = x - str.length();
 			// provide feedback to the user that his input has been received but can not be
 			// accepted
 			comboBox.getToolkit().beep(); // when available use:
@@ -160,7 +162,7 @@ public class AutoCompletion extends PlainDocument {
 			setText(item.toString());
 		}
 		// select the completed part
-		highlightCompletedText(offs + str.length());
+		highlightCompletedText(x + str.length());
 	}
 
 	private void setText(String text) throws BadLocationException {

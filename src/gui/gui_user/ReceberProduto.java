@@ -69,33 +69,33 @@ public class ReceberProduto {
 		try {
 			Date pega = dateChooser.getDate();
 			SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-			String data = formato.format(pega);
+			formato.format(pega);
 		} catch (NullPointerException e) {
 			popUp.showPopUp("É necessario escolher uma data válida", "Data");
 			dateChooser.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		}
-		if (LoteField==null || check.blankText(LoteField.getText())) {
+		if (check.blankText(LoteField.getText())) {
 			popUp.showPopUp("É necessario escolher um Produto valido", "Produto Invalido");
 			LoteField.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		}
-		if (comboBoxSubCategoria.getSelectedItem()==null || check.blankText(comboBoxSubCategoria.getSelectedItem().toString())) {
+		if (check.blankText(comboBoxSubCategoria.getSelectedItem().toString())) {
 			popUp.showPopUp("É necessario escolher SubCategoria Valida", "Sub Categoria Invalido");
 			comboBoxSubCategoria.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		} 
-		if (comboBoxFornecedor==null || check.blankText(comboBoxFornecedor.getSelectedItem().toString())) {
+		if (check.blankText(comboBoxFornecedor.getSelectedItem().toString())) {
 			popUp.showPopUp("É necessario escolher um Pais de Origem", "Pais de origem Invalido");
 			paisField.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		}
-		if (SKUField==null || check.blankText(SKUField.getText())) {
+		if (check.blankText(SKUField.getText())) {
 			popUp.showPopUp("É necessario escolher um SKU", "SKU Invalido");
 			SKUField.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		}
-		if (numeroLoteJS==null || !check.onlyNumbers(numeroLoteJS.getText())) {
+		if (!check.onlyNumbers(numeroLoteJS.getText())) {
 			popUp.showPopUp("Escolha um numero de lote valido (so com caracteres numericos)", "Numero lote invalido");
 			numeroLoteJS.setBorder(new LineBorder(Color.red, 1));
 			return false;

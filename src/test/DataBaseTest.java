@@ -1,7 +1,8 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -236,7 +237,19 @@ class DataBaseTest {
 		assertEquals(true, db.removeFuncionarioByNif("123456789"));//remove funcionario
 
 	}
-	
+	private void update(DataBase db, DefaultTableModel modelMaquina) {
+		assertEquals(true, db.updateMaquina("0","11111110", "novoNome"));
+		modelMaquina.setRowCount(0);
+		assertEquals(true, db.nomenumeroestadoMaquina(armazem,modelMaquina));
+		int i;
+		for(i = 0; i < modelMaquina.getRowCount(); i++){
+			if(modelMaquina.getValueAt(i, 0).equals("novoNome"))
+				break;
+		}
+		assertEquals("novoNome", modelMaquina.getValueAt(i, 0));
+		assertEquals("11111110", modelMaquina.getValueAt(i, 1));
+		assertEquals(true, modelMaquina.getValueAt(i, 2));
+	}
 	@Test
 	public void testMaquina() {
 		DataBase db = DataBase.getInstance();
@@ -291,16 +304,7 @@ class DataBaseTest {
 		
 		
 		/*update*/
-		assertEquals(true, db.updateMaquina("0","11111110", "novoNome"));
-		modelMaquina.setRowCount(0);
-		assertEquals(true, db.nomenumeroestadoMaquina(armazem,modelMaquina));
-		for(i = 0; i < modelMaquina.getRowCount(); i++){
-			if(modelMaquina.getValueAt(i, 0).equals("novoNome"))
-				break;
-		}
-		assertEquals("novoNome", modelMaquina.getValueAt(i, 0));
-		assertEquals("11111110", modelMaquina.getValueAt(i, 1));
-		assertEquals(true, modelMaquina.getValueAt(i, 2));
+		update(db, modelMaquina);
 		
 		/*corrige avaria*/
 		assertEquals(true, db.corrigeAvariaMaquina("11111110"));

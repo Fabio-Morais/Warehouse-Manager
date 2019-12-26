@@ -64,11 +64,10 @@ public class EnviarProduto {
 	private boolean confirmData() {
 		resetBorders();
 		/* Confirma dados */
-
 		try {
 			Date pega = dateChooser.getDate();
 			SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-			String data = formato.format(pega);
+			formato.format(pega);
 		} catch (NullPointerException e) {
 			popUp.showPopUp("É necessario escolher uma data válida", "Data");
 			dateChooser.setBorder(new LineBorder(Color.red, 1));

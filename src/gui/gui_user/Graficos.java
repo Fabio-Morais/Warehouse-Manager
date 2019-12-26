@@ -1,5 +1,4 @@
 package gui.gui_user;
-import db.*;
 
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -15,6 +14,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+
+import db.DataBase;
 
 
 public class Graficos extends JFrame {
