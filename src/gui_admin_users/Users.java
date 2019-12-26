@@ -1,33 +1,70 @@
-package guiadmin;
+package gui_admin_users;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.Interface;
+import gui.MenuBar;
 import gui.PopUp;
+import guiadmin.AdminDesign;
 import logic.Check;
 import logic.MessageLogs;
 
 public class Users {
+	
+	private JPanel usersPanel;
+	private JButton usersBtnAdicionar;
+	private JButton usersBtnRemover;
+	private JButton usersBtnEditar;
+	private JButton usersBtnRefresh;
+	private JButton usersBtnHome;
+
+	private TableRowSorter<DefaultTableModel> sorterUser;
+	private JTextField userSearch;
+	private JPanel users;
+
+	
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
+	private CardLayout cl;
 	private static final String USER = "/user.png";
 	private PopUp popUp;
 	private Check check;
@@ -42,11 +79,22 @@ public class Users {
 	private JPasswordField passwordField;
 	private JPasswordField passwordField2;
 	private JCheckBox chckbxAdmin;
+	private MenuBar menuBar;
+
+	private static final String REFRESHSTRING = "Refresh";
+	private static final String EDITARSTRING = "Editar";
+	private static final String REMOVERSTRING = "Remover";
+	private static final String ADD = "/add.png";
+	private static final String REMOVE = "/remove.png";
+	private static final String REFRESH = "/refresh.png";
+	private static final String EDIT = "/edit1.png";
+	private static final String MENUADMINSTRING = "menu_admin";
 
 	/* CONSTRUCTOR */
-	public Users(String username) {
+	public Users(String username, MenuBar menuBar) {
 		this.popUp = new PopUp();
 		this.check = new Check();
+		this.menuBar = menuBar;
 		comboBox = new JComboBox<>();
 		userField = new JTextField();
 		emailField = new JTextField();
@@ -83,14 +131,183 @@ public class Users {
 		usersTable = new JTable(); 
 		Interface.styleTabela(usersTable,modelUser);
 	}
-	
-	public DefaultTableModel getModelUser() {
-		return modelUser;
+	private void criaBotoesUser() {
+		usersBtnAdicionar = new JButton("Adicionar");
+		Interface.styleBotaoSimples(usersBtnAdicionar, ADD);
+		
+		usersBtnRemover =  new JButton(REMOVERSTRING);
+		Interface.styleBotaoSimples(usersBtnRemover, REMOVE);
+		
+		usersBtnEditar = new JButton(EDITARSTRING);
+		Interface.styleBotaoSimples(usersBtnEditar, EDIT);
+		
+		usersBtnRefresh = new JButton(REFRESHSTRING);
+		Interface.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		
+		usersBtnHome = new JButton("Home");
+		Interface.styleBotaoHome(usersBtnHome );
 	}
-	
+	private void criaUserSearch() {
+		sorterUser = new TableRowSorter<>(modelUser);
+		usersTable.setRowSorter(sorterUser);
+		userSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				userSearch.setText("");
+			}
+		});
+		userSearch.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
 
-	public JTable getUsersTable() {
-		return usersTable;
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				search(userSearch.getText());
+			}
+
+			public void search(String str) {
+				if (str.length() == 0) {
+					sorterUser.setRowFilter(null);
+				} else {
+					sorterUser.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+				}
+			}
+		});
+	}
+	private GroupLayout putUserLayout(JLabel usersTexto, JScrollPane usersScrollPane, JSeparator usersSeparator) {
+		GroupLayout glUsersPanel = new GroupLayout(usersPanel);
+		glUsersPanel.setHorizontalGroup(glUsersPanel.createParallelGroup(Alignment.TRAILING).addGroup(glUsersPanel
+				.createSequentialGroup().addGap(37)
+				.addGroup(glUsersPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(usersBtnHome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(usersTexto, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+						.addComponent(usersSeparator, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE).addComponent(
+								usersBtnRefresh, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGap(51)
+				.addGroup(glUsersPanel.createParallelGroup(Alignment.LEADING).addGroup(glUsersPanel
+						.createSequentialGroup().addComponent(usersBtnAdicionar).addGap(18)
+						.addComponent(usersBtnEditar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(usersBtnRemover, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+						.addGap(74).addComponent(userSearch, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+						.addComponent(usersScrollPane, GroupLayout.PREFERRED_SIZE, 632, GroupLayout.PREFERRED_SIZE))
+				.addContainerGap(16, Short.MAX_VALUE)));
+		glUsersPanel.setVerticalGroup(glUsersPanel.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
+				glUsersPanel.createSequentialGroup().addGroup(glUsersPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(glUsersPanel.createParallelGroup(Alignment.TRAILING).addGroup(glUsersPanel
+								.createSequentialGroup().addContainerGap(19, Short.MAX_VALUE)
+								.addGroup(glUsersPanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(usersBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(usersBtnEditar, GroupLayout.PREFERRED_SIZE, 40,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(usersBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(4))
+								.addGroup(Alignment.LEADING,
+										glUsersPanel.createSequentialGroup().addContainerGap().addComponent(usersTexto,
+												GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(glUsersPanel.createSequentialGroup().addContainerGap()
+								.addComponent(userSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.UNRELATED)))
+						.addGroup(
+								glUsersPanel.createParallelGroup(Alignment.LEADING)
+										.addGroup(glUsersPanel.createSequentialGroup()
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(usersSeparator, GroupLayout.PREFERRED_SIZE, 15,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(46)
+												.addComponent(usersBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(18).addComponent(usersBtnHome)
+												.addContainerGap(124, Short.MAX_VALUE))
+										.addGroup(Alignment.TRAILING,
+												glUsersPanel.createSequentialGroup().addComponent(usersScrollPane,
+														GroupLayout.PREFERRED_SIZE, 277, GroupLayout.PREFERRED_SIZE)
+														.addContainerGap()))));
+		return glUsersPanel;
+	}
+	public void showUserMenu(JFrame frame, CardLayout cl) {
+		this.cl = cl;
+		users = new JPanel();
+		frame.getContentPane().add(users, "name_1243457881841100");
+		users.setLayout(new BorderLayout(0, 0));
+		usersPanel = new JPanel();
+		users.add(usersPanel, BorderLayout.CENTER);
+		JScrollPane usersScrollPane = new JScrollPane();
+		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		JLabel usersTexto = new JLabel("Users");
+		Interface.styleLabel(usersTexto);
+		JSeparator usersSeparator = new JSeparator();
+		Interface.styleSeparator(usersSeparator);
+		
+		criaBotoesUser();
+		
+		userSearch = new JTextField();
+		Interface.styleSearch(userSearch);
+		
+		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
+		usersScrollPane.setViewportView(usersTable);
+		usersPanel.setLayout(glUsersPanel);
+		criaUserSearch();
+		db.nifusernameadminLogin(modelUser);
+		buttonsUser(frame);
+	}
+	private void buttonsUser(JFrame frame) {
+		usersBtnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frame.getContentPane(), MENUADMINSTRING);
+				menuBar.setCurrentPanel(MENUADMINSTRING);
+
+
+			}
+		});
+		usersBtnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarUser(menuBar.getNomeArmazem());
+
+			}
+		});
+		usersBtnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editarUser( menuBar.getNomeArmazem());
+			}
+		});
+		usersBtnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+		});
+		usersBtnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeUser(menuBar.getNomeArmazem());
+
+			}
+		});
+		usersBtnRemover.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_DELETE)
+					removeUser(menuBar.getNomeArmazem());
+
+			}
+		});
+
+	}
+
+	
+	
+	public JPanel getUsers() {
+		return users;
 	}
 
 	private void resetBorders() {
@@ -242,7 +459,7 @@ public class Users {
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
 	}
 
-	public void removeUser( String nomeArmazem) {
+	private void removeUser( String nomeArmazem) {
 		int[] selectedRows = usersTable.getSelectedRows();
 
 		if (selectedRows.length <= 0) {
@@ -268,7 +485,7 @@ public class Users {
 
 	}
 
-	public void refresh() {
+	private void refresh() {
 		int rowCount = modelUser.getRowCount();
 		if (!db.connect()) {
 			popUp.showPopUpDataBaseError();
@@ -281,7 +498,7 @@ public class Users {
 		}
 	}
 
-	public void editarUser(String nomeArmazem) {
+	private void editarUser(String nomeArmazem) {
 		boolean isFinished = false;
 		int[] indexOfRow = usersTable.getSelectedRows();
 		if (check.multipleSelection(indexOfRow)) {
@@ -321,7 +538,7 @@ public class Users {
 
 	}
 
-	public void adicionarUser( String nomeArmazem) {
+	private void adicionarUser( String nomeArmazem) {
 		boolean itsFinished = false;
 		Object nif = null;
 		String username = null;
