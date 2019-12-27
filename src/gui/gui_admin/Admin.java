@@ -25,10 +25,7 @@ import javax.swing.ImageIcon;
 public class Admin {
 	private static final String MENUADMINSTRING = "menu_admin";
 
-	private String nomeArmazem;
-	private String username;
 	private JFrame frmMenuAdmin;
-	private MessageLogs messageLogs;
 
 	/* LOGIC CLASS */
 	private MainMenu mainMenuClass;
@@ -41,16 +38,12 @@ public class Admin {
 	private Logs logsClass;
 
 	private CardLayout cl;
-	private MenuBar menuBar;
 
 	/*
 	 * Create the application.
 	 */
 	public Admin(String nomeArmazem, String username) {
-		this.nomeArmazem = nomeArmazem;
-		this.username = username;
-		this.messageLogs = MessageLogs.getInstance();
-		initialize();
+		initialize(nomeArmazem, username);
 	}
 
 	/* Coloca os panels para conseguir mudar */
@@ -67,7 +60,7 @@ public class Admin {
 		cl.show(frmMenuAdmin.getContentPane(), MENUADMINSTRING);// mostrar o main menu
 	}
 
-	private void initializeSecund() {
+	private void initializeSecund(String nomeArmazem,  String username, MenuBar menuBar) {
 		this.mainMenuClass = new MainMenu(menuBar);
 		mainMenuClass.showMainMenu(frmMenuAdmin);
 		this.cl=mainMenuClass.getCl();
@@ -86,13 +79,14 @@ public class Admin {
 		this.logsClass = new Logs(menuBar);
 		logsClass.showLogsMenu(frmMenuAdmin, cl);
 	}
-	private void initializeMenu() {
-		menuBar = new MenuBar(frmMenuAdmin, cl, username);
+	private MenuBar initializeMenu(String nomeArmazem,  String username) {
+		MenuBar menuBar = new MenuBar(frmMenuAdmin, cl, username);
 		menuBar.setCurrentPanel(MENUADMINSTRING);
 		menuBar.setNomeArmazem(nomeArmazem);
-		menuBar.showMenuBar(0);		
+		menuBar.showMenuBar(0);	
+		return menuBar;
 	}
-	private void buttons() {
+	private void buttons(String username, MenuBar menuBar) {
 		frmMenuAdmin.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -100,13 +94,14 @@ public class Admin {
 						"Exit", JOptionPane.YES_NO_OPTION);
 
 				if (confirmed == JOptionPane.YES_OPTION) {
+					MessageLogs messageLogs = MessageLogs.getInstance();
 					messageLogs.saiuSistema(username+";"+true+";"+menuBar.getNomeArmazem());
 					frmMenuAdmin.dispose();
 				}
 			}
 		});
 	}
-	public void initialize() {
+	public void initialize(String nomeArmazem,  String username) {
 		/* cria a frame do windows */
 		frmMenuAdmin = new JFrame("Menu Admin");
 		frmMenuAdmin.setResizable(false);
@@ -123,10 +118,10 @@ public class Admin {
 		URL iconURL = getClass().getResource("/logo.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		frmMenuAdmin.setIconImage(img.getImage());
-		initializeMenu();
-		initializeSecund();
+		MenuBar menuBar = initializeMenu(nomeArmazem,username);
+		initializeSecund(nomeArmazem, username, menuBar);
 		putPanels();// COLOCAR OS PANELS PARA MANIPULAR
-		buttons();
+		buttons(username, menuBar);
 	}
 
 	public JFrame getFrmMenuAdmin() {
