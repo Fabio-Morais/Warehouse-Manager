@@ -31,10 +31,7 @@ import gui.DefaultDesign;
 public class Vendas {
 	private static final String REFRESH = "/refresh.png";
 
-	private DataBase db;
 	private JPanel vendas;
-	private JTextField vendasSearch;
-
 	private JTable tableVendas;
 	private JSeparator separatorVendas;
 	private JLabel lblVendas;
@@ -45,10 +42,7 @@ public class Vendas {
 	private DefaultTableModel modelVendas;
 	private TableRowSorter<DefaultTableModel> sorterVendas;
 	private CardLayout cl;
- 	public Vendas() {
-		db = DataBase.getInstance();
-	}
-	
+ 
 	private void criaTabela() {
 		tableVendas = new JTable();
 		tableVendas.setModel(modelVendas);
@@ -68,7 +62,7 @@ public class Vendas {
 		tableVendas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 	}
- 	private void criaVendasSearch() {
+ 	private void criaVendasSearch(JTextField vendasSearch) {
 	sorterVendas = new TableRowSorter<>(modelVendas);
 		tableVendas.setRowSorter(sorterVendas);
 
@@ -112,7 +106,7 @@ public class Vendas {
 		DefaultDesign.styleBotaoHome(btnHomeVendas);
 
 	}
-	private GroupLayout putVendasLayout() {
+	private GroupLayout putVendasLayout(JTextField vendasSearch) {
 		GroupLayout glVendasMenu = new GroupLayout(vendasMenu);
 		glVendasMenu.setHorizontalGroup(glVendasMenu.createParallelGroup(Alignment.LEADING).addGroup(glVendasMenu
 				.createSequentialGroup().addGap(48)
@@ -168,10 +162,10 @@ public class Vendas {
 		separatorVendas = new JSeparator();
 		separatorVendas.setBackground(Color.BLUE);
 
-		vendasSearch = new JTextField();
+		JTextField vendasSearch = new JTextField();
 		DefaultDesign.styleSearch(vendasSearch);
 		
-		GroupLayout glVendasMenu = putVendasLayout();
+		GroupLayout glVendasMenu = putVendasLayout(vendasSearch);
 
 		modelVendas = new DefaultTableModel(new Object[][] {},
 				new String[] { "data Saida", "SKU", "Produto", "destino" }) {
@@ -188,9 +182,9 @@ public class Vendas {
 		criaTabela();
 		scrollPane.setViewportView(tableVendas);
 		vendasMenu.setLayout(glVendasMenu);
-
+		DataBase db = DataBase.getInstance();
 		db.produtoVendido(modelVendas);
-		criaVendasSearch();
+		criaVendasSearch(vendasSearch);
 		botoesVendas(frame);
 	}
 
@@ -220,6 +214,7 @@ public class Vendas {
 		for (int i=rowcont-1;i>=0;i--) {
 			modelVendas.removeRow(i);
 		}
+		DataBase db = DataBase.getInstance();
 		db.produtoVendido(modelVendas);
 	}
 

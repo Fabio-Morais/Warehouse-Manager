@@ -30,7 +30,6 @@ import javax.swing.SpinnerNumberModel;
 public class ReceberProduto {
 	private JSpinner quantidadeJS;
 	private JTextField numeroLoteJS;
-	private JTextField paisField;
 	private JComboBox<String> comboBoxSubCategoria;
 	private JComboBox<String> comboBoxCategoria;
 	private JComboBox<String> comboBoxFornecedor;
@@ -65,11 +64,7 @@ public class ReceberProduto {
 			comboBoxSubCategoria.setBorder(new LineBorder(Color.red, 1));
 			return false;
 		} 
-		if (check.blankText(comboBoxFornecedor.getSelectedItem().toString())) {
-			popUp.showPopUp("É necessario escolher um Pais de Origem", "Pais de origem Invalido");
-			paisField.setBorder(new LineBorder(Color.red, 1));
-			return false;
-		}
+
 		return true;
 	}
 	private boolean confirmData() {

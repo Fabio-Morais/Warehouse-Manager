@@ -43,18 +43,15 @@ public class LoginDesign {
 	private static final String ON = "/on.png";
 
 	private JFrame frame;
-	private JTextField username;
 	private JPasswordField password;
 	private DataBase db;
-	private MessageLogs messageLogs;
 	private PopUp popUp;
-	private JPanel painelSuperior;
-	private JLabel lblTitulo;
 	private JPanel painelPrincipal;
 	private JLabel lblUsername;
 	private JLabel lblPassword;
+	private JTextField username;
 	private JToggleButton btnLogin;
-	private JButton btnRecuperarPasswod ;
+	private JButton btnRecuperarPasswod;
 	private JLabel label;
 	private JLabel label_1;
 	private String loginUsername;
@@ -76,7 +73,7 @@ public class LoginDesign {
 		counterTimer.start();
 	}
 
-	private void loginControl() {
+	private void loginControl(MessageLogs messageLogs) {
 
 		this.loginUsername = username.getText();
 		loadingIcon.setIcon(new ImageIcon(Admin.class.getResource("/radio.gif")));
@@ -154,10 +151,10 @@ public class LoginDesign {
 	}
 
 	private void designNorth() {
-		painelSuperior = new JPanel();
+		JPanel painelSuperior = new JPanel();
 		frame.getContentPane().add(painelSuperior, BorderLayout.NORTH);
 
-		lblTitulo = new JLabel("");
+		JLabel lblTitulo = new JLabel("");
 		lblTitulo.setIcon(new ImageIcon(Admin.class.getResource(LOGO)));
 
 		lblConectado = new JLabel(" ");
@@ -165,6 +162,8 @@ public class LoginDesign {
 
 		label_2 = new JLabel("");
 		label_2.setIcon(null);
+		putLayoutNorth(lblTitulo, painelSuperior);
+
 	}
 	private void designCenter() {
 		painelPrincipal = new JPanel();
@@ -196,8 +195,10 @@ public class LoginDesign {
 
 		loadingIcon = new JLabel("");
 		loadingIcon.setIcon(null);
+		putLayout();
+
 	}
-	private void putLayoutNorth() {
+	private void putLayoutNorth(JLabel lblTitulo, JPanel painelSuperior) {
 		GroupLayout glPainelSuperior = new GroupLayout(painelSuperior);
 		glPainelSuperior.setHorizontalGroup(glPainelSuperior.createParallelGroup(Alignment.TRAILING)
 				.addGroup(glPainelSuperior.createSequentialGroup().addContainerGap(20, Short.MAX_VALUE)
@@ -215,7 +216,7 @@ public class LoginDesign {
 						.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 46, Short.MAX_VALUE).addGap(17)));
 		painelSuperior.setLayout(glPainelSuperior);
 	}
-	private void putLayoutVertical(GroupLayout glPainelPrincipal ) {
+	private void putLayoutVertical(GroupLayout glPainelPrincipal) {
 		glPainelPrincipal.setVerticalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
 				.addGroup(glPainelPrincipal.createSequentialGroup().addGap(21)
 						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
@@ -277,7 +278,7 @@ public class LoginDesign {
 	}
 	private void initialize() {
 		db = DataBase.getInstance();
-		messageLogs = MessageLogs.getInstance();
+		MessageLogs messageLogs = MessageLogs.getInstance();
 		frame = new JFrame("Warehouse Manager");
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -303,19 +304,17 @@ public class LoginDesign {
 		frame.setIconImage(img.getImage());
 		
 		designNorth();
-		putLayoutNorth();
 		designCenter();
-		putLayout();
 		/*************************************************************/
-		buttons();
+		buttons(messageLogs);
 	
 	
 
 	}
-	private void loginButton() {
+	private void loginButton(MessageLogs messageLogs) {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loginControl();
+				loginControl(messageLogs);
 			}
 
 		});
@@ -333,8 +332,8 @@ public class LoginDesign {
 		});
 		
 	}
-	private void buttons() {
-		loginButton();
+	private void buttons(MessageLogs messageLogs) {
+		loginButton(messageLogs);
 		btnRecuperarPasswod.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -354,18 +353,11 @@ public class LoginDesign {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginControl();
+					loginControl(messageLogs);
 				}
 			}
 		});
-		username.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginControl();
-				}
-			}
-		});
+		
 	}
 	public JFrame getFrmLogin() {
 		return frame;
