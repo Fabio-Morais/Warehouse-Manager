@@ -24,7 +24,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.PopUp;
 import gui.menu_bar.MenuBar;
 import logic.Check;
@@ -70,16 +70,16 @@ public class BaseDados {
 	
 	private void criaBotoesBaseDados() {
 		baseDadosBtnAdicionar = new JButton("Atualizar");
-		DefaultDesign.styleBotaoSimples(baseDadosBtnAdicionar, ADD);
+		Design.styleBotaoSimples(baseDadosBtnAdicionar, ADD);
 
 		baseDadosBtnhome = new JButton("Home");
-		DefaultDesign.styleBotaoHome(baseDadosBtnhome);
+		Design.styleBotaoHome(baseDadosBtnhome);
 
 		baseDadosBtnTest = new JButton("<html>Testar<br> Conex\u00E3o</html>");
-		DefaultDesign.styleBotaoSimples(baseDadosBtnTest, WIFI);
+		Design.styleBotaoSimples(baseDadosBtnTest, WIFI);
 
 		baseDadosBtnCriarTabelas = new JButton("Criar Tabelas");
-		DefaultDesign.styleBotaoSimples(baseDadosBtnCriarTabelas, DBICON);
+		Design.styleBotaoSimples(baseDadosBtnCriarTabelas, DBICON);
 	}
 	private GroupLayout putBaseDadosLayout() {
 		GroupLayout glBaseDadosPanel = new GroupLayout(baseDadosPanel);
@@ -162,7 +162,7 @@ public class BaseDados {
 		baseDadosTexto.setFont(new Font("HP Simplified", Font.BOLD, 27));
 
 		baseDadosSeparator = new JSeparator();
-		DefaultDesign.styleSeparator(baseDadosSeparator);
+		Design.styleSeparator(baseDadosSeparator);
 
 		baseDadosTextoUser = new JLabel("User:");
 		baseDadosTextoUser.setFont(new Font("Tahoma", Font.BOLD, 16));

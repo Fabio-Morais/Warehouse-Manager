@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 public class Vendas {
 	private static final String REFRESH = "/refresh.png";
 
@@ -106,10 +106,10 @@ public class Vendas {
 	}
 	private void criaBotoesVendas() {
 		btnRefreshVendas = new JButton("Refresh");
-		DefaultDesign.styleBotaoSimples(btnRefreshVendas, REFRESH);
+		Design.styleBotaoSimples(btnRefreshVendas, REFRESH);
 
 		btnHomeVendas = new JButton("Home");
-		DefaultDesign.styleBotaoHome(btnHomeVendas);
+		Design.styleBotaoHome(btnHomeVendas);
 
 	}
 	private GroupLayout putVendasLayout() {
@@ -169,7 +169,7 @@ public class Vendas {
 		separatorVendas.setBackground(Color.BLUE);
 
 		vendasSearch = new JTextField();
-		DefaultDesign.styleSearch(vendasSearch);
+		Design.styleSearch(vendasSearch);
 		
 		GroupLayout glVendasMenu = putVendasLayout();
 

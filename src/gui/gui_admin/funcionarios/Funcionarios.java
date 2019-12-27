@@ -37,7 +37,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -118,7 +118,7 @@ public class Funcionarios {
 			}
 		};
 		funcionarioTable = new JTable();
-		DefaultDesign.styleTabela(funcionarioTable,modelFuncionario);
+		Design.styleTabela(funcionarioTable,modelFuncionario);
 		funcionarioTable.getColumnModel().getColumn(0).setResizable(true);
 		funcionarioTable.getColumnModel().getColumn(0).setPreferredWidth(100);
 		funcionarioTable.getColumnModel().getColumn(0).setMaxWidth(150);
@@ -162,19 +162,19 @@ public class Funcionarios {
 	}
 	private void criaBotoesFuncionario() {
 		funcionarioBtnAdicionar = new JButton("Adicionar");
-		DefaultDesign.styleBotaoSimples(funcionarioBtnAdicionar, ADD);
+		Design.styleBotaoSimples(funcionarioBtnAdicionar, ADD);
 
 		funcionarioBtnEditar = new JButton(EDITARSTRING);
-		DefaultDesign.styleBotaoSimples(funcionarioBtnEditar, EDIT);
+		Design.styleBotaoSimples(funcionarioBtnEditar, EDIT);
 
 		funcionarioBtnRemover = new JButton(REMOVERSTRING);
-		DefaultDesign.styleBotaoSimples(funcionarioBtnRemover, REMOVE);
+		Design.styleBotaoSimples(funcionarioBtnRemover, REMOVE);
 		
 		funcionarioBtnHome = new JButton("Home");
-		DefaultDesign.styleBotaoHome(funcionarioBtnHome);
+		Design.styleBotaoHome(funcionarioBtnHome);
 
 		funcionarioBtnRefresh = new JButton(REFRESHSTRING);
-		DefaultDesign.styleBotaoSimples(funcionarioBtnRefresh, REFRESH);		
+		Design.styleBotaoSimples(funcionarioBtnRefresh, REFRESH);		
 	}
 	private GroupLayout putFuncionarioLayout() {
 		GroupLayout glFuncionarioPanel = new GroupLayout(funcionarioPanel);
@@ -242,17 +242,17 @@ public class Funcionarios {
 		funcionario.add(funcionarioPanel, BorderLayout.CENTER);
 
 		funcionarioTexto = new JLabel("Funcion\u00E1rios");
-		DefaultDesign.styleLabel(funcionarioTexto);
+		Design.styleLabel(funcionarioTexto);
 
 		funcionarioSeparator = new JSeparator();
-		DefaultDesign.styleSeparator(funcionarioSeparator);
+		Design.styleSeparator(funcionarioSeparator);
 
 		funcionarioScrollPane = new JScrollPane();
 		funcionarioScrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		funcionarioScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		funcionarioSearch = new JTextField();
-		DefaultDesign.styleSearch(funcionarioSearch);
+		Design.styleSearch(funcionarioSearch);
 
 		criaBotoesFuncionario();
 		

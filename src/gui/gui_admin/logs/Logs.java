@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.menu_bar.MenuBar;
 
 public class Logs {	
@@ -90,7 +90,7 @@ public class Logs {
 			}
 		};
 		logsTable = new JTable();
-		DefaultDesign.styleTabela(logsTable, modelLogs);
+		Design.styleTabela(logsTable, modelLogs);
 	}
 	private void criaLogsSearch() {
 		sorterLogs = new TableRowSorter<>(modelLogs);
@@ -131,10 +131,10 @@ public class Logs {
 	}
 	private void criaBotoesLogs() {
 		logsBtnRefresh = new JButton(REFRESHSTRING);
-		DefaultDesign.styleBotaoSimples(logsBtnRefresh, REFRESH);
+		Design.styleBotaoSimples(logsBtnRefresh, REFRESH);
 
 		logsBtnHome = new JButton("Home");
-		DefaultDesign.styleBotaoHome(logsBtnHome);	
+		Design.styleBotaoHome(logsBtnHome);	
 	}
 	private GroupLayout putLogsLayout() {
 		GroupLayout glLogsPanel = new GroupLayout(logsPanel);
@@ -202,10 +202,10 @@ public class Logs {
 		criaBotoesLogs();
 
 		logsSearch = new JTextField();
-		DefaultDesign.styleSearch(logsSearch);
+		Design.styleSearch(logsSearch);
 
 		logSeparator = new JSeparator();
-		DefaultDesign.styleSeparator(logSeparator);
+		Design.styleSeparator(logSeparator);
 		
 		criaComboBox();
 		GroupLayout glLogsPanel = putLogsLayout();

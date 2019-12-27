@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.PopUp;
 import gui.gui_user.UserDesign;
 import gui.menu_bar.MenuBar;
@@ -147,10 +147,10 @@ public class Maquinas {
 	}
 	private void criaBotoesMaquinas() {
 		btnRefreshMaquinas = new JButton("Refresh");
-		DefaultDesign.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
+		Design.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
 
 		btnHomeMaquinas = new JButton("Home");
-		DefaultDesign.styleBotaoHome(btnHomeMaquinas);
+		Design.styleBotaoHome(btnHomeMaquinas);
 
 		btnCorrigirAvaria = new JButton("Corrigir Avaria");
 		btnCorrigirAvaria.setMargin(new Insets(2, 2, 2, 2));
@@ -235,7 +235,7 @@ public class Maquinas {
 
 		
 		maquinaSearch = new JTextField();
-		DefaultDesign.styleSearch(maquinaSearch);
+		Design.styleSearch(maquinaSearch);
 		
 		criaBotoesMaquinas();
 		

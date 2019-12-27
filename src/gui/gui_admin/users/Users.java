@@ -40,7 +40,7 @@ import javax.swing.table.TableRowSorter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -127,23 +127,23 @@ public class Users {
 			}
 		};
 		usersTable = new JTable(); 
-		DefaultDesign.styleTabela(usersTable,modelUser);
+		Design.styleTabela(usersTable,modelUser);
 	}
 	private void criaBotoesUser() {
 		usersBtnAdicionar = new JButton("Adicionar");
-		DefaultDesign.styleBotaoSimples(usersBtnAdicionar, ADD);
+		Design.styleBotaoSimples(usersBtnAdicionar, ADD);
 		
 		usersBtnRemover =  new JButton(REMOVERSTRING);
-		DefaultDesign.styleBotaoSimples(usersBtnRemover, REMOVE);
+		Design.styleBotaoSimples(usersBtnRemover, REMOVE);
 		
 		usersBtnEditar = new JButton(EDITARSTRING);
-		DefaultDesign.styleBotaoSimples(usersBtnEditar, EDIT);
+		Design.styleBotaoSimples(usersBtnEditar, EDIT);
 		
 		usersBtnRefresh = new JButton(REFRESHSTRING);
-		DefaultDesign.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		Design.styleBotaoSimples(usersBtnRefresh, REFRESH);
 		
 		usersBtnHome = new JButton("Home");
-		DefaultDesign.styleBotaoHome(usersBtnHome );
+		Design.styleBotaoHome(usersBtnHome );
 	}
 	private void criaUserSearch() {
 		sorterUser = new TableRowSorter<>(modelUser);
@@ -244,14 +244,14 @@ public class Users {
 		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		JLabel usersTexto = new JLabel("Users");
-		DefaultDesign.styleLabel(usersTexto);
+		Design.styleLabel(usersTexto);
 		JSeparator usersSeparator = new JSeparator();
-		DefaultDesign.styleSeparator(usersSeparator);
+		Design.styleSeparator(usersSeparator);
 		
 		criaBotoesUser();
 		
 		userSearch = new JTextField();
-		DefaultDesign.styleSearch(userSearch);
+		Design.styleSearch(userSearch);
 		
 		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
 		usersScrollPane.setViewportView(usersTable);

@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
 
@@ -100,10 +100,10 @@ public class Funcionario {
 	}
 	private void criaBotoesFuncionarios() {
 		btnRefreshFuncionarios = new JButton("Refresh");
-		DefaultDesign.styleBotaoSimples(btnRefreshFuncionarios, REFRESH);
+		Design.styleBotaoSimples(btnRefreshFuncionarios, REFRESH);
 
 		btnHomeFuncionarios = new JButton("Home");
-		DefaultDesign.styleBotaoHome(btnHomeFuncionarios);
+		Design.styleBotaoHome(btnHomeFuncionarios);
 	}
 	private GroupLayout putFuncionariosLayout() {
 		GroupLayout glFuncionariosMenu = new GroupLayout(funcionariosMenu);
@@ -165,7 +165,7 @@ public class Funcionario {
 		separatorFuncionario.setForeground(Color.BLUE);
 
 		funcionarioSearch = new JTextField();
-		DefaultDesign.styleSearch(funcionarioSearch);
+		Design.styleSearch(funcionarioSearch);
 		
 		GroupLayout glFuncionariosMenu = putFuncionariosLayout();
 		

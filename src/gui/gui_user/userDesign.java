@@ -17,7 +17,7 @@ import java.awt.Insets;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.JEditorPane;
-import gui.DefaultDesign;
+import gui.Design;
 import gui.gui_user.cria_csv.CriarCsv;
 import gui.gui_user.enviar_produto.EnviarProduto;
 import gui.gui_user.funcionario.Funcionario;
@@ -115,50 +115,50 @@ public class UserDesign {
 
 	private void criaTituloMenu() {
 		lblArmazem = new JLabel("Armazem");
-		DefaultDesign.styleLabelMenu(lblArmazem);
+		Design.styleLabelMenu(lblArmazem);
 
 		lblRececao = new JLabel("Rece\u00E7\u00E3o");
-		DefaultDesign.styleLabelMenu(lblRececao);
+		Design.styleLabelMenu(lblRececao);
 
 		lblEnviar = new JLabel("Enviar");
-		DefaultDesign.styleLabelMenu(lblEnviar);
+		Design.styleLabelMenu(lblEnviar);
 
 		lblRelatorios = new JLabel("Relatorios");
-		DefaultDesign.styleLabelMenu(lblRelatorios);
+		Design.styleLabelMenu(lblRelatorios);
 
 		dtrpnUser = new JEditorPane();
-		DefaultDesign.styleTituloMenu(dtrpnUser, "User");
+		Design.styleTituloMenu(dtrpnUser, "User");
 
 		separator = new JSeparator();
-		DefaultDesign.styleSeparator(separator);
+		Design.styleSeparator(separator);
 
 		separator1 = new JSeparator();
-		DefaultDesign.styleSeparator(separator1);
+		Design.styleSeparator(separator1);
 
 		separator2 = new JSeparator();
-		DefaultDesign.styleSeparator(separator2);
+		Design.styleSeparator(separator2);
 
 		separator3 = new JSeparator();
-		DefaultDesign.styleSeparator(separator3);
+		Design.styleSeparator(separator3);
 	}
 
 	private void criaBotoesMenu() {
 		btnProdutos = new JButton("<html>Produtos<html>");
-		DefaultDesign.styleButton(btnProdutos, PRODUTO, new Insets(2, 14, 10, 14));
+		Design.styleButton(btnProdutos, PRODUTO, new Insets(2, 14, 10, 14));
 		btnFuncionarios = new JButton("Funcionarios");
-		DefaultDesign.styleButton(btnFuncionarios, FUNCIONARIO, new Insets(2, 0, 10, 0));
+		Design.styleButton(btnFuncionarios, FUNCIONARIO, new Insets(2, 0, 10, 0));
 		btnMaquinas = new JButton("Maquinas");
-		DefaultDesign.styleButton(btnMaquinas, MAQUINA, new Insets(2, 14, 10, 14));
+		Design.styleButton(btnMaquinas, MAQUINA, new Insets(2, 14, 10, 14));
 		btnVendas = new JButton("<html>Vendas<html>");
-		DefaultDesign.styleButton(btnVendas, VENDAS, new Insets(2, 14, 10, 14));
+		Design.styleButton(btnVendas, VENDAS, new Insets(2, 14, 10, 14));
 		btnRececaoProdutos = new JButton("Receção lote");
-		DefaultDesign.styleButton(btnRececaoProdutos, RECEBER, new Insets(10, 2, 10, 2));
+		Design.styleButton(btnRececaoProdutos, RECEBER, new Insets(10, 2, 10, 2));
 		btnEnviarProduto = new JButton("<html>Enviar<br>Produto<html>");
-		DefaultDesign.styleButton(btnEnviarProduto, ENVIAR, new Insets(5, 20, 5, 20));
+		Design.styleButton(btnEnviarProduto, ENVIAR, new Insets(5, 20, 5, 20));
 		btnGerarRelatorioStock = new JButton("<html>Gerar<br>Relatorio<br><html>");
-		DefaultDesign.styleButton(btnGerarRelatorioStock, RELATORIO, new Insets(5, 20, 5, 20));
+		Design.styleButton(btnGerarRelatorioStock, RELATORIO, new Insets(5, 20, 5, 20));
 		btnGraficos = new JButton("Graficos");
-		DefaultDesign.styleButton(btnGraficos, GRAFICO, new Insets(2, 14, 10, 14));
+		Design.styleButton(btnGraficos, GRAFICO, new Insets(2, 14, 10, 14));
 
 	}
 
