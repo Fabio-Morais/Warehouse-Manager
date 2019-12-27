@@ -215,6 +215,33 @@ public class LoginDesign {
 						.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 46, Short.MAX_VALUE).addGap(17)));
 		painelSuperior.setLayout(glPainelSuperior);
 	}
+	private void putLayoutVertical(GroupLayout glPainelPrincipal ) {
+		glPainelPrincipal.setVerticalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glPainelPrincipal.createSequentialGroup().addGap(21)
+						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_1).addComponent(username, GroupLayout.PREFERRED_SIZE,
+										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(15)
+						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
+								.addGroup(glPainelPrincipal.createParallelGroup(Alignment.BASELINE)
+										.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPassword))
+								.addComponent(label))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnRecuperarPasswod, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.LEADING)
+								.addGroup(glPainelPrincipal.createSequentialGroup()
+										.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+										.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 34,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(21))
+								.addGroup(glPainelPrincipal.createSequentialGroup()
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(loadingIcon,
+												GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap()))));
+	}
 	private void putLayout() {
 		GroupLayout glPainelPrincipal = new GroupLayout(painelPrincipal);
 		glPainelPrincipal.setHorizontalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
@@ -245,31 +272,7 @@ public class LoginDesign {
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(password).addComponent(username))))
 						.addGap(73)));
-		glPainelPrincipal.setVerticalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
-				.addGroup(glPainelPrincipal.createSequentialGroup().addGap(21)
-						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_1).addComponent(username, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(15)
-						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
-								.addGroup(glPainelPrincipal.createParallelGroup(Alignment.BASELINE)
-										.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblPassword))
-								.addComponent(label))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnRecuperarPasswod, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.LEADING)
-								.addGroup(glPainelPrincipal.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-										.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 34,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(21))
-								.addGroup(glPainelPrincipal.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(loadingIcon,
-												GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap()))));
+		putLayoutVertical(glPainelPrincipal);
 		painelPrincipal.setLayout(glPainelPrincipal);
 	}
 	private void initialize() {
