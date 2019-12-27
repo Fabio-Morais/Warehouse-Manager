@@ -30,8 +30,9 @@
   <sonar.projectKey>Fabio-Morais_Warehouse-Manager</sonar.projectKey>
   <sonar.organization>fabio-morais</sonar.organization>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-</properties>
-	<dependencies>
+  <sonar.login>8dc5593edd363afd88cde7882a4d013fa3ea568e</sonar.login>
+</properties>	
+<dependencies>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
