@@ -13,7 +13,7 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 public class Help {
-	private static final String HELP = "/help.png";
+	private static final String HELPIMAGE = "/help.png";
 
 	
 	private void showUserHtml(JFrame frmMenuAdmin) {
@@ -37,18 +37,36 @@ public class Help {
         styleSheet.addRule("h2 {color: #ff0000;}");
         styleSheet.addRule("pre {font : 10px monaco; color : black; background-color : #fafafa; }");
 
-        String prefsFileAsString = this.getClass().getResource(HELP).toString();
 
         // create some simple html as a string
-        String htmlString = "<html>\n"
-                          + "<body>\n"
-                          + "<h1>HELP USER!</h1>\n"
-                          + "<h2>Escrever ajuda</h2>\n"
-                          + "<p>Easy</p>\n"
-                          + "<p><a href=\"http://devdaily.com/blog/\">devdaily blog</a></p>\n"
-                          + "<img src='"+prefsFileAsString+"' alt=\"Smiley face\" height=\"100\" width=\"100\">\r\n"
-                          + "</body>\n"
-        				  + "</html>\n";
+        String htmlString = "<html>\r\n" + 
+        		"\r\n" + 
+        		"    <body>\r\n" + 
+        		"        <h1 align=\"center\">HELP USER!</h1>\r\n" + 
+        		"        <h2>Para adicionar um user:</h2>\r\n" + 
+        		"        <ul>\r\n" + 
+        		"            <li>Carregar no botão \"adicionar\"</li>\r\n" + 
+        		"            <li>Preencher todos os dados corretamente</li>\r\n" + 
+        		"            <li>A password precisa de ter mais de 6 caracteres</li>\r\n" + 
+        		"            <li>Carregar em \"adicionar\"</li>\r\n" + 
+        		"            <li>Sera mostrado uma mensagem de confirmaçao caso seja adicionado corretamente</li>\r\n" + 
+        		"          </ul>\r\n" + 
+        		"        <h2>Para editar um user:</h2>\r\n" + 
+        		"        <ul>\r\n" + 
+        		"            <li>Selecionar um username a editar</li>\r\n" + 
+        		"            <li>Carregar no botão \"editar\"</li>\r\n" + 
+        		"            <li>Editar todos os dados corretamente</li>\r\n" + 
+        		"            <li>A password precisa de ter mais de 6 caracteres</li>\r\n" + 
+        		"            <li>Carregar em \"ok\"</li>\r\n" + 
+        		"          </ul>\r\n" + 
+        		"          <h2>Para eliminar um user:</h2>\r\n" + 
+        		"          <ul>\r\n" + 
+        		"              <li>Selecionar um ou mais usernames a eliminar</li>\r\n" + 
+        		"              <li>Carregar no botão \"remover\"</li>\r\n" + 
+        		"        </ul>\r\n" + 
+        		"    </body>\r\n" + 
+        		"\r\n" + 
+        		"</html>";
 
         // create a document, set it on the jeditorpane, then add the html
         Document doc = kit.createDefaultDocument();
@@ -56,10 +74,10 @@ public class Help {
         jEditorPane.setText(htmlString);
 
         // now add it all to a frame
-        JDialog  j = new JDialog (frmMenuAdmin,"ASD");
+        JDialog  j = new JDialog (frmMenuAdmin,"Help");
         j.setModal(true);
         j.getContentPane().add(scrollPane, BorderLayout.CENTER);
-        URL iconURL = getClass().getResource(HELP);
+        URL iconURL = getClass().getResource(HELPIMAGE);
 
 		ImageIcon img = new ImageIcon(iconURL);
 		j.setIconImage(img.getImage());
@@ -70,8 +88,6 @@ public class Help {
         // display the frame
         j.setSize(new Dimension(500,400));
         
-        // pack it, if you prefer
-        //j.pack();
         
         // center the jframe, then make it visible
         j.setLocationRelativeTo(null);
