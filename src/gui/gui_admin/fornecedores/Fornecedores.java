@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -106,7 +106,7 @@ public class Fornecedores {
 
 	
 		fornecedorTable = new JTable();
-		InterfaceSwing.styleTabela(fornecedorTable, modelFornecedor);
+		DefaultDesign.styleTabela(fornecedorTable, modelFornecedor);
 	}
 	private void criaFornecedorSearch() {
 		sorterFornecedor = new TableRowSorter<>(modelFornecedor);
@@ -146,19 +146,19 @@ public class Fornecedores {
 	}
 	private void criaBotoesFornecedores() {
 		fornecedoresBtnAdicionar = new JButton("Adicionar");
-		InterfaceSwing.styleBotaoSimples(fornecedoresBtnAdicionar, ADD);
+		DefaultDesign.styleBotaoSimples(fornecedoresBtnAdicionar, ADD);
 
 		fornecedoresBtnEditar = new JButton(EDITARSTRING);
-		InterfaceSwing.styleBotaoSimples(fornecedoresBtnEditar, EDIT);
+		DefaultDesign.styleBotaoSimples(fornecedoresBtnEditar, EDIT);
 
 		fornecedoresBtnRemover = new JButton(REMOVERSTRING);
-		InterfaceSwing.styleBotaoSimples(fornecedoresBtnRemover, REMOVE);
+		DefaultDesign.styleBotaoSimples(fornecedoresBtnRemover, REMOVE);
 
 		fornecedoresBtnRefresh = new JButton(REFRESHSTRING);
-		InterfaceSwing.styleBotaoSimples(fornecedoresBtnRefresh, REFRESH);
+		DefaultDesign.styleBotaoSimples(fornecedoresBtnRefresh, REFRESH);
 
 		fornecedoresBtnHome = new JButton("Home");
-		InterfaceSwing.styleBotaoHome(fornecedoresBtnHome);
+		DefaultDesign.styleBotaoHome(fornecedoresBtnHome);
 	}
 	private GroupLayout putFornecedoresLayout() {
 		GroupLayout glFornecedoresPanel = new GroupLayout(fornecedoresPanel);
@@ -236,7 +236,7 @@ public class Fornecedores {
 		fornecedoresTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
 
 		fornecedoresSeparator = new JSeparator();
-		InterfaceSwing.styleSeparator(fornecedoresSeparator);
+		DefaultDesign.styleSeparator(fornecedoresSeparator);
 
 		fornecedoresScrollPane = new JScrollPane();
 		fornecedoresScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -244,7 +244,7 @@ public class Fornecedores {
 		criaBotoesFornecedores();
 
 		fornecedorSearch = new JTextField();
-		InterfaceSwing.styleSearch(fornecedorSearch);
+		DefaultDesign.styleSearch(fornecedorSearch);
 		GroupLayout glFornecedoresPanel = putFornecedoresLayout();
 
 		

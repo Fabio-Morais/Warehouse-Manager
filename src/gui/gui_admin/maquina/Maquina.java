@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -118,7 +118,7 @@ public class Maquina {
 
 	
 		maquinaTable = new JTable();
-		InterfaceSwing.styleTabela(maquinaTable, modelMaquina);
+		DefaultDesign.styleTabela(maquinaTable, modelMaquina);
 	}
 	private void criaMaquinaSearch() {
 		sorterMaquina = new TableRowSorter<>(modelMaquina);
@@ -158,19 +158,19 @@ public class Maquina {
 	}
 	private void criaBotoesMaquina() {
 		maquinaBtnRefresh = new JButton(REFRESHSTRING);
-		InterfaceSwing.styleBotaoSimples(maquinaBtnRefresh, REFRESH);
+		DefaultDesign.styleBotaoSimples(maquinaBtnRefresh, REFRESH);
 
 		maquinaBtnHome = new JButton("Home");
-		InterfaceSwing.styleBotaoHome(maquinaBtnHome);
+		DefaultDesign.styleBotaoHome(maquinaBtnHome);
 		
 		maquinaBtnAdicionar = new JButton("Adicionar");
-		InterfaceSwing.styleBotaoSimples(maquinaBtnAdicionar, ADD);
+		DefaultDesign.styleBotaoSimples(maquinaBtnAdicionar, ADD);
 		
 		maquinaBtnEditar = new JButton(EDITARSTRING);
-		InterfaceSwing.styleBotaoSimples(maquinaBtnEditar, EDIT);
+		DefaultDesign.styleBotaoSimples(maquinaBtnEditar, EDIT);
 		
 		maquinaBtnRemover = new JButton(REMOVERSTRING);
-		InterfaceSwing.styleBotaoSimples(maquinaBtnRemover, REMOVE);
+		DefaultDesign.styleBotaoSimples(maquinaBtnRemover, REMOVE);
 	}
 	private GroupLayout putMaquinaLayout() {
 		GroupLayout glMaquinaPanel = new GroupLayout(maquinaPanel);
@@ -247,13 +247,13 @@ public class Maquina {
 		maquinaScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		maquinaSeparator = new JSeparator();
-		InterfaceSwing.styleSeparator(maquinaSeparator);
+		DefaultDesign.styleSeparator(maquinaSeparator);
 
 		maquinaTexto = new JLabel("Maquinas");
-		InterfaceSwing.styleLabel(maquinaTexto);
+		DefaultDesign.styleLabel(maquinaTexto);
 
 		maquinaSearch = new JTextField();
-		InterfaceSwing.styleSearch(maquinaSearch);
+		DefaultDesign.styleSearch(maquinaSearch);
 
 		GroupLayout glMaquinaPanel = putMaquinaLayout();
 		maquinaScrollPane.setViewportView(maquinaTable);

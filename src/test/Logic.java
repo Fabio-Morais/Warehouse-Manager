@@ -10,6 +10,7 @@ import logic.Mail;
 import logic.MessageLogs;
 
 class Logic {
+	private final String armazem= "warehouse1";
 
 	@Test
 	public void testBlankText() {
@@ -211,7 +212,6 @@ class Logic {
 		assertEquals(false, mail.sendEmail("@.com", "teste"));
 
 	}
-	private final String armazem= "warehouse1";
 	@Test
 	public void testMessageLogs() {
 		MessageLogs message = MessageLogs.getInstance();
@@ -238,7 +238,6 @@ class Logic {
 		assertEquals(true, message.reportaDefeito("usernameTeste"+";"+ true+";"+armazem,"skuTeste"));
 		assertEquals(true, message.enviaProduto("usernameTeste"+";"+ true+";"+armazem,"skuTeste", "24/12/2019"));
 		assertEquals(true, message.receberProduto("usernameTeste"+";"+ true+";"+armazem,"teste;teste;teste;teste;teste"));
-		assertEquals(false, message.mudarArmazem("usernameTeste"+";"+ true+";"+armazem,"teste;teste;teste;teste"));
 		assertEquals(true, message.mudarArmazem("usernameTeste"+";"+ true+";"+"teste","teste;teste;warehouse1;teste"));
 
 

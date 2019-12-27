@@ -23,7 +23,7 @@ import logic.Mail;
 
 public class PasswordRecovery {
 	private static final int len = 8;
-	static SecureRandom rnd = new SecureRandom();
+	private static SecureRandom rnd = new SecureRandom();
 	private String key = "";
 	private JLabel loading;
 	private JLabel loadingText;
@@ -34,7 +34,7 @@ public class PasswordRecovery {
 	private static final String PASS = "/lock1.png";
 
 	private JTextField mailField;
-	static final String AB = "0123456789";
+	private static final String AB = "0123456789";
 
 	private JTextField keyField;
 	private JPasswordField passwordField;

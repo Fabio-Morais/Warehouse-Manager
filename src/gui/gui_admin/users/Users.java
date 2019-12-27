@@ -40,7 +40,7 @@ import javax.swing.table.TableRowSorter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -111,6 +111,8 @@ public class Users {
 					 * 
 					 */
 			private static final long serialVersionUID = 60845133227382893L;
+
+			boolean[] columnEditables = new boolean[] { false, false, false };
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
 
@@ -119,32 +121,29 @@ public class Users {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-
-			boolean[] columnEditables = new boolean[] { false, false, false };
-
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		};
 		usersTable = new JTable(); 
-		InterfaceSwing.styleTabela(usersTable,modelUser);
+		DefaultDesign.styleTabela(usersTable,modelUser);
 	}
 	private void criaBotoesUser() {
 		usersBtnAdicionar = new JButton("Adicionar");
-		InterfaceSwing.styleBotaoSimples(usersBtnAdicionar, ADD);
+		DefaultDesign.styleBotaoSimples(usersBtnAdicionar, ADD);
 		
 		usersBtnRemover =  new JButton(REMOVERSTRING);
-		InterfaceSwing.styleBotaoSimples(usersBtnRemover, REMOVE);
+		DefaultDesign.styleBotaoSimples(usersBtnRemover, REMOVE);
 		
 		usersBtnEditar = new JButton(EDITARSTRING);
-		InterfaceSwing.styleBotaoSimples(usersBtnEditar, EDIT);
+		DefaultDesign.styleBotaoSimples(usersBtnEditar, EDIT);
 		
 		usersBtnRefresh = new JButton(REFRESHSTRING);
-		InterfaceSwing.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		DefaultDesign.styleBotaoSimples(usersBtnRefresh, REFRESH);
 		
 		usersBtnHome = new JButton("Home");
-		InterfaceSwing.styleBotaoHome(usersBtnHome );
+		DefaultDesign.styleBotaoHome(usersBtnHome );
 	}
 	private void criaUserSearch() {
 		sorterUser = new TableRowSorter<>(modelUser);
@@ -245,14 +244,14 @@ public class Users {
 		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		JLabel usersTexto = new JLabel("Users");
-		InterfaceSwing.styleLabel(usersTexto);
+		DefaultDesign.styleLabel(usersTexto);
 		JSeparator usersSeparator = new JSeparator();
-		InterfaceSwing.styleSeparator(usersSeparator);
+		DefaultDesign.styleSeparator(usersSeparator);
 		
 		criaBotoesUser();
 		
 		userSearch = new JTextField();
-		InterfaceSwing.styleSearch(userSearch);
+		DefaultDesign.styleSearch(userSearch);
 		
 		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
 		usersScrollPane.setViewportView(usersTable);

@@ -20,7 +20,7 @@ import com.toedter.calendar.JDateChooser;
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.PopUp;
-import gui.gui_user.userDesign;
+import gui.gui_user.UserDesign;
 import logic.Check;
 import logic.MessageLogs;
 
@@ -126,7 +126,7 @@ public class EnviarProduto {
 	}
 	private int showEnviarPopUp() {
 		Object[] options1 = { "Enviar", "Sair" };
-		ImageIcon icon = new ImageIcon(userDesign.class.getResource(SEND));
+		ImageIcon icon = new ImageIcon(UserDesign.class.getResource(SEND));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(6, 2, 0, 0));

@@ -17,7 +17,7 @@ import db.DataBase;
 
 class DataBaseTest {
 
-	final String armazem="warehouse1";
+	private final String armazem="warehouse1";
 	
 	@Test
 	public void testClass() {

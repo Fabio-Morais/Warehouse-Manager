@@ -17,7 +17,7 @@ import java.awt.Insets;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.JEditorPane;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.gui_user.cria_csv.CriarCsv;
 import gui.gui_user.enviar_produto.EnviarProduto;
 import gui.gui_user.funcionario.Funcionario;
@@ -35,7 +35,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
 
-public class userDesign {
+public class UserDesign {
 
 	private String nomeArmazem;
 	private String username;
@@ -103,7 +103,7 @@ public class userDesign {
 	}
 
 
-	public userDesign(String armazem, String username) {
+	public UserDesign(String armazem, String username) {
 		this.nomeArmazem = armazem;
 		this.enviarprodutoClass = new EnviarProduto(username);
 		this.receberprodutoClass = new ReceberProduto(username);
@@ -115,50 +115,50 @@ public class userDesign {
 
 	private void criaTituloMenu() {
 		lblArmazem = new JLabel("Armazem");
-		InterfaceSwing.styleLabelMenu(lblArmazem);
+		DefaultDesign.styleLabelMenu(lblArmazem);
 
 		lblRececao = new JLabel("Rece\u00E7\u00E3o");
-		InterfaceSwing.styleLabelMenu(lblRececao);
+		DefaultDesign.styleLabelMenu(lblRececao);
 
 		lblEnviar = new JLabel("Enviar");
-		InterfaceSwing.styleLabelMenu(lblEnviar);
+		DefaultDesign.styleLabelMenu(lblEnviar);
 
 		lblRelatorios = new JLabel("Relatorios");
-		InterfaceSwing.styleLabelMenu(lblRelatorios);
+		DefaultDesign.styleLabelMenu(lblRelatorios);
 
 		dtrpnUser = new JEditorPane();
-		InterfaceSwing.styleTituloMenu(dtrpnUser, "User");
+		DefaultDesign.styleTituloMenu(dtrpnUser, "User");
 
 		separator = new JSeparator();
-		InterfaceSwing.styleSeparator(separator);
+		DefaultDesign.styleSeparator(separator);
 
 		separator1 = new JSeparator();
-		InterfaceSwing.styleSeparator(separator1);
+		DefaultDesign.styleSeparator(separator1);
 
 		separator2 = new JSeparator();
-		InterfaceSwing.styleSeparator(separator2);
+		DefaultDesign.styleSeparator(separator2);
 
 		separator3 = new JSeparator();
-		InterfaceSwing.styleSeparator(separator3);
+		DefaultDesign.styleSeparator(separator3);
 	}
 
 	private void criaBotoesMenu() {
 		btnProdutos = new JButton("<html>Produtos<html>");
-		InterfaceSwing.styleButton(btnProdutos, PRODUTO, new Insets(2, 14, 10, 14));
+		DefaultDesign.styleButton(btnProdutos, PRODUTO, new Insets(2, 14, 10, 14));
 		btnFuncionarios = new JButton("Funcionarios");
-		InterfaceSwing.styleButton(btnFuncionarios, FUNCIONARIO, new Insets(2, 0, 10, 0));
+		DefaultDesign.styleButton(btnFuncionarios, FUNCIONARIO, new Insets(2, 0, 10, 0));
 		btnMaquinas = new JButton("Maquinas");
-		InterfaceSwing.styleButton(btnMaquinas, MAQUINA, new Insets(2, 14, 10, 14));
+		DefaultDesign.styleButton(btnMaquinas, MAQUINA, new Insets(2, 14, 10, 14));
 		btnVendas = new JButton("<html>Vendas<html>");
-		InterfaceSwing.styleButton(btnVendas, VENDAS, new Insets(2, 14, 10, 14));
+		DefaultDesign.styleButton(btnVendas, VENDAS, new Insets(2, 14, 10, 14));
 		btnRececaoProdutos = new JButton("Receção lote");
-		InterfaceSwing.styleButton(btnRececaoProdutos, RECEBER, new Insets(10, 2, 10, 2));
+		DefaultDesign.styleButton(btnRececaoProdutos, RECEBER, new Insets(10, 2, 10, 2));
 		btnEnviarProduto = new JButton("<html>Enviar<br>Produto<html>");
-		InterfaceSwing.styleButton(btnEnviarProduto, ENVIAR, new Insets(5, 20, 5, 20));
+		DefaultDesign.styleButton(btnEnviarProduto, ENVIAR, new Insets(5, 20, 5, 20));
 		btnGerarRelatorioStock = new JButton("<html>Gerar<br>Relatorio<br><html>");
-		InterfaceSwing.styleButton(btnGerarRelatorioStock, RELATORIO, new Insets(5, 20, 5, 20));
+		DefaultDesign.styleButton(btnGerarRelatorioStock, RELATORIO, new Insets(5, 20, 5, 20));
 		btnGraficos = new JButton("Graficos");
-		InterfaceSwing.styleButton(btnGraficos, GRAFICO, new Insets(2, 14, 10, 14));
+		DefaultDesign.styleButton(btnGraficos, GRAFICO, new Insets(2, 14, 10, 14));
 
 	}
 

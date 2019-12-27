@@ -107,7 +107,7 @@ public class AutoCompletion extends PlainDocument {
 		new AutoCompletion(comboBox);
 	}
 
-	void configureEditor(ComboBoxEditor newEditor) {
+	public void configureEditor(ComboBoxEditor newEditor) {
 		if (editor != null) {
 			editor.removeKeyListener(editorKeyListener);
 			editor.removeFocusListener(editorFocusListener);

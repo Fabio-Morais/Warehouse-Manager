@@ -23,14 +23,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import db.DataBase;
 import gui.gui_admin.Admin;
-import gui.gui_user.userDesign;
+import gui.gui_user.UserDesign;
 import logic.MessageLogs;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.PopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -99,7 +99,7 @@ public class LoginDesign {
 
 						counterTimer.stop();
 						messageLogs.entrouSistema(loginUsername+";"+false+";"+nomeArmazem);
-						userDesign window2 = new userDesign(nomeArmazem, loginUsername);
+						UserDesign window2 = new UserDesign(nomeArmazem, loginUsername);
 						window2.getFrmUserDesign().setVisible(true);
 						frame.dispose();
 					} else {
@@ -183,10 +183,10 @@ public class LoginDesign {
 		password = new JPasswordField();
 
 		btnLogin = new JToggleButton("Login");
-		InterfaceSwing.styleBotaoLogin(btnLogin);
+		DefaultDesign.styleBotaoLogin(btnLogin);
 	
 		btnRecuperarPasswod = new JButton("Recuperar Passwod");
-		InterfaceSwing.styleBotaoRecuPass(btnRecuperarPasswod);
+		DefaultDesign.styleBotaoRecuPass(btnRecuperarPasswod);
 
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(Admin.class.getResource(PASS)));

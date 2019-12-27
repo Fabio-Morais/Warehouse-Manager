@@ -34,9 +34,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.InterfaceSwing;
+import gui.DefaultDesign;
 import gui.PopUp;
-import gui.gui_user.userDesign;
+import gui.gui_user.UserDesign;
 import gui.menu_bar.MenuBar;
 
 import javax.swing.GroupLayout;
@@ -147,10 +147,10 @@ public class Maquinas {
 	}
 	private void criaBotoesMaquinas() {
 		btnRefreshMaquinas = new JButton("Refresh");
-		InterfaceSwing.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
+		DefaultDesign.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
 
 		btnHomeMaquinas = new JButton("Home");
-		InterfaceSwing.styleBotaoHome(btnHomeMaquinas);
+		DefaultDesign.styleBotaoHome(btnHomeMaquinas);
 
 		btnCorrigirAvaria = new JButton("Corrigir Avaria");
 		btnCorrigirAvaria.setMargin(new Insets(2, 2, 2, 2));
@@ -235,7 +235,7 @@ public class Maquinas {
 
 		
 		maquinaSearch = new JTextField();
-		InterfaceSwing.styleSearch(maquinaSearch);
+		DefaultDesign.styleSearch(maquinaSearch);
 		
 		criaBotoesMaquinas();
 		
@@ -287,7 +287,7 @@ public class Maquinas {
 	
 	private int showReportAvariaPopUp() {
 		Object[] options1 = { "Recebido", "Sair" };
-		ImageIcon icon = new ImageIcon(userDesign.class.getResource(REPORT));
+		ImageIcon icon = new ImageIcon(UserDesign.class.getResource(REPORT));
 		
 		JSplitPane splitPane = new JSplitPane();
 		

@@ -15,7 +15,7 @@ import com.toedter.calendar.JDateChooser;
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.PopUp;
-import gui.gui_user.userDesign;
+import gui.gui_user.UserDesign;
 import logic.Check;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
@@ -182,7 +182,7 @@ public class ReceberProduto {
 	}
 	private int showReceberPopUp() {
 		Object[] options1 = { "Recebido", "Sair" };
-		ImageIcon icon = new ImageIcon(userDesign.class.getResource("/shipping.png"));
+		ImageIcon icon = new ImageIcon(UserDesign.class.getResource("/shipping.png"));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(8, 2, 0, 0));
