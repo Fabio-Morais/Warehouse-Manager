@@ -172,10 +172,8 @@ public class PasswordRecovery {
 						loadingText.setText("");
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			  }

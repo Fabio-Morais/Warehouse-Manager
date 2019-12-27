@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -18,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Insets;
-import javax.swing.UIManager;
 import java.awt.Cursor;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -32,13 +30,16 @@ import javax.swing.table.TableRowSorter;
 import org.jfree.chart.ChartPanel;
 import db.DataBase;
 import gui.Interface;
+import gui.gui_user.enviar_produto.EnviarProduto;
+import gui.gui_user.graficos.Graficos;
+import gui.gui_user.maquinas.Maquinas;
+import gui.gui_user.receber_produto.ReceberProduto;
 import gui.gui_user.vendas.Vendas;
 import gui.menu_bar.MenuBar;
 import logic.MessageLogs;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -77,11 +78,11 @@ public class userDesign {
 	private Graficos chart;
 	// Panels
 	private JPanel userDesignPanel;
-	private JPanel maquinas;
 	private JPanel funcionarios;
 	private JPanel produtos;
 
 	private DataBase db;
+	private MenuBar menuBar;
 
 	// Botoes
 	// Main Menu
@@ -103,28 +104,11 @@ public class userDesign {
 	private JButton btnEnviarProduto;
 	private JButton btnGerarRelatorioStock;
 
-	// Menu Vendas
-
-
-	// Menu Maquinas
-	private JSeparator separator_6;
-	private JLabel lblMaquinas;
-	private JScrollPane scrollPane_2;
-	private JPanel maquinasMenu;
+	// Menu Funcionarios
+	private JLabel lblFuncionarios;
 	private JPanel funcionariosMenu;
 	private JScrollPane scrollPaneFuncionario;
-	private JLabel lblFuncionarios;
 	private JSeparator separatorFuncionario;
-	private JButton btnRefreshMaquinas;
-	private JButton btnHomeMaquinas;
-	private JButton btnReportarAvaria;
-	private JTable table_Maquinas;
-	private DefaultTableModel model_Maquinas;
-	private JToggleButton tglbtnFiltrarAvariadas;
-	private TableRowSorter<DefaultTableModel> sorterMaquinas;
-	private JButton btnCorrigirAvaria;
-	// Menu Funcionarios
-
 	private JButton btnRefreshFuncionarios;
 	private JButton btnHomeFuncionarios;
 	private DefaultTableModel modelFuncionarios;
@@ -157,7 +141,6 @@ public class userDesign {
 
 	private JTextField funcionarioSearch;
 	private JTextField produtosSearch;
-	private JTextField maquinaSearch;
 	private JPanel grafico;
 	private JPanel graficoMenu;
 	private JPanel grafico1;
@@ -172,7 +155,7 @@ public class userDesign {
 	private void putPanels() {
 		frmUserDesign.getContentPane().add(userDesignPanel, "userDesign");
 		frmUserDesign.getContentPane().add(vendasClass.getVendas(), "Vendas");
-		frmUserDesign.getContentPane().add(maquinas, "Maquinas");
+		frmUserDesign.getContentPane().add(maquinaClass.getMaquinas(), "Maquinas");
 		frmUserDesign.getContentPane().add(funcionarios, "Funcionarios");
 		frmUserDesign.getContentPane().add(produtos, "Produtos");
 		frmUserDesign.getContentPane().add(grafico, "Grafico");
@@ -184,7 +167,6 @@ public class userDesign {
 	 */
 	public userDesign(String armazem, String username) {
 		this.nomeArmazem = armazem;
-		this.maquinaClass = new Maquinas(username);
 		this.funcionarioClasse = new Funcionario();
 		this.produtoClass = new Produtos(username);
 		this.enviarprodutoClass = new EnviarProduto(username);
@@ -372,177 +354,8 @@ public class userDesign {
 		mainMenuHome.setLayout(glMainMenuHome);
 	}
 
-	/**
-	 * Menu Vendas
-	 */
 
-	/**
-	 * Menu Maquinas
-	 */
-	private void criaMaquinasSearch() {
-		sorterMaquinas = new TableRowSorter<>(model_Maquinas);
-		table_Maquinas.setRowSorter(sorterMaquinas);
-
-		maquinaSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				maquinaSearch.setText("");
-			}
-		});
-		maquinaSearch.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				search(maquinaSearch.getText());
-			}
-
-			public void search(String str) {
-				if (str.length() == 0) {
-					sorterMaquinas.setRowFilter(null);
-				} else {
-					sorterMaquinas.setRowFilter(RowFilter.regexFilter("(?i)" + str));
-				}
-			}
-		});
-
-	}
-	private void criaBotoesMaquinas() {
-		btnRefreshMaquinas = new JButton("Refresh");
-		Interface.styleBotaoSimples(btnRefreshMaquinas, REFRESH);
-
-		btnHomeMaquinas = new JButton("Home");
-		Interface.styleBotaoHome(btnHomeMaquinas);
-
-		btnCorrigirAvaria = new JButton("Corrigir Avaria");
-		btnCorrigirAvaria.setMargin(new Insets(2, 2, 2, 2));
-		btnCorrigirAvaria.setBackground(Color.LIGHT_GRAY);
-
-		btnReportarAvaria = new JButton("Reportar Avaria");
-		btnReportarAvaria.setBackground(Color.LIGHT_GRAY);
-
-	}
-	private GroupLayout putMaquinasLayout() {
-		GroupLayout glMaquinasMenu = new GroupLayout(maquinasMenu);
-		glMaquinasMenu.setHorizontalGroup(glMaquinasMenu
-				.createParallelGroup(Alignment.LEADING).addGroup(glMaquinasMenu.createSequentialGroup().addGap(39)
-						.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING).addComponent(lblMaquinas)
-								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-								.addGroup(glMaquinasMenu.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnHomeMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnRefreshMaquinas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-						.addGap(115)
-						.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING)
-								.addGroup(glMaquinasMenu.createSequentialGroup().addComponent(tglbtnFiltrarAvariadas)
-										.addGap(18).addComponent(btnReportarAvaria).addGap(18)
-										.addComponent(btnCorrigirAvaria, GroupLayout.PREFERRED_SIZE, 109,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE, 108,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
-						.addGap(55)));
-		glMaquinasMenu.setVerticalGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING).addGroup(glMaquinasMenu
-				.createSequentialGroup()
-				.addGroup(glMaquinasMenu.createParallelGroup(Alignment.LEADING)
-						.addGroup(glMaquinasMenu.createSequentialGroup().addGap(49)
-								.addComponent(lblMaquinas, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(separator_6, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
-								.addGap(50)
-								.addComponent(btnRefreshMaquinas, GroupLayout.PREFERRED_SIZE, 33,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeMaquinas, GroupLayout.PREFERRED_SIZE, 41,
-										GroupLayout.PREFERRED_SIZE))
-						.addGroup(glMaquinasMenu.createSequentialGroup().addGap(85)
-								.addGroup(glMaquinasMenu.createParallelGroup(Alignment.TRAILING)
-										.addGroup(glMaquinasMenu.createParallelGroup(Alignment.BASELINE)
-												.addComponent(tglbtnFiltrarAvariadas).addComponent(btnReportarAvaria)
-												.addComponent(btnCorrigirAvaria))
-										.addComponent(maquinaSearch, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
-				.addContainerGap()));
-
-		return glMaquinasMenu;
-	}
-	private void showMaquinasMenu() {
-		maquinas = new JPanel();
-		frmUserDesign.getContentPane().add(maquinas, "name_111064051438100");
-		maquinas.setLayout(new BorderLayout(0, 0));
-
-		maquinasMenu = new JPanel();
-		maquinas.add(maquinasMenu, BorderLayout.CENTER);
-
-		lblMaquinas = new JLabel("Maquinas");
-		lblMaquinas.setFont(new Font("Dialog", Font.BOLD, 29));
-
-		
-		scrollPane_2 = new JScrollPane();
-
-		tglbtnFiltrarAvariadas = new JToggleButton("Filtrar Avariadas");
-
-		tglbtnFiltrarAvariadas.setBackground(Color.LIGHT_GRAY);
-		UIManager.put("ToggleButton.select", Color.GREEN);
-		SwingUtilities.updateComponentTreeUI(tglbtnFiltrarAvariadas);
-
-		separator_6 = new JSeparator();
-		separator_6.setBackground(Color.BLUE);
-
-		
-		maquinaSearch = new JTextField();
-		Interface.styleSearch(maquinaSearch);
-		
-		criaBotoesMaquinas();
-		
-		GroupLayout glMaquinasMenu = putMaquinasLayout();
-		
-		model_Maquinas = new DefaultTableModel(new Object[][] {}, new String[] { "Nome", "ID", "Avariado" }) {
-		
-			private static final long serialVersionUID = -96636141310423198L;
-			@SuppressWarnings("rawtypes")
-			Class[] columnTypes = new Class[] { String.class, String.class, Boolean.class };
-
-			@Override
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-
-		table_Maquinas = new JTable();
-		table_Maquinas.setModel(model_Maquinas);
-		table_Maquinas.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table_Maquinas.getColumnModel().getColumn(0).setMaxWidth(150);
-
-		scrollPane_2.setViewportView(table_Maquinas);
-		maquinasMenu.setLayout(glMaquinasMenu);
-
-		table_Maquinas.getTableHeader().setReorderingAllowed(false);
-		table_Maquinas.setAutoCreateRowSorter(true);// para ordenar
-		table_Maquinas.getTableHeader().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		db.nomenumeroestadoMaquina("warehouse1", model_Maquinas);
-
-		criaMaquinasSearch();
-	}
-
+	
 	private void criaFuncionariosSearch() {
 		sorterFuncionario = new TableRowSorter<>(modelFuncionarios);
 		tabela_Funcionarios.setRowSorter(sorterFuncionario);
@@ -881,7 +694,7 @@ public class userDesign {
 		grafico2 = new JPanel();
 		grafico2.setLayout(new BorderLayout(0, 0));
 
-		chartPanel2 = chart.VendasSubCategoria();
+		chartPanel2 = chart.vendasSubCategoria();
 		grafico2.add(chartPanel2);
 
 		grafico3 = new JPanel();
@@ -893,13 +706,13 @@ public class userDesign {
 		grafico4 = new JPanel();
 		grafico4.setLayout(new BorderLayout(0, 0));
 
-		chartPanel4 = chart.VendasPorDia();
+		chartPanel4 = chart.vendasPorDia();
 		grafico4.add(chartPanel4);
 
 		grafico5 = new JPanel();
 		grafico5.setLayout(new BorderLayout(0, 0));
 
-		chartPanel5 = chart.AtividadeUser();
+		chartPanel5 = chart.atividadeUser();
 		grafico5.add(chartPanel5);
 
 		JPanel panel = new JPanel();
@@ -978,43 +791,7 @@ public class userDesign {
 
 	}
 
-	private void botoesMaquinas() {
-		btnMaquinas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmUserDesign.getContentPane(), "Maquinas");
-			}
-		});
-
-		btnHomeMaquinas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cl.show(frmUserDesign.getContentPane(), "userDesign");
-			}
-		});
-
-		tglbtnFiltrarAvariadas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				maquinaClass.refreshMaquinas(model_Maquinas, tglbtnFiltrarAvariadas.isSelected(), nomeArmazem);
-
-			}
-		});
-		btnCorrigirAvaria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				maquinaClass.corrigeAvaria(table_Maquinas, model_Maquinas, nomeArmazem);
-			}
-		});
-		
-		btnReportarAvaria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				maquinaClass.reportAvariaMaquina(table_Maquinas, model_Maquinas, tglbtnFiltrarAvariadas.isSelected(),
-						nomeArmazem);
-			}
-		});
-		btnRefreshMaquinas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				maquinaClass.refreshMaquinas(model_Maquinas, tglbtnFiltrarAvariadas.isSelected(), nomeArmazem);
-			}
-		});
-	}
+	
 
 	private void botoesRelatorio() {
 		btnGerarRelatorioStock.addActionListener(new ActionListener() {
@@ -1059,10 +836,13 @@ public class userDesign {
 				cl.show(frmUserDesign.getContentPane(), "Vendas");
 			}
 		});
-		
+		btnMaquinas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frmUserDesign.getContentPane(), "Maquinas");
+			}
+		});
 		botoesFuncionarios();
 		botoesProdutos();
-		botoesMaquinas();
 		botoesRelatorio();
 		botoesGrafico();
 		// Menu Pop UPS
@@ -1079,7 +859,12 @@ public class userDesign {
 		});
 
 	}
-
+	private void initializeMenu() {
+		menuBar = new MenuBar(frmUserDesign, cl, username);
+		menuBar.setCurrentPanel("userDesign");
+		menuBar.setNomeArmazem(nomeArmazem);
+		menuBar.showMenuBar(1);		
+	}
 	private void initialize() {
 		frmUserDesign = new JFrame();
 		frmUserDesign.setResizable(false);
@@ -1108,13 +893,15 @@ public class userDesign {
 		cl = new CardLayout(0, 0);
 		frmUserDesign.getContentPane().setLayout(cl);
 		showMainMenu();
-		showMaquinasMenu();
 		showFuncionariosMenu();
 		showProdutos();
 		showGraficos();
 		
+		initializeMenu();
 		this.vendasClass = new Vendas();
 		vendasClass.showVendasMenu(frmUserDesign,cl);
+		this.maquinaClass = new Maquinas(username, menuBar);
+		maquinaClass.showMaquinasMenu(frmUserDesign, cl);
 		putPanels();
 		putPanelsGrafico();
 

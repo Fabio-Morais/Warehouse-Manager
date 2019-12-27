@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -188,6 +189,29 @@ public class DataBase {
 		}
 		disconnect();
 		return true;
+	}
+	
+	/**
+	 * Executa a query pretendida e retorna o ResultSet
+	 * @param sql - string a executar via sql
+	 * @return ResultSet - retorna corretamente o ResultSet caso nao haja erros / null caso contrario
+	 * */
+	public ResultSet executeQueryResult(String sql) {
+		connect();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = getC().createStatement();
+			rs = stmt.executeQuery(sql);
+			
+		} catch (Exception e) {
+			disconnect();
+			e.printStackTrace();
+	        System.err.println(e.getClass().getName()+": "+e.getMessage());	
+		}
+		disconnect();
+		return rs;
 	}
 	
 	/**

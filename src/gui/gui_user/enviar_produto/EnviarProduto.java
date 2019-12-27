@@ -1,4 +1,4 @@
-package gui.gui_user;
+package gui.gui_user.enviar_produto;
 
 import javax.swing.JPanel;
 
@@ -20,6 +20,7 @@ import com.toedter.calendar.JDateChooser;
 import db.DataBase;
 import gui.AutoCompletion;
 import gui.PopUp;
+import gui.gui_user.userDesign;
 import logic.Check;
 import logic.MessageLogs;
 
@@ -88,13 +89,7 @@ public class EnviarProduto {
 
 	}
 
-	public int showEnviarPopUp() {
-		Object[] options1 = { "Enviar", "Sair" };
-		ImageIcon icon = new ImageIcon(userDesign.class.getResource(SEND));
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(6, 2, 0, 0));
-
+	private void putDesignPopUp(JPanel panel) {
 		JLabel lblSKU = new JLabel("SKU");
 		lblSKU.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel.add(lblSKU);
@@ -107,7 +102,6 @@ public class EnviarProduto {
 		db.getAllSkus(skus);
 		for (int i = 0; i < skus.getRowCount(); i++) {
 			model.addElement(skus.getValueAt(i, 0).toString());
-
 		}
 		AutoCompletion.enable(comboBox);
 
@@ -129,14 +123,20 @@ public class EnviarProduto {
 		
 		destinoField = new JTextField();
 		panel.add(destinoField);
+	}
+	private int showEnviarPopUp() {
+		Object[] options1 = { "Enviar", "Sair" };
+		ImageIcon icon = new ImageIcon(userDesign.class.getResource(SEND));
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(6, 2, 0, 0));
+
+		putDesignPopUp(panel);
 		
 		return JOptionPane.showOptionDialog(null, panel, "Enviar Produto", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.PLAIN_MESSAGE, icon, options1, options1[0]);
 
 	}
-
-	
-	
 	
 	public void enviar(String nomeArmazem) {
 		boolean itsFinished = false;
