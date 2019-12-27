@@ -45,10 +45,6 @@ public class LoginDesign {
 	private JFrame frame;
 	private JPasswordField password;
 	private DataBase db;
-	private PopUp popUp;
-	private JPanel painelPrincipal;
-	private JLabel lblUsername;
-	private JLabel lblPassword;
 	private JTextField username;
 	private JToggleButton btnLogin;
 	private JButton btnRecuperarPasswod;
@@ -68,16 +64,29 @@ public class LoginDesign {
 	 */
 	public LoginDesign() {
 		initialize();
-		this.popUp = new PopUp();
 		backgroundTimer();
 		counterTimer.start();
 	}
+	private void openUser(MessageLogs messageLogs, String nomeArmazem) {
+		counterTimer.stop();
+		messageLogs.entrouSistema(loginUsername+";"+false+";"+nomeArmazem);
+		UserDesign window2 = new UserDesign(nomeArmazem, loginUsername);
+		window2.getFrmUserDesign().setVisible(true);
+		frame.dispose();
+	}
+	private void openAdmin(MessageLogs messageLogs, String nomeArmazem) {
 
+		counterTimer.stop();
+		messageLogs.entrouSistema(loginUsername+";"+true+";"+nomeArmazem);
+		Admin window2 = new Admin(nomeArmazem, loginUsername);
+		window2.getFrmMenuAdmin().setVisible(true);
+		frame.dispose();
+	}
 	private void loginControl(MessageLogs messageLogs) {
 
 		this.loginUsername = username.getText();
 		loadingIcon.setIcon(new ImageIcon(Admin.class.getResource("/radio.gif")));
-
+		PopUp popUp = new PopUp();
 		SwingWorker<Boolean, String> worker = new SwingWorker<Boolean, String>() {
 			@Override
 			protected Boolean doInBackground() throws Exception {
@@ -86,19 +95,10 @@ public class LoginDesign {
 					option = db.checkUserLogin(loginUsername, new String(password.getPassword()));
 					String nomeArmazem = db.getUserarmazemLogin(username.getText());
 					if (option == 0) {
-
-						counterTimer.stop();
-						messageLogs.entrouSistema(loginUsername+";"+true+";"+nomeArmazem);
-						Admin window2 = new Admin(nomeArmazem, loginUsername);
-						window2.getFrmMenuAdmin().setVisible(true);
-						frame.dispose();
+						openAdmin(messageLogs,nomeArmazem);
 					} else if (option == 1) {
-
-						counterTimer.stop();
-						messageLogs.entrouSistema(loginUsername+";"+false+";"+nomeArmazem);
-						UserDesign window2 = new UserDesign(nomeArmazem, loginUsername);
-						window2.getFrmUserDesign().setVisible(true);
-						frame.dispose();
+						openUser(messageLogs, nomeArmazem);
+						
 					} else {
 						loadingIcon.setIcon(null);
 						JOptionPane.showMessageDialog(frame, "Username ou password errada", "Error",
@@ -129,6 +129,7 @@ public class LoginDesign {
 
 	/* TEMPO COMO BACKGROUND */
 	private void backgroundTimer() {
+		PopUp popUp = new PopUp();
 		counterTimer = new Timer(2000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				if (db.connect()) {
@@ -166,36 +167,28 @@ public class LoginDesign {
 
 	}
 	private void designCenter() {
-		painelPrincipal = new JPanel();
-
+		JPanel painelPrincipal = new JPanel();
 		frame.getContentPane().add(painelPrincipal, BorderLayout.CENTER);
-
-		lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setFont(new Font("Consolas", Font.BOLD, 15));
-
-		lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Consolas", Font.BOLD, 15));
-
 		username = new JTextField();
 		username.setColumns(10);
-
 		password = new JPasswordField();
-
 		btnLogin = new JToggleButton("Login");
 		DefaultDesign.styleBotaoLogin(btnLogin);
-	
+		
 		btnRecuperarPasswod = new JButton("Recuperar Passwod");
 		DefaultDesign.styleBotaoRecuPass(btnRecuperarPasswod);
-
+		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(Admin.class.getResource(PASS)));
-
 		label_1 = new JLabel("");
 		label_1.setIcon(new ImageIcon(Admin.class.getResource(USER)));
-
 		loadingIcon = new JLabel("");
 		loadingIcon.setIcon(null);
-		putLayout();
+		putLayout(lblUsername, lblPassword, painelPrincipal);
 
 	}
 	private void putLayoutNorth(JLabel lblTitulo, JPanel painelSuperior) {
@@ -216,7 +209,7 @@ public class LoginDesign {
 						.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 46, Short.MAX_VALUE).addGap(17)));
 		painelSuperior.setLayout(glPainelSuperior);
 	}
-	private void putLayoutVertical(GroupLayout glPainelPrincipal) {
+	private void putLayoutVertical(GroupLayout glPainelPrincipal, JLabel lblUsername, JLabel lblPassword) {
 		glPainelPrincipal.setVerticalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
 				.addGroup(glPainelPrincipal.createSequentialGroup().addGap(21)
 						.addGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
@@ -243,7 +236,7 @@ public class LoginDesign {
 												GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 										.addContainerGap()))));
 	}
-	private void putLayout() {
+	private void putLayout(JLabel lblUsername, JLabel lblPassword, JPanel painelPrincipal) {
 		GroupLayout glPainelPrincipal = new GroupLayout(painelPrincipal);
 		glPainelPrincipal.setHorizontalGroup(glPainelPrincipal.createParallelGroup(Alignment.TRAILING)
 				.addGroup(glPainelPrincipal.createSequentialGroup().addGroup(glPainelPrincipal
@@ -273,24 +266,13 @@ public class LoginDesign {
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(password).addComponent(username))))
 						.addGap(73)));
-		putLayoutVertical(glPainelPrincipal);
+		putLayoutVertical(glPainelPrincipal, lblUsername, lblPassword);
 		painelPrincipal.setLayout(glPainelPrincipal);
 	}
 	private void initialize() {
 		db = DataBase.getInstance();
 		MessageLogs messageLogs = MessageLogs.getInstance();
 		frame = new JFrame("Warehouse Manager");
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				int confirmed = JOptionPane.showConfirmDialog(null, "Tem a certeza que deseja sair do programa?",
-						"Exit", JOptionPane.YES_NO_OPTION);
-
-				if (confirmed == JOptionPane.YES_OPTION) {
-					frame.dispose();
-				}
-			}
-		});
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 450, 313);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -354,6 +336,18 @@ public class LoginDesign {
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 					loginControl(messageLogs);
+				}
+			}
+		});
+		
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				int confirmed = JOptionPane.showConfirmDialog(null, "Tem a certeza que deseja sair do programa?",
+						"Exit", JOptionPane.YES_NO_OPTION);
+
+				if (confirmed == JOptionPane.YES_OPTION) {
+					frame.dispose();
 				}
 			}
 		});
