@@ -21,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.gui_admin.Admin;
 
-public class Interface {
+public class InterfaceSwing {
 	private static final String HOME = "/home.png";
-	private Interface() {
+	private InterfaceSwing() {
 		
 	}
 	public static void styleBotaoSimples(JButton button, String icon) {

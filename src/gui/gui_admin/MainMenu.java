@@ -17,7 +17,7 @@ import javax.swing.JSeparator;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import gui.Interface;
+import gui.InterfaceSwing;
 import gui.menu_bar.MenuBar;
 
 public class MainMenu {
@@ -54,23 +54,23 @@ public class MainMenu {
 	}
 	private void criaDesign() {
 		lblSegurana =  new JLabel("Seguran\u00E7a");
-		Interface.styleLabelMenu(lblSegurana);
+		InterfaceSwing.styleLabelMenu(lblSegurana);
 		separator1 = new JSeparator();
-		Interface.styleSeparator(separator1);
+		InterfaceSwing.styleSeparator(separator1);
 		separator = new JSeparator();
-		Interface.styleSeparator(separator);
+		InterfaceSwing.styleSeparator(separator);
 		separator2 = new JSeparator();
-		Interface.styleSeparator(separator2);
+		InterfaceSwing.styleSeparator(separator2);
 		lblControlo = new JLabel("Controlo");
-		Interface.styleLabelMenu(lblControlo);
+		InterfaceSwing.styleLabelMenu(lblControlo);
 		lblData =new JLabel("Data");
-		Interface.styleLabelMenu(lblData);
+		InterfaceSwing.styleLabelMenu(lblData);
 		lblAtividade = new JLabel("Atividade");
-		Interface.styleLabelMenu(lblAtividade);
+		InterfaceSwing.styleLabelMenu(lblAtividade);
 		separator3 = new JSeparator();
-		Interface.styleSeparator(separator3);
+		InterfaceSwing.styleSeparator(separator3);
 		textoAdmin = new JEditorPane();
-		Interface.styleTituloMenu(textoAdmin,"Admin");
+		InterfaceSwing.styleTituloMenu(textoAdmin,"Admin");
 	}
 	private void putMenuLayoutVertical(GroupLayout glMenuAdminPanel) {
 		glMenuAdminPanel.setVerticalGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
@@ -201,13 +201,13 @@ public class MainMenu {
 		btnFornecedores =  new JButton("<html>Fornecedores<html>");
 		btnMaquinas =  new JButton("Maquinas");
 		btnDB =  new JButton("<html>Base de<br >Dados</html>");
-		Interface.styleButton(btnDB, DBMENU, new Insets(5, 20, 5, 20));
-		Interface.styleButton(btnUsers, USERMENU, new Insets(10, 14, 10, 14));
-		Interface.styleButton(btnLog, LOG, new Insets(10, 2, 10, 2));
-		Interface.styleButton(btnFuncionario, FUNCIONARIOMENU, new Insets(10, 2, 10, 2));
-		Interface.styleButton(btnCategoriaProduto, CATEGORIAMENU, new Insets(10, 2, 10, 2));
-		Interface.styleButton(btnFornecedores, FORNECEDORMENU, new Insets(10, 5, 10, 5));
-		Interface.styleButton(btnMaquinas, MACHINEMENU, new Insets(10, 14, 10, 14));
+		InterfaceSwing.styleButton(btnDB, DBMENU, new Insets(5, 20, 5, 20));
+		InterfaceSwing.styleButton(btnUsers, USERMENU, new Insets(10, 14, 10, 14));
+		InterfaceSwing.styleButton(btnLog, LOG, new Insets(10, 2, 10, 2));
+		InterfaceSwing.styleButton(btnFuncionario, FUNCIONARIOMENU, new Insets(10, 2, 10, 2));
+		InterfaceSwing.styleButton(btnCategoriaProduto, CATEGORIAMENU, new Insets(10, 2, 10, 2));
+		InterfaceSwing.styleButton(btnFornecedores, FORNECEDORMENU, new Insets(10, 5, 10, 5));
+		InterfaceSwing.styleButton(btnMaquinas, MACHINEMENU, new Insets(10, 14, 10, 14));
 	}
 	public void showMainMenu(JFrame frame) {
 		menuAdmin = new JPanel();

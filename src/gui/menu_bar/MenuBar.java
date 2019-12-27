@@ -227,9 +227,13 @@ public class MenuBar {
 	private void buttonsMenu(int choice) {
 		mntmMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(choice==0) {
 				cl.show(frame.getContentPane(), MENUADMINSTRING);
 				currentPanel = MENUADMINSTRING;
-
+				}else if(choice==1) {
+					cl.show(frame.getContentPane(), "userDesign");
+					currentPanel = "userDesign";
+				}
 			}
 		});
 		mntmExit1.addActionListener(new ActionListener() {

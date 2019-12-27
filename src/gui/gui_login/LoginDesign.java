@@ -30,7 +30,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import gui.Interface;
+import gui.InterfaceSwing;
 import gui.PopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -183,10 +183,10 @@ public class LoginDesign {
 		password = new JPasswordField();
 
 		btnLogin = new JToggleButton("Login");
-		Interface.styleBotaoLogin(btnLogin);
+		InterfaceSwing.styleBotaoLogin(btnLogin);
 	
 		btnRecuperarPasswod = new JButton("Recuperar Passwod");
-		Interface.styleBotaoRecuPass(btnRecuperarPasswod);
+		InterfaceSwing.styleBotaoRecuPass(btnRecuperarPasswod);
 
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(Admin.class.getResource(PASS)));

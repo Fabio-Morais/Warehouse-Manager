@@ -40,7 +40,7 @@ import javax.swing.table.TableRowSorter;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.Interface;
+import gui.InterfaceSwing;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -128,23 +128,23 @@ public class Users {
 			}
 		};
 		usersTable = new JTable(); 
-		Interface.styleTabela(usersTable,modelUser);
+		InterfaceSwing.styleTabela(usersTable,modelUser);
 	}
 	private void criaBotoesUser() {
 		usersBtnAdicionar = new JButton("Adicionar");
-		Interface.styleBotaoSimples(usersBtnAdicionar, ADD);
+		InterfaceSwing.styleBotaoSimples(usersBtnAdicionar, ADD);
 		
 		usersBtnRemover =  new JButton(REMOVERSTRING);
-		Interface.styleBotaoSimples(usersBtnRemover, REMOVE);
+		InterfaceSwing.styleBotaoSimples(usersBtnRemover, REMOVE);
 		
 		usersBtnEditar = new JButton(EDITARSTRING);
-		Interface.styleBotaoSimples(usersBtnEditar, EDIT);
+		InterfaceSwing.styleBotaoSimples(usersBtnEditar, EDIT);
 		
 		usersBtnRefresh = new JButton(REFRESHSTRING);
-		Interface.styleBotaoSimples(usersBtnRefresh, REFRESH);
+		InterfaceSwing.styleBotaoSimples(usersBtnRefresh, REFRESH);
 		
 		usersBtnHome = new JButton("Home");
-		Interface.styleBotaoHome(usersBtnHome );
+		InterfaceSwing.styleBotaoHome(usersBtnHome );
 	}
 	private void criaUserSearch() {
 		sorterUser = new TableRowSorter<>(modelUser);
@@ -245,14 +245,14 @@ public class Users {
 		usersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		JLabel usersTexto = new JLabel("Users");
-		Interface.styleLabel(usersTexto);
+		InterfaceSwing.styleLabel(usersTexto);
 		JSeparator usersSeparator = new JSeparator();
-		Interface.styleSeparator(usersSeparator);
+		InterfaceSwing.styleSeparator(usersSeparator);
 		
 		criaBotoesUser();
 		
 		userSearch = new JTextField();
-		Interface.styleSearch(userSearch);
+		InterfaceSwing.styleSearch(userSearch);
 		
 		GroupLayout glUsersPanel = putUserLayout(usersTexto, usersScrollPane, usersSeparator);
 		usersScrollPane.setViewportView(usersTable);

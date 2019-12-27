@@ -37,7 +37,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import db.DataBase;
 import gui.AutoCompletion;
-import gui.Interface;
+import gui.InterfaceSwing;
 import gui.PopUp;
 import gui.gui_admin.Admin;
 import gui.menu_bar.MenuBar;
@@ -150,16 +150,16 @@ public class CategoriaProduto {
 	}
 	private void criaBotoesCategoria() {
 		categoriaProdutoBtnAdicionar = new JButton("Adicionar");
-		Interface.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
+		InterfaceSwing.styleBotaoSimples(categoriaProdutoBtnAdicionar, ADD);
 
 		categoriaProdutoBtnRemover = new JButton(REMOVERSTRING);
-		Interface.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
+		InterfaceSwing.styleBotaoSimples(categoriaProdutoBtnRemover, REMOVE);
 		
 		categoriaProdutoBtnRefresh = new JButton(REFRESHSTRING);
-		Interface.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
+		InterfaceSwing.styleBotaoSimples(categoriaProdutoBtnRefresh, REFRESH);
 
 		categoriaProdutoBtnHome = new JButton("Home");
-		Interface.styleBotaoHome(categoriaProdutoBtnHome);
+		InterfaceSwing.styleBotaoHome(categoriaProdutoBtnHome);
 	}
 	private GroupLayout putCategoriaLayout() {
 		GroupLayout glCategoriaProdutoPanel = new GroupLayout(categoriaProdutoPanel);
@@ -224,10 +224,10 @@ public class CategoriaProduto {
 		categoriaProduto.add(categoriaProdutoPanel, BorderLayout.CENTER);
 
 		categoriaProdutoTexto = new JLabel("<html>Categoria<br>Produto</html>");
-		Interface.styleLabel28(categoriaProdutoTexto);
+		InterfaceSwing.styleLabel28(categoriaProdutoTexto);
 		
 		categoriaProdutoSeparator = new JSeparator();
-		Interface.styleSeparator(categoriaProdutoSeparator);
+		InterfaceSwing.styleSeparator(categoriaProdutoSeparator);
 		
 		categoriaProdutoScrollPane = new JScrollPane();
 		categoriaProdutoScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
