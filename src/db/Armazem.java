@@ -8,7 +8,7 @@
  */
 package db;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -24,24 +24,18 @@ public class Armazem {
 	 * @return boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelArmazem) {
-		db.connect();
 		String sql = "SELECT nome, localizacao FROM armazem";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String nome = rs.getString("nome");
-				String localizacao = rs.getString("localizacao");
-				modelArmazem.addRow(new Object[] { nome, localizacao });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nome = rs.getString("nome");
+					String localizacao = rs.getString("localizacao");
+					modelArmazem.addRow(new Object[] { nome, localizacao });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-			return false;	
+			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 
@@ -55,22 +49,17 @@ public class Armazem {
 	 */
 	public String selectLocalizacao(DataBase db, String nome) {
 		String x=null;
-		db.connect();
 		String sql = "SELECT nome, localizacao FROM armazem WHERE nome="+"'"+nome+"'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				x = rs.getString("localizacao");
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					x = rs.getString("localizacao");
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-			return null;	
+			return null;
 		}
-		db.disconnect();
 		return x;
 	}
 	

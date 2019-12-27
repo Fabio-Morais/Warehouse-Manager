@@ -8,7 +8,7 @@
  */
 package db;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -25,24 +25,20 @@ public class Funcionario {
 			String sql = "SELECT * "
 					   + "FROM funcionario "
 					   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
-			Statement stmt = null;
+			ResultSet rs =  db.executeQueryResult(sql);
+
 			try {
-				db.connect();
-				stmt = db.getC().createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()) {
-					String nif =rs.getString("nif");
-					String nome =rs.getString("nome");
-					String funcao=rs.getString("funcao");
-					int idade = rs.getInt("idade");
-					modelFuncionario.addRow(new Object[] {nif,nome , ""+idade,funcao });
-				}
-			} catch (Exception e) {
+						String nif =rs.getString("nif");
+						String nome =rs.getString("nome");
+						String funcao=rs.getString("funcao");
+						int idade = rs.getInt("idade");
+						modelFuncionario.addRow(new Object[] {nif,nome , ""+idade,funcao });
+					}
+			} catch (SQLException e) {
 				e.printStackTrace();
-		        System.err.println(e.getClass().getName()+": "+e.getMessage());
-		        return false;
+				return false;
 			}
-			db.disconnect();
 			return true;
 		}
 	
@@ -54,26 +50,21 @@ public class Funcionario {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectNomeNif(DataBase db, DefaultTableModel modelFuncionario, String armazem) {
-		db.connect();
 		String sql = "SELECT nome,nif "
 				   + "FROM funcionario "
 				   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String nome = rs.getString("nome");
-				String nif = rs.getString("nif");
-				modelFuncionario.addRow(new Object[] { nif, nome });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nome = rs.getString("nome");
+					String nif = rs.getString("nif");
+					modelFuncionario.addRow(new Object[] { nif, nome });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
 			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 	
@@ -84,35 +75,30 @@ public class Funcionario {
 	 * @return Vetor String com Nome Idade Salario Função e armazem do funcionario
 	 */
 	public String[] selectAllNif(DataBase db,String nif) {
-		db.connect();
 		String[] x= new String[5]; 
 		
 		String sql = "SELECT * "
 				   + "FROM funcionario "
 				   + "WHERE nif="+"'"+nif+"'"+" "
 				   + "ORDER BY nome";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()) {
-				String nome = rs.getString("nome");
-				int idade = rs.getInt("idade");
-				String função = rs.getString("funcao");
-				double salário = rs.getDouble("salario");
-				int id_aramzem = rs.getInt("id_armazem");
-				x[0]=nome;
-				x[1]=String.valueOf(idade);
-				x[2]=função;
-				x[3]=String.valueOf(salário);
-				x[4]=String.valueOf(id_aramzem);
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nome = rs.getString("nome");
+					int idade = rs.getInt("idade");
+					String função = rs.getString("funcao");
+					double salário = rs.getDouble("salario");
+					int id_aramzem = rs.getInt("id_armazem");
+					x[0]=nome;
+					x[1]=String.valueOf(idade);
+					x[2]=função;
+					x[3]=String.valueOf(salário);
+					x[4]=String.valueOf(id_aramzem);
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
 		}		
-		db.disconnect();
 		return x;
 	}
 	

@@ -9,6 +9,7 @@
 package db;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -25,25 +26,20 @@ public class Login {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelUser) {
-		db.connect();
 		String sql = "SELECT username, data_criacao, admin, nif_funcionario " + "FROM login";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String username = rs.getString("username");
-				boolean admin = rs.getBoolean("admin");
-				String nif = rs.getString("nif_funcionario");
-				modelUser.addRow(new Object[] { "" + nif, username, admin });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String username = rs.getString("username");
+					boolean admin = rs.getBoolean("admin");
+					String nif = rs.getString("nif_funcionario");
+					modelUser.addRow(new Object[] { "" + nif, username, admin });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 
@@ -53,23 +49,18 @@ public class Login {
 	 * @return ArrayListString Todos os nifs dos funcionarios
 	 */
 	public ArrayList<String> selectNif(DataBase db) {
-		db.connect();
 		ArrayList<String> x = new ArrayList<>();
 		String sql = "SELECT nif " + "FROM funcionario ";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String nif = rs.getString("nif");
-				x.add(nif);
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nif = rs.getString("nif");
+					x.add(nif);
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		db.disconnect();
 		return x;
 	}
 	
@@ -81,25 +72,17 @@ public class Login {
 	 */
 	public String selectNameArmazem(DataBase db, String username) {
 		String x=null;
-		db.connect();
-
 		String sql = "SELECT nome FROM armazem WHERE id= "
 				+ "(SELECT id_armazem FROM funcionario WHERE nif= "
 				+ "(Select nif_funcionario FROM login WHERE username = '"+username+"'))";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				x = rs.getString("nome");
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					x = rs.getString("nome");
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
 		}
-		db.disconnect();
 		return x;
 	}
 	
@@ -107,27 +90,20 @@ public class Login {
 	 * Devolve o username do email enviado
 	 * @param db - Base de Dados referente
 	 * @param email - Email do utilizador
-	 * @return String - Username correspondente 
+	 * @return String - Username correspondente ou null caso haja erro 
 	 */
 	public String selectUsernameByEmail(DataBase db, String email) {
-		String username="";
-		db.connect();
-
+		String username=null;
 		String sql = "SELECT username FROM login WHERE email='"+email+"'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				username = rs.getString("username");
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					username = rs.getString("username");
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
 		}
-		db.disconnect();
 		return username;
 	}
 	

@@ -1,7 +1,7 @@
 package db;
 
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -28,24 +28,19 @@ public class Lote {
 	 * @return boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelArmazem) {
-		db.connect();
 		String sql = "SELECT * FROM lote";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String numeroLote = rs.getString("numero_lote");
-				String nome = rs.getString("nome");
-				modelArmazem.addRow(new Object[] { numeroLote, nome });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String numeroLote = rs.getString("numero_lote");
+					String nome = rs.getString("nome");
+					modelArmazem.addRow(new Object[] { numeroLote, nome });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-			return false;	
+			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 	

@@ -9,7 +9,7 @@
 */
 package db;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -23,23 +23,18 @@ public class CategoriaProduto {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelCategoria) {
-		db.connect();
 		String sql = "SELECT * FROM categoria_produto ";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String nome = rs.getString("nome");
-				modelCategoria.addRow(new Object[] { nome });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nome = rs.getString("nome");
+					modelCategoria.addRow(new Object[] { nome });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        return false;
+			return false;
 		}
-		db.disconnect();
 		return true;	
 	}
 	
@@ -70,26 +65,21 @@ public class CategoriaProduto {
 	/**
 	 * Devolve todos as categorias dos produtos
 	 * @param db Base de dados referente 
-	 * @return ArrayListString Todos as categorias
+	 * @return ArrayListString Todas as categorias ou null caso haja erro
 	 */
 	public ArrayList<String> selectCat(DataBase db) {
-		db.connect();
 		ArrayList<String> x = new ArrayList<>();
 		String sql = "SELECT nome " + "FROM categoria_produto ";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String categoria = rs.getString("nome");
-				x.add(categoria);
-			}
-		} catch (Exception e) {
-			db.disconnect();
-			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+					String categoria = rs.getString("nome");
+					x.add(categoria);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();			
 		}
-		db.disconnect();
 		return x;
 	}
 

@@ -8,7 +8,7 @@
  */
 package db;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class Maquina {
@@ -21,27 +21,21 @@ public class Maquina {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectNomeNumero(DataBase db,String armazem, DefaultTableModel modelMaquina) {
-
-			db.connect();
 			String sql = "SELECT * "
 					   + "FROM maquina "
 					   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
-			Statement stmt = null;
+			ResultSet rs =  db.executeQueryResult(sql);
+
 			try {
-				stmt = db.getC().createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()) {
-					String numeroSerie =rs.getString("numero_serie");
-					String nome = rs.getString("nome");
-					modelMaquina.addRow(new Object[] {nome , numeroSerie });
-				}
-			} catch (Exception e) {
-				db.disconnect();
+						String numeroSerie =rs.getString("numero_serie");
+						String nome = rs.getString("nome");
+						modelMaquina.addRow(new Object[] {nome , numeroSerie });
+					}
+			} catch (SQLException e) {
 				e.printStackTrace();
-		        System.err.println(e.getClass().getName()+": "+e.getMessage());
-		        return false;
+				return false;
 			}
-			db.disconnect();
 			return true;
 		}
 
@@ -53,58 +47,50 @@ public class Maquina {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAvaria(DataBase db,String armazem, DefaultTableModel modelMaquina) {
-		db.connect();
 		modelMaquina.setRowCount(0);
 		String sql = "SELECT * "
 				   + "FROM maquina "
 				   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"') "
 				   + "AND avariada='true'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String numeroSerie =rs.getString("numero_serie");
-				String nome = rs.getString("nome");
-				modelMaquina.addRow(new Object[] {nome , ""+numeroSerie, true});
-			}
-		} catch (Exception e) {
+					String numeroSerie =rs.getString("numero_serie");
+					String nome = rs.getString("nome");
+					modelMaquina.addRow(new Object[] {nome , ""+numeroSerie, true});
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        return false;
+			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 	
 	/**
 	 * Insere no TableModel o nome id e estado da maquina
-	 * @param DB Base de Dados referente
+	 * @param db Base de Dados referente
 	 * @param armazem Nome do armazem em que a maquina esta
 	 * @param modelMaquina Tabela onde se insere os dados
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
-	public boolean selectNomeNumeroEstado(DataBase DB,String armazem, DefaultTableModel modelMaquina) {
+	public boolean selectNomeNumeroEstado(DataBase db,String armazem, DefaultTableModel modelMaquina) {
 			String sql = "SELECT * "
 					   + "FROM maquina "
 					   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
-			Statement stmt = null;
+			ResultSet rs =  db.executeQueryResult(sql);
+
 			try {
-				DB.connect();
-				stmt = DB.getC().createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()) {
-					String id =rs.getString("numero_serie");
-					String nome = rs.getString("nome");
-					Boolean avariada=rs.getBoolean("avariada");
-					modelMaquina.addRow(new Object[] {nome , ""+id,avariada});
-				}
-			} catch (Exception e) {
+						String id =rs.getString("numero_serie");
+						String nome = rs.getString("nome");
+						Boolean avariada=rs.getBoolean("avariada");
+						modelMaquina.addRow(new Object[] {nome , ""+id,avariada});
+					}
+			} catch (SQLException e) {
 				e.printStackTrace();
-		        System.err.println(e.getClass().getName()+": "+e.getMessage());
-		        return false;
+				return false;
 			}
-			DB.disconnect();
 			return true;
 		}
 	

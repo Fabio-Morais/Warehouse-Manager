@@ -8,7 +8,7 @@
  */
 package db;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -23,24 +23,18 @@ public class Fornecedor {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelFornecedor) {
-		db.connect();
 		String sql = "SELECT id, nome, id_armazem "
 				   + "FROM fornecedor";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String nome = rs.getString("nome");
-				modelFornecedor.addRow(new Object[] { nome });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String nome = rs.getString("nome");
+					modelFornecedor.addRow(new Object[] { nome });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        return false;
+			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 	
@@ -88,24 +82,19 @@ public class Fornecedor {
 	 * @return ArrayListString Todos os Fornecedores
 	 */
 	public ArrayList<String> selectFunc(DataBase db) {
-		db.connect();
 		ArrayList<String> x = new ArrayList<>();
 		String sql = "SELECT nome "
 				   + "FROM fornecedor";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String fornecedores = rs.getString("nome");
-				x.add(fornecedores);
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String fornecedores = rs.getString("nome");
+					x.add(fornecedores);
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		db.disconnect();
 		return x;
 	}
 	

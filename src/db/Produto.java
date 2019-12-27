@@ -9,7 +9,7 @@
 package db;
 
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -24,28 +24,24 @@ public class Produto {
 	 *         contrario
 	 */
 	public boolean selectProdutoVendido(DataBase db, DefaultTableModel modelProduto) {
-		db.connect();
 		modelProduto.setRowCount(0);// eliminar todos os dados contidos na tabela
 		/* NOME, numero de serie */
 		String sql = "SELECT data_saida,sku,nome, destino " + "FROM produto "
 				+ "inner join lote on num_lote=numero_lote " + "WHERE vendido='true'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String data = rs.getString("data_saida");
-				String sku = rs.getString("sku");
-				String nome = rs.getString("nome");
-				String destino = rs.getString("destino");
-				modelProduto.addRow(new Object[] { data, sku, nome, destino });
-			}
-		} catch (Exception e) {
+					String data = rs.getString("data_saida");
+					String sku = rs.getString("sku");
+					String nome = rs.getString("nome");
+					String destino = rs.getString("destino");
+					modelProduto.addRow(new Object[] { data, sku, nome, destino });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 
@@ -59,28 +55,24 @@ public class Produto {
 	 *         contrario
 	 */
 	public boolean selectProdutoNaoVendido(DataBase db, DefaultTableModel modelProduto) {
-		db.connect();
 		modelProduto.setRowCount(0);// eliminar todos os dados contidos na tabela
 		/* NOME, numero de serie */
 		String sql = "SELECT sku, nome, origem, com_defeito " + "FROM produto "
 				+ "inner join lote on num_lote=numero_lote " + "WHERE vendido='false'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String sku = rs.getString("sku");
-				String nome = rs.getString("nome");
-				String origem = rs.getString("origem");
-				boolean comDefeito = rs.getBoolean("com_defeito");
-				modelProduto.addRow(new Object[] { sku, nome, origem, comDefeito });
-			}
-		} catch (Exception e) {
+					String sku = rs.getString("sku");
+					String nome = rs.getString("nome");
+					String origem = rs.getString("origem");
+					boolean comDefeito = rs.getBoolean("com_defeito");
+					modelProduto.addRow(new Object[] { sku, nome, origem, comDefeito });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 
@@ -93,24 +85,20 @@ public class Produto {
 	 *         contrario
 	 */
 	public boolean selectAllSKUsNaoVendidos(DataBase db, DefaultTableModel modelProduto) {
-		db.connect();
 		modelProduto.setRowCount(0);// eliminar todos os dados contidos na tabela
 		/* NOME, numero de serie */
 		String sql = "SELECT sku FROM produto inner join lote on num_lote=numero_lote " + "WHERE vendido='false'";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String sku = rs.getString("sku");
-				modelProduto.addRow(new Object[] { sku });
-			}
-		} catch (Exception e) {
+					String sku = rs.getString("sku");
+					modelProduto.addRow(new Object[] { sku });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 

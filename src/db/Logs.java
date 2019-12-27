@@ -1,7 +1,7 @@
 package db;
 
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -32,27 +32,22 @@ public class Logs {
 	 * @return Boolean - True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelFornecedor, String numeroLinhas) {
-		db.connect();
 		String sql = "SELECT data, username, admin, acao_min, ip FROM (SELECT * from logs ORDER BY data DESC LIMIT "+numeroLinhas+") as ta ORDER BY ta.data";
-		Statement stmt = null;
+		ResultSet rs =  db.executeQueryResult(sql);
+
 		try {
-			stmt = db.getC().createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				String data =rs.getString("data");
-				String username = rs.getString("username");
-				boolean admin = rs.getBoolean("admin");
-				String acao = rs.getString("acao_min");
-				String ip = rs.getString("ip");
-				modelFornecedor.addRow(new Object[] { data, username, admin, acao, ip });
-			}
-		} catch (Exception e) {
-			db.disconnect();
+					String data =rs.getString("data");
+					String username = rs.getString("username");
+					boolean admin = rs.getBoolean("admin");
+					String acao = rs.getString("acao_min");
+					String ip = rs.getString("ip");
+					modelFornecedor.addRow(new Object[] { data, username, admin, acao, ip });
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
-	        System.err.println(e.getClass().getName()+": "+e.getMessage());
-	        return false;
+			return false;
 		}
-		db.disconnect();
 		return true;
 	}
 	
