@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import db.DataBase;
-import gui.Design;
+import gui.DefaultDesign;
 import gui.menu_bar.MenuBar;
 import logic.MessageLogs;
 
@@ -98,10 +98,10 @@ public class Produtos {
 	}
 	private void criaBotoesProdutos() {
 		btnRefreshProdutos = new JButton("Refresh");
-		Design.styleBotaoSimples(btnRefreshProdutos, REFRESH);
+		DefaultDesign.styleBotaoSimples(btnRefreshProdutos, REFRESH);
 
 		btnHomeProdutos = new JButton("Home");
-		Design.styleBotaoHome(btnHomeProdutos);
+		DefaultDesign.styleBotaoHome(btnHomeProdutos);
 		
 		btnMarcarDefeitoProdutos = new JButton("Marcar Defeito");
 		btnMarcarDefeitoProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
@@ -172,7 +172,7 @@ public class Produtos {
 		separatorProdutos = new JSeparator();
 		separatorProdutos.setBackground(Color.BLUE);
 		produtosSearch = new JTextField();
-		Design.styleSearch(produtosSearch);
+		DefaultDesign.styleSearch(produtosSearch);
 		criaBotoesProdutos();
 		GroupLayout glProdutosMenu =putProdutosLayout();
 
