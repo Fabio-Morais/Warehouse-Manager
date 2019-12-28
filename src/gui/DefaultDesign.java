@@ -113,7 +113,7 @@ public class DefaultDesign {
 		label.setForeground(colorText);
 	}
 	public static void styleLabelMenu(JLabel label) {
-		label.setFont(new Font("HP Simplified", Font.BOLD, 18));
+		label.setFont(new Font("Open Sans", Font.BOLD, 20));
 		Color colorText = Color.decode("#fc5185");
 		label.setForeground(colorText);
 	}

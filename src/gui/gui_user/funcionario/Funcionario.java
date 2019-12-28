@@ -14,9 +14,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -112,7 +110,7 @@ public class Funcionario {
 						.createParallelGroup(Alignment.LEADING)
 						.addGroup(glFuncionariosMenu.createSequentialGroup().addGroup(glFuncionariosMenu
 								.createParallelGroup(Alignment.LEADING)
-								.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+								.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, 155	, GroupLayout.PREFERRED_SIZE)
 								.addGroup(glFuncionariosMenu.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(btnRefreshFuncionarios, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -129,7 +127,7 @@ public class Funcionario {
 				.addGroup(glFuncionariosMenu.createSequentialGroup().addGap(41)
 						.addComponent(lblFuncionarios, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(separatorFuncionario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGap(43)
 						.addComponent(btnRefreshFuncionarios, GroupLayout.PREFERRED_SIZE, 33,
 								GroupLayout.PREFERRED_SIZE)
@@ -145,6 +143,9 @@ public class Funcionario {
 								.addGap(19)));
 		return glFuncionariosMenu;
 	}
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void showFuncionariosMenu(JFrame frame, CardLayout cl) {
 		this.cl = cl;
 		funcionarios = new JPanel();
@@ -156,14 +157,14 @@ public class Funcionario {
 
 		scrollPaneFuncionario = new JScrollPane();
 
-		lblFuncionarios = new JLabel("Funcionarios\r\n");
-		lblFuncionarios.setFont(new Font("Dialog", Font.BOLD, 22));
-
+		lblFuncionarios = new JLabel("Funcionarios");
+		DefaultDesign.styleLabel28(lblFuncionarios);
+		
 		criaBotoesFuncionarios();
 
 		separatorFuncionario = new JSeparator();
-		separatorFuncionario.setForeground(Color.BLUE);
-
+		DefaultDesign.styleSeparator(separatorFuncionario);
+		
 		funcionarioSearch = new JTextField();
 		DefaultDesign.styleSearch(funcionarioSearch);
 		

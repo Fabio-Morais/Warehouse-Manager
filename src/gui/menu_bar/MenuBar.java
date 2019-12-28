@@ -79,7 +79,7 @@ public class MenuBar {
 		armazemClass = new Armazem(username);
 		help = new Help();
 		popUp = new PopUp();
-
+		this.username = username; 
 	}
 
 	public String getCurrentPanel() {
@@ -211,7 +211,12 @@ public class MenuBar {
 					lblStatusDb.setForeground(Color.RED);
 					if (first) {
 						first = false;
-						int option = popUp.showPopUpDataBaseError();
+						int option=0;
+						if(currentPanel.equals("userDesign") || currentPanel.equals("Grafico")) {
+							popUp.showPopUpDataBaseError2();
+						}else {
+							option = popUp.showPopUpDataBaseError();
+						}
 						if (option == JOptionPane.NO_OPTION) {
 							cl.show(frame.getContentPane(), "base_dados");
 						}
@@ -231,6 +236,10 @@ public class MenuBar {
 				cl.show(frame.getContentPane(), MENUADMINSTRING);
 				currentPanel = MENUADMINSTRING;
 				}else if(choice==1) {
+					if(currentPanel.equals("Grafico")) {
+						frame.setBounds(100, 100, 855, 416);
+						frame.setResizable(false);
+					}
 					cl.show(frame.getContentPane(), "userDesign");
 					currentPanel = "userDesign";
 				}

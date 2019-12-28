@@ -11,7 +11,7 @@ public class Main {
 			public void run() {
 				try {
 					LoginDesign window1 = new LoginDesign();
-					window1.getFrmLogin().setVisible(true);					
+					window1.getFrmLogin().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 

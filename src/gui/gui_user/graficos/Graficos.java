@@ -27,6 +27,8 @@ import org.jfree.data.general.PieDataset;
 
 import db.DataBase;
 
+import java.awt.Dimension;
+
 public class Graficos {
 	private DataBase db;
 	private JPanel graficoMenu;
@@ -53,15 +55,21 @@ public class Graficos {
 	private void criaComboBox(JPanel panel) {
 		selectGraph = new JComboBox<>();
 		DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>(new String[] { "Origem Lotes",
-				"Vendas Sub-Categoria", "Média Salários Idade", "Vendas por Dia", "Atividade diária Utilizadores" });
+				"Vendas Sub-Categoria", "Media salarios idade", "Vendas por Dia", "Atividade diaria Users" });
 		selectGraph.setModel(model3);
+
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-				gl_panel.createSequentialGroup().addContainerGap(700, Short.MAX_VALUE)
-						.addComponent(selectGraph, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addComponent(selectGraph,
-				Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap(691, Short.MAX_VALUE)
+					.addComponent(selectGraph, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addComponent(selectGraph, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+		);
 		panel.setLayout(gl_panel);
 	}
 	private void criaGraficos() {
@@ -95,6 +103,9 @@ public class Graficos {
 		ChartPanel chartPanel5 = atividadeUser();
 		grafico5.add(chartPanel5);
 	}
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void showGraficos(JFrame frame) {
 		grafico = new JPanel();
 		frame.getContentPane().add(grafico, "name_1773234573107200");
@@ -109,7 +120,8 @@ public class Graficos {
 		putPanelsGrafico();
 
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
+		panel.setMinimumSize(new Dimension(0, 0));
+		panel.setBackground(Color.WHITE);
 		grafico.add(panel, BorderLayout.NORTH);
 
 		criaComboBox(panel);
@@ -124,7 +136,7 @@ public class Graficos {
 				} else if (selectGraph.getSelectedItem().toString().equals("Vendas Sub-Categoria")) {
 					clGrafico.show(graficoMenu, "grafico2");
 
-				} else if (selectGraph.getSelectedItem().toString().equals("Média Salários Idade")) {
+				} else if (selectGraph.getSelectedItem().toString().equals("Media salarios idade")) {
 					clGrafico.show(graficoMenu, "grafico3");
 
 				} else if (selectGraph.getSelectedItem().toString().equals("Vendas por Dia")) {
@@ -317,5 +329,4 @@ public class Graficos {
 		return ChartFactory.createPieChart("Atividade Di�ria Utilizadores", dataset, false, true, false);
 
 	}
-
 }

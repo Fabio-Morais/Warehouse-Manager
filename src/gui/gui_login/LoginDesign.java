@@ -86,6 +86,8 @@ public class LoginDesign {
 
 		this.loginUsername = username.getText();
 		loadingIcon.setIcon(new ImageIcon(Admin.class.getResource("/radio.gif")));
+		btnLogin.setEnabled(false);
+
 		PopUp popUp = new PopUp();
 		SwingWorker<Boolean, String> worker = new SwingWorker<Boolean, String>() {
 			@Override
@@ -115,6 +117,8 @@ public class LoginDesign {
 
 			@Override
 			protected void done() {
+				loadingIcon.setIcon(null);
+				btnLogin.setEnabled(true);
 				cancel(true);
 			}
 		};

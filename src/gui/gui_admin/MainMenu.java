@@ -88,7 +88,7 @@ public class MainMenu {
 							.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblSegurana, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 								.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.TRAILING)
-									.addComponent(separator1, Alignment.LEADING)
+									.addComponent(separator1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 									.addComponent(btnUsers, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
 							.addGap(54)
 							.addGroup(glMenuAdminPanel.createParallelGroup(Alignment.LEADING, false)

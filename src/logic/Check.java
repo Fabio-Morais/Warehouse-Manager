@@ -17,6 +17,9 @@ public class Check {
 	public boolean blankText(String string) {
 		if (string == null)
 			return true;
+		String[] aux = string.split(";");
+		if(aux.length!=0)
+			return false;
 		return ((string.trim().isEmpty()) || Character.isWhitespace(string.charAt(0))
 				|| Character.isWhitespace(string.charAt(string.length() - 1)));
 	}
@@ -161,6 +164,9 @@ public class Check {
 	 */
 	public boolean validEmail(String email) {
 		if (email == null)
+			return false;
+		String[] aux = email.split(";");
+		if(aux.length!=0)
 			return false;
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
 				+ "A-Z]{2,7}$";

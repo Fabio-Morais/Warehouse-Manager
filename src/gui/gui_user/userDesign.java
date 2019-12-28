@@ -322,6 +322,8 @@ public class UserDesign {
 		btnGraficos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				frmUserDesign.setResizable(true);
+				menuBar.setCurrentPanel("Grafico");
 				cl.show(frmUserDesign.getContentPane(), "Grafico");
 			}
 		});
