@@ -2,6 +2,7 @@ package gui.gui_admin;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -215,13 +216,15 @@ public class MainMenu {
 		cl = new CardLayout(0, 0);
 		frame.getContentPane().setLayout(cl);
 		frame.getContentPane().add(menuAdmin, "name_1243457861194300");
+
 		menuAdmin.setLayout(new BorderLayout(0, 0));
 
 		/* MENU_ADMIN_PANEL PANEL */
 		menuAdminPanel = new JPanel();
 		menuAdminPanel.setPreferredSize(new Dimension(10, 16));
 		menuAdmin.add(menuAdminPanel, BorderLayout.CENTER);
-
+		Color color = Color.decode("#f5f5f5");
+		menuAdminPanel.setBackground(color);
 		criaBotoesMenu();
 		criaDesign();	
 		

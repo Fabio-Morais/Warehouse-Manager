@@ -29,8 +29,10 @@ public class DefaultDesign {
 	public static void styleBotaoSimples(JButton button, String icon) {
 		button.setFont(new Font("Consolas", Font.PLAIN, 12));
 		button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
-		button.setBackground(Color.LIGHT_GRAY);
-
+		Color color = Color.decode("#f9f6f7");
+		button.setBackground(color);
+		Color colorText = Color.decode("#364f6b");
+		button.setForeground(colorText);
 	}
 	
 
@@ -42,9 +44,11 @@ public class DefaultDesign {
 		button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
 		button.setBorder(UIManager.getBorder("Button.border"));
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		button.setForeground(new Color(25, 0, 75));
-		button.setBackground(Color.LIGHT_GRAY);
+		Color color = Color.decode("#f9f6f7");
+		button.setBackground(color);
 		button.setFont(new Font("Consolas", Font.BOLD, 12));
+		Color colorText = Color.decode("#364f6b");
+		button.setForeground(colorText);
 	}
 	
 	public static void styleBotaoHome(JButton button) {
@@ -53,8 +57,10 @@ public class DefaultDesign {
 		button.setHorizontalTextPosition(SwingConstants.CENTER);
 		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setIcon(new ImageIcon(Admin.class.getResource(HOME)));
-		button.setBackground(Color.LIGHT_GRAY);
-
+		Color color = Color.decode("#f9f6f7");
+		button.setBackground(color);
+		Color colorText = Color.decode("#364f6b");
+		button.setForeground(colorText);
 	}
 	public static void styleBotaoLogin(JToggleButton btnLogin) {
 		btnLogin.setMaximumSize(new Dimension(36, 23));
@@ -74,12 +80,18 @@ public class DefaultDesign {
 	}
 	public static void styleLabel(JLabel label) {
 		label.setFont(new Font("HP Simplified", Font.BOLD, 38));
+		Color colorText = Color.decode("#364f6b");
+		label.setForeground(colorText);
 	}
 	public static void styleLabel28(JLabel label) {
 		label.setFont(new Font("HP Simplified", Font.BOLD, 28));
+		Color colorText = Color.decode("#364f6b");
+		label.setForeground(colorText);
 	}
 	public static void styleLabelMenu(JLabel label) {
 		label.setFont(new Font("HP Simplified", Font.BOLD, 18));
+		Color colorText = Color.decode("#fc5185");
+		label.setForeground(colorText);
 	}
 	
 	public static void styleSearch(JTextField search) {
@@ -102,17 +114,24 @@ public class DefaultDesign {
 		separator.setPreferredSize(new Dimension(0, 50));
 		separator.setMinimumSize(new Dimension(120, 120));
 		separator.setFont(new Font("Dialog", Font.BOLD, 15));
-		separator.setForeground(Color.BLUE);
+		Color color = Color.decode("#3fc1c9");
+		separator.setForeground(color);
 	}
 	
 	public static void styleTituloMenu(JEditorPane titulo, String string) {
-		titulo.setBorder(new MatteBorder(1, 1, 3, 1, (Color) new Color(0, 0, 0)));
-		titulo.setBackground(new Color(255, 250, 250));
+		Color color1 = Color.decode("#364f6b");
+
+		titulo.setBorder(new MatteBorder(1, 1, 3, 1, color1));
 		titulo.setFocusable(false);
 		titulo.setIgnoreRepaint(true);
 		titulo.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		titulo.setFont(new Font("Lucida Sans", Font.BOLD, 22));
 		titulo.setEditable(false);
 		titulo.setText(string);
+		Color color = Color.decode("#f5f5f5");
+		titulo.setBackground(color);
+		Color color2 = Color.decode("#364f6b");
+		titulo.setForeground(color2);
+
 	}
 }
