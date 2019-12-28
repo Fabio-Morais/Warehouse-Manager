@@ -164,9 +164,6 @@ public class UserDesign {
 
 	}
 
-	private void putMenuLayoutVerti(GroupLayout glMainMenuHome) {
-	}
-
 	private GroupLayout putMenuLayout() {
 		GroupLayout glMainMenuHome = new GroupLayout(mainMenuHome);
 		glMainMenuHome.setHorizontalGroup(
@@ -258,7 +255,6 @@ public class UserDesign {
 										.addComponent(btnEnviarProduto, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))))
 					.addContainerGap(28, Short.MAX_VALUE))
 		);
-		putMenuLayoutVerti(glMainMenuHome);
 		return glMainMenuHome;
 	}
 

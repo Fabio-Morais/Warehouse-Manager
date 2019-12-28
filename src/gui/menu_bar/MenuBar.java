@@ -212,7 +212,7 @@ public class MenuBar {
 					if (first) {
 						first = false;
 						int option=0;
-						if(currentPanel.equals("userDesign") || currentPanel.equals("Grafico")) {
+						if("userDesign".equals(currentPanel) || "Grafico".equals(currentPanel)) {
 							popUp.showPopUpDataBaseError2();
 						}else {
 							option = popUp.showPopUpDataBaseError();
@@ -236,7 +236,7 @@ public class MenuBar {
 				cl.show(frame.getContentPane(), MENUADMINSTRING);
 				currentPanel = MENUADMINSTRING;
 				}else if(choice==1) {
-					if(currentPanel.equals("Grafico")) {
+					if("Grafico".equals(currentPanel)) {
 						frame.setBounds(100, 100, 855, 416);
 						frame.setResizable(false);
 					}
