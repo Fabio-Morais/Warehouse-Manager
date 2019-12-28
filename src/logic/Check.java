@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class Check {
 
 	/**
-	 * Verifica se o texto está em branco, se leva espaço no inicio ou no fim
+	 * Verifica se o texto está em branco, se leva espaço no inicio ou no fim ou contem ";"
 	 * 
 	 * @param string Texto a ser analisado
 	 * @return boolean True se é um texto válido / False no caso contrario
@@ -18,8 +18,8 @@ public class Check {
 		if (string == null)
 			return true;
 		String[] aux = string.split(";");
-		if(aux.length!=0)
-			return false;
+		if(aux.length!=1)
+			return true;
 		return ((string.trim().isEmpty()) || Character.isWhitespace(string.charAt(0))
 				|| Character.isWhitespace(string.charAt(string.length() - 1)));
 	}
@@ -166,7 +166,7 @@ public class Check {
 		if (email == null)
 			return false;
 		String[] aux = email.split(";");
-		if(aux.length!=0)
+		if(aux.length!=1)
 			return false;
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
 				+ "A-Z]{2,7}$";

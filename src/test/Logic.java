@@ -20,6 +20,7 @@ class Logic {
 		assertEquals(true, chk.blankText("       "));
 		assertEquals(true, chk.blankText("    test   "));
 		assertEquals(false, chk.blankText("test"));
+		assertEquals(true, chk.blankText("t;e"));
 	}
 	@Test
 	public void testSamePassword() {
@@ -238,7 +239,7 @@ class Logic {
 		assertEquals(true, message.reportaDefeito("usernameTeste"+";"+ true+";"+armazem,"skuTeste"));
 		assertEquals(true, message.enviaProduto("usernameTeste"+";"+ true+";"+armazem,"skuTeste", "24/12/2019"));
 		assertEquals(true, message.receberProduto("usernameTeste"+";"+ true+";"+armazem,"teste;teste;teste;teste;teste"));
-		assertEquals(true, message.mudarArmazem("usernameTeste"+";"+ true+";"+"teste","teste;teste;warehouse1;teste"));
+		assertEquals(true, message.mudarArmazem("usernameTeste"+";"+ true+";"+"warehouse1","warehouse1;porto;teste;teste"));
 
 
 	}
