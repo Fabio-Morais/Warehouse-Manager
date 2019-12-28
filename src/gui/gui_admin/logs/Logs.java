@@ -170,7 +170,7 @@ public class Logs {
 						.addGroup(glLogsPanel.createSequentialGroup()
 							.addComponent(lblLogs, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addGap(11)
-							.addComponent(logSeparator, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(logSeparator,  GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(glLogsPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE)
@@ -193,8 +193,7 @@ public class Logs {
 		logs.add(logsPanel, BorderLayout.CENTER);
 
 		lblLogs = new JLabel("Logs");
-		lblLogs.setFont(new Font("HP Simplified", Font.BOLD, 34));
-
+		DefaultDesign.styleLabel(lblLogs);
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

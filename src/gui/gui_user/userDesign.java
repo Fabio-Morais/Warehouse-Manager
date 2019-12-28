@@ -2,6 +2,8 @@ package gui.gui_user;
 
 import javax.swing.JFrame;
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
@@ -151,7 +153,7 @@ public class UserDesign {
 		DefaultDesign.styleButton(btnMaquinas, MAQUINA, new Insets(2, 14, 10, 14));
 		btnVendas = new JButton("<html>Vendas<html>");
 		DefaultDesign.styleButton(btnVendas, VENDAS, new Insets(2, 14, 10, 14));
-		btnRececaoProdutos = new JButton("ReceÃ§Ã£o lote");
+		btnRececaoProdutos = new JButton("<html>Receção lote</html>");
 		DefaultDesign.styleButton(btnRececaoProdutos, RECEBER, new Insets(10, 2, 10, 2));
 		btnEnviarProduto = new JButton("<html>Enviar<br>Produto<html>");
 		DefaultDesign.styleButton(btnEnviarProduto, ENVIAR, new Insets(5, 20, 5, 20));
@@ -163,114 +165,99 @@ public class UserDesign {
 	}
 
 	private void putMenuLayoutVerti(GroupLayout glMainMenuHome) {
-		glMainMenuHome.setVerticalGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING).addGroup(glMainMenuHome
-				.createSequentialGroup()
-				.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
-						.addGroup(glMainMenuHome.createSequentialGroup().addContainerGap().addComponent(dtrpnUser,
-								GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addGroup(glMainMenuHome.createSequentialGroup().addGap(72)
-								.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
-										.addGroup(glMainMenuHome.createSequentialGroup()
-												.addComponent(lblRelatorios, GroupLayout.PREFERRED_SIZE, 24,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(separator2, GroupLayout.PREFERRED_SIZE, 15,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(btnGerarRelatorioStock, GroupLayout.PREFERRED_SIZE, 75,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(18).addComponent(btnGraficos, GroupLayout.PREFERRED_SIZE, 75,
-														GroupLayout.PREFERRED_SIZE))
-										.addGroup(glMainMenuHome.createSequentialGroup().addGroup(glMainMenuHome
-												.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblRececao, GroupLayout.PREFERRED_SIZE, 24,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblArmazem)).addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
-														.addGroup(glMainMenuHome.createSequentialGroup()
-																.addComponent(separator, GroupLayout.PREFERRED_SIZE, 22,
-																		GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addGroup(glMainMenuHome
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(btnVendas,
-																				GroupLayout.PREFERRED_SIZE, 75,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addComponent(btnMaquinas,
-																				GroupLayout.PREFERRED_SIZE, 75,
-																				GroupLayout.PREFERRED_SIZE))
-																.addGap(21)
-																.addGroup(glMainMenuHome
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(btnFuncionarios,
-																				GroupLayout.PREFERRED_SIZE, 75,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addComponent(btnProdutos,
-																				GroupLayout.PREFERRED_SIZE, 75,
-																				GroupLayout.PREFERRED_SIZE)))
-														.addGroup(glMainMenuHome.createSequentialGroup()
-																.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 8,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(19).addComponent(btnRececaoProdutos,
-																		GroupLayout.PREFERRED_SIZE, 75,
-																		GroupLayout.PREFERRED_SIZE))))
-										.addGroup(glMainMenuHome.createSequentialGroup()
-												.addComponent(lblEnviar, GroupLayout.PREFERRED_SIZE, 24,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(separator1, GroupLayout.PREFERRED_SIZE, 15,
-														GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(btnEnviarProduto, GroupLayout.PREFERRED_SIZE, 75,
-														GroupLayout.PREFERRED_SIZE)))))
-				.addContainerGap(39, Short.MAX_VALUE)));
 	}
 
 	private GroupLayout putMenuLayout() {
 		GroupLayout glMainMenuHome = new GroupLayout(mainMenuHome);
-		glMainMenuHome.setHorizontalGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING).addGroup(glMainMenuHome
-				.createSequentialGroup()
-				.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING).addGroup(glMainMenuHome
-						.createSequentialGroup().addGap(83)
-						.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING).addGroup(glMainMenuHome
-								.createParallelGroup(Alignment.TRAILING)
-								.addGroup(glMainMenuHome.createSequentialGroup()
-										.addComponent(btnProdutos, GroupLayout.PREFERRED_SIZE, 100,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(btnFuncionarios, GroupLayout.PREFERRED_SIZE, 98,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(glMainMenuHome.createSequentialGroup()
-												.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 100,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(18).addComponent(btnMaquinas, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(separator, GroupLayout.PREFERRED_SIZE, 216,
-												GroupLayout.PREFERRED_SIZE)))
+		glMainMenuHome.setHorizontalGroup(
+			glMainMenuHome.createParallelGroup(Alignment.LEADING)
+				.addGroup(glMainMenuHome.createSequentialGroup()
+					.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+						.addGroup(glMainMenuHome.createSequentialGroup()
+							.addGap(83)
+							.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, glMainMenuHome.createParallelGroup(Alignment.TRAILING)
+									.addGroup(glMainMenuHome.createSequentialGroup()
+										.addComponent(btnProdutos, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(btnFuncionarios, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+									.addGroup(Alignment.LEADING, glMainMenuHome.createSequentialGroup()
+										.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(btnMaquinas, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblArmazem, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-						.addGap(51)
-						.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+							.addGap(51)
+							.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblRececao, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 								.addComponent(separator3, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnRececaoProdutos, GroupLayout.PREFERRED_SIZE, 100,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(39)
-						.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnEnviarProduto, GroupLayout.PREFERRED_SIZE, 100,
-										GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnRececaoProdutos, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+							.addGap(39)
+							.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
 								.addComponent(separator1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEnviar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
-						.addGap(57)
-						.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGraficos, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEnviar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnEnviarProduto, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+							.addGap(57)
+							.addGroup(glMainMenuHome.createParallelGroup(Alignment.TRAILING)
 								.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(lblRelatorios)
-										.addComponent(separator2, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-										.addComponent(btnGerarRelatorioStock, GroupLayout.PREFERRED_SIZE, 100,
-												GroupLayout.PREFERRED_SIZE))))
-						.addGroup(glMainMenuHome.createSequentialGroup().addContainerGap().addComponent(dtrpnUser,
-								GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(103, Short.MAX_VALUE)));
+									.addComponent(lblRelatorios)
+									.addComponent(separator2, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+								.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+									.addComponent(btnGraficos, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnGerarRelatorioStock, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(glMainMenuHome.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(dtrpnUser, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+					.addGap(103))
+		);
+		glMainMenuHome.setVerticalGroup(
+			glMainMenuHome.createParallelGroup(Alignment.LEADING)
+				.addGroup(glMainMenuHome.createSequentialGroup()
+					.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+						.addGroup(glMainMenuHome.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(dtrpnUser, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+						.addGroup(glMainMenuHome.createSequentialGroup()
+							.addGap(72)
+							.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+								.addGroup(glMainMenuHome.createSequentialGroup()
+									.addGroup(glMainMenuHome.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblRececao, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblArmazem))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+										.addComponent(separator3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(19)
+									.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+										.addGroup(glMainMenuHome.createSequentialGroup()
+											.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnMaquinas, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+											.addGap(21)
+											.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnFuncionarios, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnProdutos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(btnRececaoProdutos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(glMainMenuHome.createSequentialGroup()
+									.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+										.addGroup(glMainMenuHome.createSequentialGroup()
+											.addComponent(lblEnviar, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(separator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(glMainMenuHome.createSequentialGroup()
+											.addComponent(lblRelatorios, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(separator2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGap(18)
+									.addGroup(glMainMenuHome.createParallelGroup(Alignment.LEADING)
+										.addGroup(glMainMenuHome.createSequentialGroup()
+											.addComponent(btnGerarRelatorioStock, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(btnGraficos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+										.addComponent(btnEnviarProduto, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))))
+					.addContainerGap(28, Short.MAX_VALUE))
+		);
 		putMenuLayoutVerti(glMainMenuHome);
 		return glMainMenuHome;
 	}
@@ -283,6 +270,8 @@ public class UserDesign {
 
 		mainMenuHome = new JPanel();
 		userDesignPanel.add(mainMenuHome, BorderLayout.NORTH);
+		Color color = Color.decode("#f5f5f5");
+		userDesignPanel.setBackground(color);
 		criaTituloMenu();
 		criaBotoesMenu();
 		GroupLayout glMainMenuHome = putMenuLayout();

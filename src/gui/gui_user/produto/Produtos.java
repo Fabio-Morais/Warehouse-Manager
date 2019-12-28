@@ -1,9 +1,7 @@
 package gui.gui_user.produto;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -104,7 +102,7 @@ public class Produtos {
 		DefaultDesign.styleBotaoHome(btnHomeProdutos);
 		
 		btnMarcarDefeitoProdutos = new JButton("Marcar Defeito");
-		btnMarcarDefeitoProdutos.setFont(new Font("Consolas", Font.PLAIN, 12));
+		DefaultDesign.styleBotaoSimples(btnMarcarDefeitoProdutos, null);
 	}
 	private GroupLayout putProdutosLayout() {
 		GroupLayout glProdutosMenu = new GroupLayout(produtosMenu);
@@ -146,11 +144,11 @@ public class Produtos {
 						.addGap(6)
 						.addComponent(scrollPaneProdutos, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
 						.addGroup(glProdutosMenu.createSequentialGroup()
-								.addComponent(separatorProdutos, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE)
+								.addComponent(separatorProdutos,  GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addGap(40)
 								.addComponent(btnRefreshProdutos, GroupLayout.PREFERRED_SIZE, 33,
 										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeProdutos, GroupLayout.PREFERRED_SIZE, 41,
+								.addGap(18).addComponent(btnHomeProdutos, GroupLayout.PREFERRED_SIZE, 59,
 										GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(6, Short.MAX_VALUE)));
 		return glProdutosMenu;
@@ -165,12 +163,12 @@ public class Produtos {
 		produtos.add(produtosMenu, BorderLayout.CENTER);
 
 		lblProdutos = new JLabel("Produtos");
-		lblProdutos.setFont(new Font("Dialog", Font.BOLD, 30));
-
+		DefaultDesign.styleLabel28(lblProdutos);
+		
 		scrollPaneProdutos = new JScrollPane();
 
 		separatorProdutos = new JSeparator();
-		separatorProdutos.setBackground(Color.BLUE);
+		DefaultDesign.styleSeparator(separatorProdutos);
 		produtosSearch = new JTextField();
 		DefaultDesign.styleSearch(produtosSearch);
 		criaBotoesProdutos();

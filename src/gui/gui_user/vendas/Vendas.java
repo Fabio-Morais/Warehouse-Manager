@@ -1,9 +1,7 @@
 package gui.gui_user.vendas;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -134,11 +132,11 @@ public class Vendas {
 				.addGroup(glVendasMenu.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
 						.addGroup(glVendasMenu.createSequentialGroup()
-								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(separatorVendas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addGap(39)
 								.addComponent(btnRefreshVendas, GroupLayout.PREFERRED_SIZE, 33,
 										GroupLayout.PREFERRED_SIZE)
-								.addGap(18).addComponent(btnHomeVendas)))
+								.addGap(18).addComponent(btnHomeVendas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap()));
 
 		return glVendasMenu;
@@ -153,15 +151,14 @@ public class Vendas {
 		vendas.add(vendasMenu, BorderLayout.CENTER);
 
 		lblVendas = new JLabel("Vendas");
-		lblVendas.setFont(new Font("Dialog", Font.BOLD, 32));
-
+		DefaultDesign.styleLabel(lblVendas);
 		criaBotoesVendas();
 	
 		scrollPane = new JScrollPane();
 
 		separatorVendas = new JSeparator();
-		separatorVendas.setBackground(Color.BLUE);
-
+		DefaultDesign.styleSeparator(separatorVendas);
+		
 		JTextField vendasSearch = new JTextField();
 		DefaultDesign.styleSearch(vendasSearch);
 		

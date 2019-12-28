@@ -140,7 +140,7 @@ public class BaseDados {
 					.addContainerGap()
 					.addComponent(baseDadosTexto)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(baseDadosSeparator, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+					.addComponent(baseDadosSeparator,  GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(14)
 					.addComponent(baseDadosBtnTest)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -159,8 +159,7 @@ public class BaseDados {
 		baseDados.add(baseDadosPanel, BorderLayout.CENTER);
 
 		baseDadosTexto = new JLabel("<html>Base de <br>Dados</html>");
-		baseDadosTexto.setFont(new Font("HP Simplified", Font.BOLD, 27));
-
+		DefaultDesign.styleLabel28(baseDadosTexto);
 		baseDadosSeparator = new JSeparator();
 		DefaultDesign.styleSeparator(baseDadosSeparator);
 

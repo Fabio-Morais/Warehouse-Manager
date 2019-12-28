@@ -220,8 +220,7 @@ public class Users {
 								glUsersPanel.createParallelGroup(Alignment.LEADING)
 										.addGroup(glUsersPanel.createSequentialGroup()
 												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(usersSeparator, GroupLayout.PREFERRED_SIZE, 15,
-														GroupLayout.PREFERRED_SIZE)
+												.addComponent(usersSeparator,  GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addGap(46)
 												.addComponent(usersBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)

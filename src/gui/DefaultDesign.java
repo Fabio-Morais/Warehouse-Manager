@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -16,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,13 +30,31 @@ public class DefaultDesign {
 	}
 	public static void styleBotaoSimples(JButton button, String icon) {
 		button.setFont(new Font("Consolas", Font.PLAIN, 12));
-		button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
+		if(icon!=null)
+			button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
 		Color color = Color.decode("#f9f6f7");
 		button.setBackground(color);
 		Color colorText = Color.decode("#364f6b");
 		button.setForeground(colorText);
+		button.setFocusable(false);
 	}
-	
+	public static void styleToggleSimples(JToggleButton button, String icon) {
+		button.setFont(new Font("Consolas", Font.PLAIN, 12));
+		if(icon!=null)
+			button.setIcon(new ImageIcon(Admin.class.getResource(icon)));
+		Color color = Color.decode("#f9f6f7");
+		button.setBackground(color);
+		Color colorText = Color.decode("#364f6b");
+		button.setForeground(colorText);
+		button.setFocusable(false);
+		Color colorPressed = Color.decode("#364f6b");
+
+		UIManager.put("ToggleButton.select", colorPressed);
+		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		button.setBorder(UIManager.getBorder("Button.border"));
+
+
+	}
 
 	public static void styleButton(JButton button, String icon, Insets insets) {
 		button.setMargin(insets);
@@ -49,6 +69,7 @@ public class DefaultDesign {
 		button.setFont(new Font("Consolas", Font.BOLD, 12));
 		Color colorText = Color.decode("#364f6b");
 		button.setForeground(colorText);
+		button.setFocusable(false);
 	}
 	
 	public static void styleBotaoHome(JButton button) {
@@ -61,14 +82,15 @@ public class DefaultDesign {
 		button.setBackground(color);
 		Color colorText = Color.decode("#364f6b");
 		button.setForeground(colorText);
+		button.setFocusable(false);
 	}
 	public static void styleBotaoLogin(JToggleButton btnLogin) {
 		btnLogin.setMaximumSize(new Dimension(36, 23));
 		btnLogin.setFont(new Font("Calibri", Font.BOLD, 18));
 		btnLogin.setBackground(new Color(0x2dce98));
 		btnLogin.setForeground(Color.white);
-		
 		btnLogin.setUI(new StyledButtonUI());
+		btnLogin.setFocusable(false);
 	}
 	public static void styleBotaoRecuPass(JButton btnRecuperarPasswod) {
 		btnRecuperarPasswod.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -77,6 +99,8 @@ public class DefaultDesign {
 		btnRecuperarPasswod.setOpaque(false);
 		btnRecuperarPasswod.setContentAreaFilled(false);
 		btnRecuperarPasswod.setBorderPainted(false);
+		btnRecuperarPasswod.setFocusable(false);
+
 	}
 	public static void styleLabel(JLabel label) {
 		label.setFont(new Font("HP Simplified", Font.BOLD, 38));
@@ -111,11 +135,14 @@ public class DefaultDesign {
 	}
 	
 	public static void styleSeparator(JSeparator separator) {
-		separator.setPreferredSize(new Dimension(0, 50));
-		separator.setMinimumSize(new Dimension(120, 120));
-		separator.setFont(new Font("Dialog", Font.BOLD, 15));
+		separator.setPreferredSize(new Dimension(0, 2));
+		separator.setMinimumSize(new Dimension(2, 2));
+		separator.setFont(new Font("Dialog", Font.BOLD, 2));
 		Color color = Color.decode("#3fc1c9");
 		separator.setForeground(color);
+	     Border blackline = BorderFactory.createLineBorder(color, 2);
+
+		separator.setBorder(blackline);
 	}
 	
 	public static void styleTituloMenu(JEditorPane titulo, String string) {

@@ -194,8 +194,7 @@ public class CategoriaProduto {
 						.createParallelGroup(Alignment.LEADING)
 						.addGroup(glCategoriaProdutoPanel.createSequentialGroup().addContainerGap()
 								.addComponent(categoriaProdutoTexto).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(categoriaProdutoSeparator, GroupLayout.PREFERRED_SIZE, 15,
-										GroupLayout.PREFERRED_SIZE)
+								.addComponent(categoriaProdutoSeparator,  GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addGap(54)
 								.addComponent(categoriaProdutoBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
 										GroupLayout.PREFERRED_SIZE)

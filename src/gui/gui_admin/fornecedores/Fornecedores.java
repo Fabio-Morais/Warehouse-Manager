@@ -11,7 +11,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -58,7 +57,6 @@ public class Fornecedores {
 	private DefaultTableModel modelFornecedor;
 	private JPanel fornecedoresPanel;
 	private JLabel fornecedoresTexto;
-	private JSeparator fornecedoresSeparator;
 	private JScrollPane fornecedoresScrollPane;
 	private JButton fornecedoresBtnAdicionar;
 	private JButton fornecedoresBtnEditar;
@@ -76,6 +74,7 @@ public class Fornecedores {
 	private CardLayout cl;
 	/* POP UP */
 	private JTextField fornecedorField;
+	private JSeparator separator;
 
 	public Fornecedores(String username,  MenuBar menuBar) {
 		db = DataBase.getInstance();
@@ -162,67 +161,60 @@ public class Fornecedores {
 	}
 	private GroupLayout putFornecedoresLayout() {
 		GroupLayout glFornecedoresPanel = new GroupLayout(fornecedoresPanel);
-		glFornecedoresPanel.setHorizontalGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(glFornecedoresPanel.createSequentialGroup().addGap(37).addGroup(glFornecedoresPanel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(glFornecedoresPanel.createSequentialGroup().addGroup(glFornecedoresPanel
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(glFornecedoresPanel
-										.createSequentialGroup().addGap(30).addGroup(glFornecedoresPanel
-												.createParallelGroup(Alignment.LEADING)
-												.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 113,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(85)
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
-												.addGroup(glFornecedoresPanel.createSequentialGroup()
-														.addComponent(fornecedoresBtnAdicionar).addGap(18)
-														.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE,
-																105, GroupLayout.PREFERRED_SIZE)
-														.addGap(18).addComponent(fornecedoresBtnRemover,
-																GroupLayout.PREFERRED_SIZE, 113,
-																GroupLayout.PREFERRED_SIZE))
-												.addComponent(fornecedoresScrollPane, 0, 0, Short.MAX_VALUE))
-										.addGap(6).addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE, 127,
-												GroupLayout.PREFERRED_SIZE))
-								.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 261,
-										GroupLayout.PREFERRED_SIZE))
-								.addGap(383))
-						.addComponent(fornecedoresSeparator, GroupLayout.PREFERRED_SIZE, 222,
-								GroupLayout.PREFERRED_SIZE))));
-		glFornecedoresPanel.setVerticalGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(glFornecedoresPanel.createSequentialGroup().addContainerGap()
-						.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(fornecedoresSeparator, GroupLayout.PREFERRED_SIZE, 15,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-						.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+		glFornecedoresPanel.setHorizontalGroup(
+			glFornecedoresPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup()
+					.addGap(37)
+					.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(fornecedoresTexto, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+						.addGroup(glFornecedoresPanel.createSequentialGroup()
+							.addGap(30)
+							.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+								.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+							.addGap(85)
+							.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(glFornecedoresPanel.createSequentialGroup()
-										.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 30,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 59,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(64))
-								.addGroup(glFornecedoresPanel.createSequentialGroup()
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(fornecedoresBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 40,
-														GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
-												.addComponent(fornecedoresScrollPane, GroupLayout.PREFERRED_SIZE, 170,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGap(34)))));
+									.addComponent(fornecedoresBtnAdicionar)
+									.addGap(18)
+									.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+								.addComponent(fornecedoresScrollPane, 0, 0, Short.MAX_VALUE))
+							.addGap(6)
+							.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
+						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE))
+					.addGap(383))
+		);
+		glFornecedoresPanel.setVerticalGroup(
+			glFornecedoresPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(glFornecedoresPanel.createSequentialGroup()
+					.addComponent(fornecedoresTexto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(9)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(glFornecedoresPanel.createSequentialGroup()
+							.addComponent(fornecedoresBtnRefresh, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(fornecedoresBtnHome, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addGap(64))
+						.addGroup(glFornecedoresPanel.createSequentialGroup()
+							.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(fornecedoresBtnAdicionar, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(fornecedoresBtnEditar, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(fornecedoresBtnRemover, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(glFornecedoresPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(fornecedoresScrollPane, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+								.addComponent(fornecedorSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(34))))
+		);
 		return glFornecedoresPanel;
 	}
+	/**
+	 * @wbp.parser.entryPoint
+	 */	
 	public void showFornecedoresMenu(JFrame frame, CardLayout cl) {
 		this.cl = cl;
 		fornecedores = new JPanel();
@@ -233,11 +225,9 @@ public class Fornecedores {
 		fornecedores.add(fornecedoresPanel, BorderLayout.CENTER);
 
 		fornecedoresTexto = new JLabel("Fornecedores");
-		fornecedoresTexto.setFont(new Font("HP Simplified", Font.BOLD, 38));
-
-		fornecedoresSeparator = new JSeparator();
-		DefaultDesign.styleSeparator(fornecedoresSeparator);
-
+		DefaultDesign.styleLabel(fornecedoresTexto);
+		separator = new JSeparator();
+		DefaultDesign.styleSeparator(separator);
 		fornecedoresScrollPane = new JScrollPane();
 		fornecedoresScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -453,5 +443,4 @@ public class Fornecedores {
 		}
 		db.nomeFornecedor( modelFornecedor);
 	}
-
 }
