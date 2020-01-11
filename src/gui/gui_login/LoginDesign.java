@@ -36,11 +36,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class LoginDesign {
-	private static final String USER = "/user1.png";
-	private static final String PASS = "/lock.png";
-	private static final String LOGO = "/logoText.png";
-	private static final String OFF = "/off.png";
-	private static final String ON = "/on.png";
+	private static final String USER = "/img/user1.png";
+	private static final String PASS = "/img/lock.png";
+	private static final String LOGO = "/img/logoText.png";
+	private static final String OFF = "/img/off.png";
+	private static final String ON = "/img/on.png";
 
 	private JFrame frame;
 	private JPasswordField password;
@@ -85,7 +85,7 @@ public class LoginDesign {
 	private void loginControl(MessageLogs messageLogs) {
 
 		this.loginUsername = username.getText();
-		loadingIcon.setIcon(new ImageIcon(Admin.class.getResource("/radio.gif")));
+		loadingIcon.setIcon(new ImageIcon(Admin.class.getResource("/img/radio.gif")));
 		btnLogin.setEnabled(false);
 
 		PopUp popUp = new PopUp();
@@ -285,7 +285,7 @@ public class LoginDesign {
 		int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
 		frame.setLocation(x, y);
-		URL iconURL = getClass().getResource("/logo.png");
+		URL iconURL = getClass().getResource("/img/logo.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		frame.setIconImage(img.getImage());
 		

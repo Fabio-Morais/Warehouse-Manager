@@ -36,8 +36,8 @@ import javax.swing.JFrame;
 
 public class Funcionario {
 	
-	private static final String USER = "/user.png";
-	private static final String REFRESH = "/refresh.png";
+	private static final String USER = "/img/user.png";
+	private static final String REFRESH = "/img/refresh.png";
 
 	private DataBase db;
 	private JLabel lblFuncionarios;

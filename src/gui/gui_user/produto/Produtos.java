@@ -30,7 +30,7 @@ import gui.menu_bar.MenuBar;
 import logic.MessageLogs;
 
 public class Produtos {
-	private static final String REFRESH = "/refresh.png";
+	private static final String REFRESH = "/img/refresh.png";
 
 	private DataBase db;
 	private MessageLogs messageLogs;

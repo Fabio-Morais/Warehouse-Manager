@@ -47,16 +47,16 @@ import logic.MessageLogs;
 public class Funcionarios {
 	
 	private static final String MENUADMINSTRING = "menu_admin";
-	private static final String ADD = "/add.png";
-	private static final String REMOVE = "/remove.png";
-	private static final String REFRESH = "/refresh.png";
-	private static final String EDIT = "/edit1.png";
+	private static final String ADD = "/img/add.png";
+	private static final String REMOVE = "/img/remove.png";
+	private static final String REFRESH = "/img/refresh.png";
+	private static final String EDIT = "/img/edit1.png";
 	private static final String REFRESHSTRING = "Refresh";
 	private static final String EDITARSTRING = "Editar";
 	private static final String REMOVERSTRING = "Remover";
 	private DataBase db;//DATA BASE
 	private MessageLogs messageLogs;
-	private static final String WAREHOUSE = "/funcionario.png";
+	private static final String WAREHOUSE = "/img/funcionario.png";
 	private PopUp popUp;
 	private Check check;
 	private JPanel funcionario;

@@ -26,7 +26,7 @@ public class Login {
 	 * @return Boolean True se inseriu corretamente na tabela/ False no caso contrario
 	 */
 	public boolean selectAll(DataBase db, DefaultTableModel modelUser) {
-		String sql = "SELECT username, data_criacao, admin, nif_funcionario " + "FROM login";
+		String sql = "SELECT username, data_criacao, admin, nif_funcionario " + "FROM warehouse.login";
 		ResultSet rs =  db.executeQueryResult(sql);
 
 		try {

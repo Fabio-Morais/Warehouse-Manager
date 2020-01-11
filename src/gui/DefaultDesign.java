@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import gui.gui_admin.Admin;
 
 public class DefaultDesign {
-	private static final String HOME = "/home.png";
+	private static final String HOME = "/img/home.png";
 	private DefaultDesign() {
 		
 	}

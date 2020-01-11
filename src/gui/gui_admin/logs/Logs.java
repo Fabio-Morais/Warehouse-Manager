@@ -35,7 +35,7 @@ import gui.DefaultDesign;
 import gui.menu_bar.MenuBar;
 
 public class Logs {	
-	private static final String REFRESH = "/refresh.png";
+	private static final String REFRESH = "/img/refresh.png";
 	private static final String REFRESHSTRING = "Refresh";
 	private static final String MENUADMINSTRING = "menu_admin";
 

@@ -64,7 +64,7 @@ public class DataBase {
 		this.funcionario = new Funcionario();
 		this.login = new Login();
 		this.logs = new Logs();
-		this.url = "jdbc:postgresql://db.fe.up.pt:5432/sinf19a38?currentSchema=Warehouse";
+		this.url = "jdbc:postgresql://db.fe.up.pt:5432/sinf19a38?currentSchema=warehouse";
 		this.user = "sinf19a38";
 		this.password = "UbwJSLsu";
 		this.c = null;
@@ -93,7 +93,7 @@ public class DataBase {
 	 * @param url - url a colocar na base de dados 	
 	 */
 	public void setUrl(String url) {
-		this.url =  "jdbc:postgresql://"+url+"?currentSchema=Warehouse";
+		this.url =  "jdbc:postgresql://"+url+"?currentSchema=warehouse";
 	}
 	/**
 	 * Adiciona user à base de dados

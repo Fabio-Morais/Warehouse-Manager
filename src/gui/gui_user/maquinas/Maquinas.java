@@ -42,8 +42,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Maquinas {
-	private static final String REPORT = "/reportMaquina.png";
-	private static final String REFRESH = "/refresh.png";
+	private static final String REPORT = "/img/reportMaquina.png";
+	private static final String REFRESH = "/img/refresh.png";
 
 	private DataBase db;
 	private MessageLogs messageLogs;

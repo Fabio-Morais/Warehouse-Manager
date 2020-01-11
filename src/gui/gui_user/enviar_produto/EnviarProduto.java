@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class EnviarProduto {
-	private static final String SEND = "/send.png";
+	private static final String SEND = "/img/send.png";
 
 	private JComboBox<String> comboBox;
 	private JDateChooser dateChooser;

@@ -51,8 +51,8 @@ public class Funcionario {
 	 */
 	public boolean selectNomeNif(DataBase db, DefaultTableModel modelFuncionario, String armazem) {
 		String sql = "SELECT nome,nif "
-				   + "FROM funcionario "
-				   + "WHERE id_armazem=(SELECT id from armazem where nome='"+armazem+"')";
+				   + "FROM warehouse.funcionario "
+				   + "WHERE id_armazem=(SELECT id from warehouse.armazem where nome='"+armazem+"')";
 		ResultSet rs =  db.executeQueryResult(sql);
 
 		try {

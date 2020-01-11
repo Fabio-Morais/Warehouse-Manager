@@ -38,13 +38,13 @@ import logic.MessageLogs;
 public class MenuBar {
 	private static final String MENUADMINSTRING = "menu_admin";
 
-	private static final String MORE = "/more.png";
-	private static final String MORE1 = "/more1.png";
-	private static final String WEBSITE = "/website.PNG";
-	private static final String HELP = "/help.png";
-	private static final String HOMEMIN = "/homeMin.png";
-	private static final String LOGOUT = "/logout.png";
-	private static final String CHANGE = "/change.png";
+	private static final String MORE = "/img/more.png";
+	private static final String MORE1 = "/img/more1.png";
+	private static final String WEBSITE = "/img/website.PNG";
+	private static final String HELP = "/img/help.png";
+	private static final String HOMEMIN = "/img/homeMin.png";
+	private static final String LOGOUT = "/img/logout.png";
+	private static final String CHANGE = "/img/change.png";
 	/* MENU BAR */
 	private JMenu menuBarArmazem;
 	private JMenuItem mntmMenu;
@@ -198,7 +198,6 @@ public class MenuBar {
 	private void backgroundTimer() {
 		counterTimer = new Timer(2000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (db.connect()) {
 
 					lblStatusDb.setText("ON");

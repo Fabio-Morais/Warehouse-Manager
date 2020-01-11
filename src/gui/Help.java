@@ -13,7 +13,7 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 public class Help {
-	private static final String HELPIMAGE = "/help.png";
+	private static final String HELPIMAGE = "/img/help.png";
 
 	
 	private void showUserHtml(JFrame frmMenuAdmin) {

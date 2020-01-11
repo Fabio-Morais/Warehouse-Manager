@@ -44,14 +44,14 @@ public class UserDesign {
 
 	private JFrame frmUserDesign;
 	// Imagens
-	private static final String RECEBER = "/receber.png";
-	private static final String MAQUINA = "/machineMin.png";
-	private static final String ENVIAR = "/truckMin.png";
-	private static final String FUNCIONARIO = "/avatar.png";
-	private static final String RELATORIO = "/report.png";
-	private static final String VENDAS = "/vendas.png";
-	private static final String PRODUTO = "/box.png";
-	private static final String GRAFICO = "/grafico.png";
+	private static final String RECEBER = "/img/receber.png";
+	private static final String MAQUINA = "/img/machineMin.png";
+	private static final String ENVIAR = "/img/truckMin.png";
+	private static final String FUNCIONARIO = "/img/avatar.png";
+	private static final String RELATORIO = "/img/report.png";
+	private static final String VENDAS = "/img/vendas.png";
+	private static final String PRODUTO = "/img/box.png";
+	private static final String GRAFICO = "/img/grafico.png";
 
 	// Classes
 	private Maquinas maquinaClass;
@@ -368,7 +368,7 @@ public class UserDesign {
 		int x = (int) ((dimension.getWidth() - frmUserDesign.getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - frmUserDesign.getHeight()) / 2);
 		frmUserDesign.setLocation(x, y);
-		URL iconURL = getClass().getResource("/logo.png");
+		URL iconURL = getClass().getResource("/img/logo.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		frmUserDesign.setIconImage(img.getImage());
 		cl = new CardLayout(0, 0);

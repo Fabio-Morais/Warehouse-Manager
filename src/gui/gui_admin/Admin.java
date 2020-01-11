@@ -115,7 +115,7 @@ public class Admin {
 		int x = (int) ((dimension.getWidth() - frmMenuAdmin.getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - frmMenuAdmin.getHeight()) / 2);
 		frmMenuAdmin.setLocation(x, y);
-		URL iconURL = getClass().getResource("/logo.png");
+		URL iconURL = getClass().getResource("/img/logo.png");
 		ImageIcon img = new ImageIcon(iconURL);
 		frmMenuAdmin.setIconImage(img.getImage());
 		MenuBar menuBar = initializeMenu(nomeArmazem,username);

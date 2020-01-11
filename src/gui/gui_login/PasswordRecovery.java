@@ -30,8 +30,8 @@ public class PasswordRecovery {
 	private Check check;
 	private PopUp popUp;
 	private DataBase db;
-	private static final String EMAIL = "/email.png";
-	private static final String PASS = "/lock1.png";
+	private static final String EMAIL = "/img/email.png";
+	private static final String PASS = "/img/lock1.png";
 
 	private JTextField mailField;
 	private static final String AB = "0123456789";
@@ -121,7 +121,7 @@ public class PasswordRecovery {
 
 		loadingText = new JLabel("");
 		loading = new JLabel("A enviar...");
-		loading.setIcon(new ImageIcon(Admin.class.getResource("/loadingEmail.gif")));
+		loading.setIcon(new ImageIcon(Admin.class.getResource("/img/loadingEmail.gif")));
 		loading.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		panel.add(loadingText);
@@ -168,7 +168,7 @@ public class PasswordRecovery {
 					aux=get();
 					if(aux) {
 						loading.setText("Enviado!   ");
-						loading.setIcon(new ImageIcon(Admin.class.getResource("/emailEnviado.png")));
+						loading.setIcon(new ImageIcon(Admin.class.getResource("/img/emailEnviado.png")));
 						loadingText.setText("");
 					}
 				} catch (InterruptedException e) {

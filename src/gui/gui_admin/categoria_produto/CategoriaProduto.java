@@ -46,14 +46,14 @@ import logic.MessageLogs;
 
 public class CategoriaProduto {
 	private static final String MENUADMINSTRING = "menu_admin";
-	private static final String ADD = "/add.png";
-	private static final String REMOVE = "/remove.png";
-	private static final String REFRESH = "/refresh.png";
+	private static final String ADD = "/img/add.png";
+	private static final String REMOVE = "/img/remove.png";
+	private static final String REFRESH = "/img/refresh.png";
 	private static final String REFRESHSTRING = "Refresh";
 	private static final String REMOVERSTRING = "Remover";
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
-	private static final String CATEGORIA = "/list.png";
+	private static final String CATEGORIA = "/img/list.png";
 	private PopUp popUp;
 	private Check check;
 	private DefaultTableModel modelCategoriaProduto;

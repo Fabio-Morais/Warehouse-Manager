@@ -19,7 +19,7 @@ import gui.gui_admin.Admin;
 
 public class CriarCsv {
 	
-	private static final String RELATORIO = "/report.png";
+	private static final String RELATORIO = "/img/report.png";
 
 	private void geraRelatorio(String tipoRelatorio, JCheckBox chckbx) {
 		 logic.CriarCsv criaCsv = new logic.CriarCsv();

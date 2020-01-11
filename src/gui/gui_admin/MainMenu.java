@@ -22,13 +22,13 @@ import gui.DefaultDesign;
 import gui.menu_bar.MenuBar;
 
 public class MainMenu {
-	private static final String USERMENU = "/avatar.png";
-	private static final String MACHINEMENU = "/machineMin.png";
-	private static final String DBMENU = "/db.png";
-	private static final String CATEGORIAMENU = "/listMin.png";
-	private static final String FUNCIONARIOMENU = "/worker.png";
-	private static final String FORNECEDORMENU = "/truckMin.png";
-	private static final String LOG = "/log.png";
+	private static final String USERMENU = "/img/avatar.png";
+	private static final String MACHINEMENU = "/img/machineMin.png";
+	private static final String DBMENU = "/img/db.png";
+	private static final String CATEGORIAMENU = "/img/listMin.png";
+	private static final String FUNCIONARIOMENU = "/img/worker.png";
+	private static final String FORNECEDORMENU = "/img/truckMin.png";
+	private static final String LOG = "/img/log.png";
 	private JLabel lblData;
 	private JEditorPane textoAdmin;
 	private JSeparator separator1;

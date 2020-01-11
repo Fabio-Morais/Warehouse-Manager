@@ -27,7 +27,7 @@ import javax.swing.table.TableRowSorter;
 import db.DataBase;
 import gui.DefaultDesign;
 public class Vendas {
-	private static final String REFRESH = "/refresh.png";
+	private static final String REFRESH = "/img/refresh.png";
 
 	private JPanel vendas;
 	private JTable tableVendas;

@@ -33,9 +33,9 @@ import logic.MessageLogs;
 public class BaseDados {
 	
 	private static final String MENUADMINSTRING = "menu_admin";
-	private static final String ADD = "/add.png";
-	private static final String WIFI = "/wifi.png";
-	private static final String DBICON = "/db.png";
+	private static final String ADD = "/img/add.png";
+	private static final String WIFI = "/img/wifi.png";
+	private static final String DBICON = "/img/db.png";
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
 	private JTextField baseDadosUser;

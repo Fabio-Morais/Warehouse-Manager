@@ -20,7 +20,7 @@ public class Armazem {
 	private DataBase db;// DATA BASE
 	private MessageLogs messageLogs;
 
-	private static final String WAREHOUSE = "/warehouse.png";
+	private static final String WAREHOUSE = "/img/warehouse.png";
 	private PopUp popUp;
 	private Check check;
 
@@ -103,7 +103,7 @@ public class Armazem {
 			result[1]= localizacaoField.getText();
 			String dados = armazem + ";" + localizacao + ";" + result[0] + ";" + result[1];
 			db.updateArmazem(armazem, armazemField.getText(), localizacaoField.getText());
-			messageLogs.mudarArmazem(loginUsername+";"+true+";"+armazem, dados);
+			messageLogs.mudarArmazem(loginUsername+";"+true+";"+result[0], dados);
 		}
 		return result;
 

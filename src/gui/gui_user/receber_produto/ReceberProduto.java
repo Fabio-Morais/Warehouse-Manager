@@ -177,7 +177,7 @@ public class ReceberProduto {
 	}
 	private int showReceberPopUp() {
 		Object[] options1 = { "Recebido", "Sair" };
-		ImageIcon icon = new ImageIcon(UserDesign.class.getResource("/shipping.png"));
+		ImageIcon icon = new ImageIcon(UserDesign.class.getResource("/img/shipping.png"));
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(8, 2, 0, 0));
